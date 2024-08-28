@@ -1,11 +1,19 @@
+import { useState } from "react";
+
 import { CORE_CONCEPTS } from "./data.js";
 import Header from "./components/Header/Header.jsx";
 import CoreConcept from "./components/CoreConcept.jsx";
 import TapButton from "./components/TapButton.jsx";
+let tepContent = "";
 
 function App() {
+  const [selectedTopic, setSelectedTopic] = useState("Please Click A Button");
+
+  console.log("App rendered");
+
   function handleSelect(selectedButton) {
-    console.log(selectedButton);
+    setSelectedTopic(selectedButton);
+    console.log(selectedTopic);
   }
 
   return (
@@ -35,7 +43,7 @@ function App() {
             <TapButton onSelect={() => handleSelect("props")}>Props</TapButton>
             <TapButton onSelect={() => handleSelect("state")}>State</TapButton>
           </menu>
-          Dynamic Contents
+          {selectedTopic}
         </section>
       </main>
     </div>
