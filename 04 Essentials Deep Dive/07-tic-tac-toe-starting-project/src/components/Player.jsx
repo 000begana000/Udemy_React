@@ -6,12 +6,11 @@ export default function Player({ name, symbol }) {
   let playerName = <span className="player-name">{name}</span>;
 
   function handleEditClick() {
-    setIsEditing(true);
-    console.log(isEditing);
+    setIsEditing(!isEditing);
   }
 
   if (isEditing) {
-    playerName = <input className="playerName" type="text" />;
+    playerName = <input type="text" required value={name} />;
   }
 
   return (
@@ -23,7 +22,7 @@ export default function Player({ name, symbol }) {
       </span>
 
       {/* when click event executed then isEditing is true */}
-      <button onClick={handleEditClick}>Edit</button>
+      <button onClick={handleEditClick}>{isEditing ? "Save" : "Edit"}</button>
     </li>
   );
 }
