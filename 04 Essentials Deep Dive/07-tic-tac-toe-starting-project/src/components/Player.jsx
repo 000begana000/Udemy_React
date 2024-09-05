@@ -6,9 +6,8 @@ export default function Player({ name, symbol }) {
   let playerName = <span className="player-name">{name}</span>;
 
   function handleEditClick() {
-    setIsEditing(!isEditing);
+    setIsEditing((editing) => !editing);
   }
-
   if (isEditing) {
     playerName = <input type="text" required value={name} />;
   }
