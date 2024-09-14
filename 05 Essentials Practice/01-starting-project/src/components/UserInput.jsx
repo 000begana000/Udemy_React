@@ -1,29 +1,29 @@
-import { useState } from "react";
-
-const INITIAL_VALUES = {
-  initialInvestment: 10000,
-  annualInvestment: 1200,
-  expectedReturn: 6,
-  duration: 10,
-};
+//import { useState } from "react";
 
 // onChange
 // setUserInput (immutable way)
 // update value and return
 // => where should we store it?
 
-export default function UserInput() {
-  const [userInput, setUserInput] = useState(INITIAL_VALUES);
+// const INITIAL_VALUES = {
+//     initialInvestment: 10000,
+//     annualInvestment: 1200,
+//     expectedReturn: 6,
+//     duration: 10,
+//   };
 
-  function handleChange(selectedInput, newValue) {
-    setUserInput((prevValues) => {
-      const updatedValues = {
-        ...prevValues,
-        [selectedInput]: newValue,
-      };
-      return updatedValues;
-    });
-  }
+export default function UserInput({ onInputChange, userInput }) {
+  //   const [userInput, setUserInput] = useState(INITIAL_VALUES);
+
+  //   function handleChange(selectedInput, newValue) {
+  //     setUserInput((prevValues) => {
+  //       const updatedValues = {
+  //         ...prevValues,
+  //         [selectedInput]: newValue,
+  //       };
+  //       return updatedValues;
+  //     });
+  //   }
 
   return (
     <section id="user-input">
@@ -35,7 +35,7 @@ export default function UserInput() {
             required
             value={userInput.initialInvestment}
             onChange={(event) =>
-              handleChange("initialInvestment", event.target.value)
+              onInputChange("initialInvestment", event.target.value)
             }
           />
         </p>
@@ -46,7 +46,7 @@ export default function UserInput() {
             required
             value={userInput.annualInvestment}
             onChange={(event) =>
-              handleChange("annualInvestment", event.target.value)
+              onInputChange("annualInvestment", event.target.value)
             }
           />
         </p>
@@ -59,7 +59,7 @@ export default function UserInput() {
             required
             value={userInput.expectedReturn}
             onChange={(event) =>
-              handleChange("expectedReturn", event.target.value)
+              onInputChange("expectedReturn", event.target.value)
             }
           />
         </p>
@@ -69,7 +69,7 @@ export default function UserInput() {
             type="number"
             required
             value={userInput.duration}
-            onChange={(event) => handleChange("duration", event.target.value)}
+            onChange={(event) => onInputChange("duration", event.target.value)}
           />
         </p>
       </div>
