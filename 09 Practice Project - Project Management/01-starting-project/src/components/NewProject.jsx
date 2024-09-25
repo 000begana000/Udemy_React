@@ -2,7 +2,7 @@ import Input from "./Input.jsx";
 
 export default function NewProject() {
   return (
-    <div>
+    <div className="w-[35rem]">
       <menu>
         <li>
           <button>Cancel</button>
