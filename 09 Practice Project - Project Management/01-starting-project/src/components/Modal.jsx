@@ -1,6 +1,8 @@
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import { createPortal } from "react-dom";
 
+import Button from "./Button.jsx";
+
 // to use useImperativeHandle, we need forwardRef and useRef together!
 const Modal = forwardRef(function Modal({ children, buttonCaption }, ref) {
   const dialog = useRef();
@@ -13,10 +15,13 @@ const Modal = forwardRef(function Modal({ children, buttonCaption }, ref) {
     };
   });
   return createPortal(
-    <dialog ref={dialog}>
+    <dialog
+      className="backdrop:bg-stone-900/90 p-4 rounded-md shadow-md"
+      ref={dialog}
+    >
       {children}
-      <form method="dialog">
-        <button>{buttonCaption}</button>
+      <form method="dialog" className="mt-4 text-right">
+        <Button>{buttonCaption}</Button>
       </form>
     </dialog>,
     document.getElementById("modal-root")
