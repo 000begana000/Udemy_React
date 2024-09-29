@@ -7,4 +7,5 @@ export const CartContext = createContext({
   items: [],
   // empty dummy function for auto completion
   addItemToCart: () => {},
+  updateItemQuantity: () => {},
 });

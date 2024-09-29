@@ -73,21 +73,19 @@ function App() {
     items: shoppingCart.items,
     // exposing the function through this context
     addItemToCart: handleAddItemToCart,
+    updateItemQuantity: handleUpdateCartItemQuantity,
   };
 
   return (
     <>
       {/* providing context */}
       <CartContext.Provider value={ctxValue}>
-        <Header
-          cart={shoppingCart}
-          onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
-        />
+        <Header />
         <Shop>
           {/* component composition */}
           {DUMMY_PRODUCTS.map((product) => (
             <li key={product.id}>
-              <Product {...product} onAddToCart={handleAddItemToCart} />
+              <Product {...product} />
             </li>
           ))}
         </Shop>
