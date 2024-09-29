@@ -72,13 +72,13 @@ function App() {
     // link context value to state
     items: shoppingCart.items,
     // exposing the function through this context
-    addItemToCard: handleAddItemToCart,
+    addItemToCart: handleAddItemToCart,
   };
 
   return (
     <>
       {/* providing context */}
-      <CartContext.Provider value={shoppingCart}>
+      <CartContext.Provider value={ctxValue}>
         <Header
           cart={shoppingCart}
           onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
