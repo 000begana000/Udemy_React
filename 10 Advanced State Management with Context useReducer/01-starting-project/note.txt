@@ -1,0 +1,14 @@
+Prop Drilling: passing shared data through multipl components layers
+
+solution 1 : Component Composition - cons: App should handle too much work and other components are becomes wrapper only
+solution 2 : Context API - context value linked to the state and provide the value to the components - can directly reach out to the context (create store folder to the src folder)
+
+Context API
+
+1. create store folder in src folder
+2. import { createContext } from react and create Context (give initial value for auto-completion)
+3. import the context where we can wrap the components
+4. provide context - wrap the components with the context with initial value <Context.Provider value={initial value}>
+5. consume context - import { useContext } and the context => const {initialValue} = useContext(context);
+6. link context to state - create an object for instance and provide the initial value and functionality we want to expose through this context (!!checkout the App component!!)=> <Context.Provider value={ctxValue}>
+7. repeat the same steps to consume functionality in a component
