@@ -30,6 +30,12 @@ UseReducer : a function that reduce one or more complex values to a simpler one
 
 1. import useReducer hook
 2. make a variable with useReducer() inside of component function (const [shoppingCartState, shoppingCartDispatch] = useReducer(shoppingCartReducer, initialStateValue))
+    const [shoppingCartState, shoppingCartDispatch] = useReducer(
+        shoppingCartReducer,
+        {
+        items: [],
+        }
+    );
 2.a create Reducer function outside of component function function shoppingCartReducer(state, action) {}
 2.b state will be guaranteed as a latest state (prevState)
 2.c the Reducer function will be called whenever I dispatch 
