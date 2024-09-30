@@ -10,7 +10,16 @@ Context API
 3. import the context where we can wrap the components
 4. provide context - wrap the components with the context with initial value <Context.Provider value={initial value}>
 5. consume context - import { useContext } and the context => const {initialValue} = useContext(context);
-6. link context to state - create an object for instance and provide the initial value and functionality we want to expose through this context (!!checkout the App component!!)=> <Context.Provider value={ctxValue}>
+6. link context to state - create an object for instance and provide the initial value & functionality we want to expose through this context (!!checkout the App component!!)=> <Context.Provider value={ctxValue}>
 7. repeat the same steps to consume functionality in a component
 8. checkout alternative way with CartContext.Consumer - but this is not easy to read so it's not a default approach
 return(<CartContext.Consumer>{(cartCtx) => {(helper functions) return (jsxcode)}}</CartContext.Consumer>)
+
+
+Outsourcing context & state 
+
+1. in context file, create provider functionality (e.x. export default function CartContextProvider)
+2. grab the state and functionalities from App component and implement it in the provider function
+3. return something renderable - e.x. <CartContext.Provider vlaue={ctxValue}>
+4. provide {children} prop between opening and closing tag
+5. import CartContextProvider instead of CartContext in App component and wrap the other components
