@@ -1,0 +1,70 @@
+<Side Effects>
+1. To prevent infinite loop
+2. When you have code only has to be executed after the component function executed at least once
+
+Side Effects : are "tasks" that don't impect current component render cycle
+
+- this piece of code is technically side effects because we need this functionality but this is not a main task (goal) of the App component. (because main goal of App component is return a renderable JSX code)
+
+navigator.geolocation.getCurrentPosition((position) => {
+    const sortedPlaces = sortPlacesByDistance(
+      AVAILABLE_PLACES,
+      position.coords.latitude,
+      position.coords.longitude
+    );
+
+    setAvailablePlaces(sortedPlaces);
+  });
+
+- but this code will cause infinite loop because after set the state, everything will be re-rendered and will get the location again
+- so in this case, we need to use Side Effect
+
+1. import { useEffect } hook
+2. useEffect() doesn't return a value but need 2 arguments.
+2.a the function which wraps side effect code
+2.b array of dependences
+
+- the first argument will be executed "AFTER" every component execution.
+
+ useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const sortedPlaces = sortPlacesByDistance(
+        AVAILABLE_PLACES,
+        position.coords.latitude,
+        position.coords.longitude
+      );
+
+      setAvailablePlaces(sortedPlaces);
+    });
+  }, []);
+
+- useEffect will execute first argument again if the dependences value has changed
+- in this case, there is no dependences and therefore useEffect will be executed "only once"
+- without empty dependences, it still cause infinite loop
+
+
+< Local Storage >
+
+- this code allows us to save some data in our browser
+
+localStorage.setItem(a, b)
+a : the name of value
+b : the data we want to store but it has to be in string (JSON.stringify([]))
+
+JSON.parse(localStorage.getItem('selectedPlaces'))
+localStorage.setItem('selectedPlaces', JSON.stringify([]))
+
+
+- Don't use side effect even though it's a side effect
+- 1. It's not allowed to use useEffect() inside of function
+- 2. This code is executed only when user clicks (onClick) and doesn't cause infinite loop
+
+const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+
+// add the id only when there is no duplicated id
+if (storedIds.indexOf(id) === -1) {
+    localStorage.setItem(
+        "selectedPlaces",
+        JSON.stringify([id, ...storedIds])
+    );
+}
