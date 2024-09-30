@@ -43,6 +43,14 @@ navigator.geolocation.getCurrentPosition((position) => {
 - without empty dependences, it still cause infinite loop
 
 
+
+< Dependences >
+
+dependences can be simply prop or state values that are used in this Side Effect function
+= any value that causes the component function to execute again which is the case in the end for props and state any such a value is dependency.
+( remember first case of empty array. there is nothing so it runs only once)
+
+
 < Local Storage >
 
 - this code allows us to save some data in our browser
