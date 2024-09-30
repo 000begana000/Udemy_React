@@ -23,3 +23,33 @@ Outsourcing context & state
 3. return something renderable - e.x. <CartContext.Provider vlaue={ctxValue}>
 4. provide {children} prop between opening and closing tag
 5. import CartContextProvider instead of CartContext in App component and wrap the other components
+
+
+
+UseReducer : a function that reduce one or more complex values to a simpler one
+
+1. import useReducer hook
+2. make a variable with useReducer() inside of component function (const [shoppingCartState, shoppingCartDispatch] = useReducer(shoppingCartReducer, initialStateValue))
+2.a create Reducer function outside of component function function shoppingCartReducer(state, action) {}
+2.b state will be guaranteed as a latest state (prevState)
+2.c the Reducer function will be called whenever I dispatch 
+2.d the initial state value is equvalant (the same) to initial value of state 
+2.e use the shoppingCartState (from useReducer function) instead of shoppingCart (from state) in ctxValue
+
+3. instead of all the state update function, we can Dispatch function to dispatch an action - action can be anything we want.
+    function handleAddItemToCart(id) {
+        shoppingCartDispatch({
+            type: "ADD_ITEM",
+            payload: id,
+        });
+    }
+
+    function shoppingCartReducer(state, action) {
+        if(action.type === 'ADD_ITEM') {
+            // update state
+            ** prevState => state / id = action.payload
+        }
+        return state;
+    }
+
+4. I can use useReducer in any component need to use state
