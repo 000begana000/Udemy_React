@@ -4,6 +4,7 @@
 
 Side Effects : are "tasks" that don't impect current component render cycle
 
+
 - this piece of code is technically side effects because we need this functionality but this is not a main task (goal) of the App component. (because main goal of App component is return a renderable JSX code)
 
 navigator.geolocation.getCurrentPosition((position) => {
@@ -49,6 +50,7 @@ navigator.geolocation.getCurrentPosition((position) => {
 dependences can be simply prop or state values that are used in this Side Effect function
 = any value that causes the component function to execute again which is the case in the end for props and state any such a value is dependency.
 ( remember first case of empty array. there is nothing so it runs only once)
+
 
 
 < Local Storage >
