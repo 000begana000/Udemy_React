@@ -1,17 +1,36 @@
 import { useEffect } from "react";
 
+import ProgressBar from "./ProgressBar.jsx";
+
+const TIMER = 3000;
+
 export default function DeleteConfirmation({ onConfirm, onCancel }) {
+  // const [remainingTime, setRemainingTime] = useState(TIMER);
+
+  // // ** BOTH EXAMPLES HERE ARE MORE FOCUS ON THE CALLBACK FUNTION IN THE SIDE EFFECT FUNCTION
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     console.log("INTERVAL");
+  //     setRemainingTime((prevTime) => prevTime - 10);
+  //   }, 10);
+
+  //   return () => {
+  //     console.log("clear interval");
+  //     clearInterval(interval);
+  //   };
+  // }, []);
+
   // // this code is problematic because even though we click "Cancel", it will not stop running and remove the item
   // setTimeout(() => {
   //   onConfirm();
-  // }, 3000);
+  // }, TIMER);
 
   // confirm delete automatically after 3 sec
   useEffect(() => {
     console.log("timer is set");
     const timer = setTimeout(() => {
       onConfirm();
-    }, 3000);
+    }, TIMER);
 
     // called "right before" this event function runs again
     // (this is not the case for this side effect function because our dependency is empty)
@@ -38,6 +57,7 @@ export default function DeleteConfirmation({ onConfirm, onCancel }) {
           Yes
         </button>
       </div>
+      <ProgressBar timer={TIMER} />
     </div>
   );
 }
