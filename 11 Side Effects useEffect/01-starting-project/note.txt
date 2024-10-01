@@ -47,9 +47,23 @@ navigator.geolocation.getCurrentPosition((position) => {
 
 < Dependences >
 
-dependences can be simply prop or state values that are used in this Side Effect function
-= any value that causes the component function to execute again which is the case in the end for props and state any such a value is dependency.
-( remember first case of empty array. there is nothing so it runs only once)
+** DEPENDENCES SIMPLY PROP OR STATE VALUES THAT ARE USED IN THE SIDE EFFECT FUNCTION
+= any value that causes the component function to execute again which is the case. in the end for props and state any such a value is dependency.
+( remember first case of empty array. there is nothing so it runs only once )
+
+
+
+< useCallback >
+
+** to prevent infinite loop between useEffect & state(function)
+
+React insures that the function wrapped inside will not be re-created
+=> this is why we should use useCallback when we use function as a dependency in useEffect();
+
+const functionName = useCallback(a, []);
+
+a: function you wanna wrap in
+[] : dependency the same concept with the useEffect
 
 
 
@@ -78,3 +92,5 @@ if (storedIds.indexOf(id) === -1) {
         JSON.stringify([id, ...storedIds])
     );
 }
+
+

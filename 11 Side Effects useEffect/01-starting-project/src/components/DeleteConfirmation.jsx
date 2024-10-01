@@ -13,14 +13,15 @@ export default function DeleteConfirmation({ onConfirm, onCancel }) {
       onConfirm();
     }, 3000);
 
-    // can return another function which runs "right before" this event function runs again
+    // called "right before" this event function runs again
     // (this is not the case for this side effect function because our dependency is empty)
-    // OR RIGHT BEFORE THIS COMPONENT DISAMOUNTS (so before it's removed from the DOM)
+    // **OR RIGHT BEFORE THIS COMPONENT DISAMOUNTS (so before it's removed from the DOM)**
     return () => {
       console.log("cleaning up timer");
       clearTimeout(timer);
     };
 
+    // onConfirm is a prop of this component and we are using it in side effect so we need to use it as a dependency
     // functions are just an object value and it will re-created when the App component is re-created.
     // but in this case, setModalIsOpen(false); will remove this component so we will not face infinite loop
   }, [onConfirm]);
