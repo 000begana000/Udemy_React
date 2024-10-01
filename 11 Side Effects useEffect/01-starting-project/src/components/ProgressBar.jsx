@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-// To optimize functionality that DeleteComfirmation won't be re-created by every 10 millisec
+// To optimize state updating : DeleteComfirmation won't be re-created by every 10 millisec
 // (Only ProgressBar will be re-created every 10 millisec)
 export default function ProgressBar({ timer }) {
   const [remainingTime, setRemainingTime] = useState(timer);
