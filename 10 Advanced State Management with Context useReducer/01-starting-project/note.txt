@@ -1,4 +1,4 @@
-Prop Drilling: passing shared data through multipl components layers
+Prop Drilling: passing shared data through multiple components layers
 
 solution 1 : Component Composition - cons: App should handle too much work and other components are becomes wrapper only
 solution 2 : Context API - context value linked to the state and provide the value to the components - can directly reach out to the context (create store folder to the src folder)
