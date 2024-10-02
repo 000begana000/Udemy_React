@@ -2,6 +2,25 @@
 
 const [userAnswers, setUserAnswers] = useState([]);
 
-// because index starts from 0
+// because index starts from 0, first has to be 0
 const activeQuestionIndex = userAnswers.length;
 const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
+
+
+
+< useEffect? not useEffect? >
+
+setTimeout(onTimeout, timer);
+
+- this code doesn't need useEffect because..
+1. it doesn't cause a infinite loop
+2. because it doens't update any prop or state
+
+
+setInterval(() => {
+    setRemainingTime((prevState) => prevState - 100);
+  }, 100);
+
+- this code NEED useEffect because...
+1. it updates state => component will be re-created
+2. and it can cause infinite loop
