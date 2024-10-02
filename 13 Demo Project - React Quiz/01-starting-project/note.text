@@ -24,3 +24,10 @@ setInterval(() => {
 - this code NEED useEffect because...
 1. it updates state => component will be re-created
 2. and it can cause infinite loop
+
+
+< built-in key={} prop >
+
+key={} prop is built-in prop in react and when we set a key,
+(even though the component is not in a list or a map)
+whenever the key changes then the component will be unmounted and demounted

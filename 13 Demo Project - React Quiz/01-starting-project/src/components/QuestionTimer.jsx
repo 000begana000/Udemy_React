@@ -7,14 +7,24 @@ export default function QuestionTimer({ timeout, onTimeout }) {
   // when time is out, let parent component know
   useEffect(() => {
     console.log("setTimeout");
-    setTimeout(onTimeout, timeout);
+    const timer = setTimeout(onTimeout, timeout);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [timeout, onTimeout]);
 
   useEffect(() => {
     console.log("setInterval");
-    setInterval(() => {
+    const interval = setInterval(() => {
       setRemainingTime((prevRemainingTime) => prevRemainingTime - 100);
     }, 100);
+
+    // clean up function will be executed just before this useEffect runs again
+    // or when this component is unmounted from the DOM
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   return <progress id="qustion-time" max={timeout} value={remainingTime} />;
