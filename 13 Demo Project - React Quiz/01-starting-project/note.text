@@ -1,0 +1,7 @@
+< How to manage userAnswers & activeQuestionIndex at the same time with 1 state >
+
+const [userAnswers, setUserAnswers] = useState([]);
+
+// because index starts from 0
+const activeQuestionIndex = userAnswers.length;
+const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
