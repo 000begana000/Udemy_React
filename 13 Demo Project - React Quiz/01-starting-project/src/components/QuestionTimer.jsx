@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-// when timer expires show next question and the answer is empty
 // display progress bar
+// when timer expires show next question and the answer is empty
 export default function QuestionTimer({ timeout, onTimeout }) {
   const [remainingTime, setRemainingTime] = useState(timeout);
-  // when time is out, let parent component know
+
   useEffect(() => {
     console.log("setTimeout");
     const timer = setTimeout(onTimeout, timeout);
@@ -12,6 +12,7 @@ export default function QuestionTimer({ timeout, onTimeout }) {
     return () => {
       clearTimeout(timer);
     };
+    // when time is out, let parent component know
   }, [timeout, onTimeout]);
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function QuestionTimer({ timeout, onTimeout }) {
       setRemainingTime((prevRemainingTime) => prevRemainingTime - 100);
     }, 100);
 
-    // clean up function will be executed just before this useEffect runs again
+    // clean up function will be executed FIRST then actucal useEffect code to clean up what we've done from the last time
     // or when this component is unmounted from the DOM
     return () => {
       clearInterval(interval);

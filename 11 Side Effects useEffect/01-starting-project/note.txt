@@ -1,6 +1,6 @@
 <Side Effects>
 1. To prevent infinite loop
-2. When you have code only has to be executed after the component function executed at least once
+2. When you have code has to be executed after the component function executed only at least once
 
 Side Effects : are "tasks" that don't impect current component render cycle
 
@@ -21,9 +21,9 @@ navigator.geolocation.getCurrentPosition((position) => {
 - so in this case, we need to use Side Effect
 
 1. import { useEffect } hook
-2. useEffect() doesn't return a value but need 2 arguments.
-2.a the function which wraps side effect code
-2.b array of dependences
+2. useEffect(a, b) doesn't return a value but need 2 arguments.
+a. the function which wraps side effect code
+b. array of dependences
 
 - the first argument will be executed "AFTER" every component execution.
 
