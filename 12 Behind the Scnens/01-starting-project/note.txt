@@ -38,7 +38,7 @@ used for conjunction of useEffect() but also with memo()
 
 <<< useMemo() >>>
 
-warpped around normal functions that are executed in component functions to prevent their execution.
+warpped around "NORMAL FUNCTIONS" that are executed in component functions to prevent their execution from component function cycle.
 and useMemo() should really only be used if you have a complex calculation that you want to prevent.
 
 const [counter, setCounter] = useState(initialCount);
