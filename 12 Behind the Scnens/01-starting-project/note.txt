@@ -1,0 +1,28 @@
+<<< Memo >>> => BUT!! clever component composition is the key!
+
+it will take a look at the props of your component function
+and whenever the component function would norally execute again 
+for example because the app component function executes,
+memo will take a look at the old prop value 
+and at the new prop value that would be received now
+if that component function would execute
+and if those prop values are exactly the same,
+which for arrays and objects mean that they really have to be exactly
+the same array or object in memory
+but if they are the same the component excution will be prevented by memo.
+
+Counter => will be re-executed if initialCount prop or state change.
+when it's not executed then the child components of Counter will not re-executed too.
+
+Memo cares about exterenal changes from parent component.
+
+!!!
+DON'T OVERUSE MEMO()!
+x. Use it "as high up in the component tree as possible"
+-> blocking a component execution there will also block all child component executions
+
+x. Checking props with memo() "costs performance"!
+-> don't wrap it around all your components - it will just add a lot of unnecessary checks
+
+x. Don't use it on components where "props will change frequently"
+-> memo() would just perform a meaningless check in such cases (which cost performance)
