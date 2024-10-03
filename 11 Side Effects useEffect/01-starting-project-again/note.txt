@@ -1,0 +1,6 @@
+"useEffect" - component mounting
+can be used to implement lot of features like componentDidMount, componentDidUpdate, and componentWillUnmount, and many more. 
+
+On the other hand, 
+"useCallback" - function connected useEffect
+is used for optimizing the performance by caching a function reference so that it doesn't have to be recreated on every render.
