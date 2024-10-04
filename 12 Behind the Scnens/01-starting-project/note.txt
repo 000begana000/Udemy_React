@@ -52,3 +52,39 @@ useMemo() will be executed when initialCount value is changed.
 but it will not executed if the counter state is changed.
 
 Don't over use as the same reason of memo()
+
+
+
+<<< Virtual DOM >>>
+
+React checks for necessary DOM updates via a "Virtual DOM".
+it creates & compares virtual DOM snapshots
+to find out which part of the rendered UI need to be updated
+
+step 1: creating a "Component Tree"
+step 2: Creating a "Virtual Snapshot" of the Target HTML code
+step 3: "Compare" New Virtual DOM Snapshot to Previous (Old) Virtual DOM Snapshot
+step 4: Identify & Apply Changes to the "Real DOM"
+step 5: repeat the same steps from 1
+(after first function cycle and when we click something, React will find out what part of tree has changed and checks such as useMemo())
+
+
+
+<<< key Prop >>>
+
+1. It's important to let React know which "specific item" to update
+2. whenever key value changes, React will throw away the old component instance and re-create it.
+
+=> we should use it if we have some state change in parent component 
+that should then lead to some child component being reset.
+
+
+
+<<< 2 state updating functions in a one function >>>
+
+function handleSetCount(newCount) {
+  setChosenCount(newCount);
+  setChosenCount(prevState => prevState + 1);
+}
+
+it will not render the component twice but they are batched together and will only lead to one component function execution.

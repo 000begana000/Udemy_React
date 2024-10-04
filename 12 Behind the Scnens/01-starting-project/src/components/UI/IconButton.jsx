@@ -2,6 +2,7 @@ import { memo } from 'react';
 
 import { log } from '../../log.js';
 
+// million-ignore
 const IconButton = memo(function IconButton({ children, icon, ...props }) {
   log('<IconButton /> rendered', 2);
 
