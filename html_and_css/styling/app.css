@@ -1,21 +1,11 @@
-h1 {
-  font-family: 'Segoe UI', Futura, sans-serif;
-  font-size: 60px;
-  font-weight: normal;
-  text-align: center;
-  letter-spacing: 20px;
-}
-
 body {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
-p {
-  font-weight: bold;
-  line-height: 2;
+h1 {
+  font-weight: 100;
 }
 
-a {
-  font-style: italic;
+h2 {
+  font-family: 'Indie Flower', cursive;
 }
