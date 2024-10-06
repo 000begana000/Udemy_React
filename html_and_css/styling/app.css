@@ -2,10 +2,31 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-h1 {
-  font-weight: 100;
+#featured {
+  background-color: gold;
+  font-size: 20px;
 }
 
-h2 {
-  font-family: 'Indie Flower', cursive;
+.tag {
+  text-decoration: none;
+  background-color: black;
+  color: white;
+}
+
+#cast {
+  list-style-type: '\1F44D';
+  list-style-position: inside;
+}
+
+a {
+  color: olive;
+  text-decoration: none;
+}
+
+a:visited {
+  color: orangered;
+}
+
+a:hover {
+  text-decoration: underline;
 }
