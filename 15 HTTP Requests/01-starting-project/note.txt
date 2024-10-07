@@ -1,0 +1,23 @@
+<<< How to connect a backand / database >>>
+
+- Front-end
+With React, you build a "client-side" web application (it runs in browser)
+
+- HTTP Request
+You communicate with backend (API) via "HTTP Requests"
+
+- Back-end (REST) API
+A web server exposes certain "endpoint" (URLs) to which you can send requests & data (to receive data back)
+
+***
+API stands for "Application Programming Interface"
+A REST API is a web server that exposes certain pre-defined routes to which HTTP Requests can be sent.
+
+===> You should NOT try to CONNECT TO A DATABASE directly(-> credentials would be exposed)
+
+Front-end(React) and Back-end(API) are "often separated"(=separate projects)
+
+Front-end(React, JS)
+Back-end(JS, C#, Java, PHP ...)
+
+===> You can build Full-stack React app (=blend front-end & back-end) via NextJS or Remix
