@@ -11,6 +11,7 @@ A web server exposes certain "endpoint" (URLs) to which you can send requests & 
 
 ***
 API stands for "Application Programming Interface"
+( APIs are mechanisms that enable two software components to communicate with each other using a set of definitions and protocols.)
 A REST API is a web server that exposes certain pre-defined routes to which HTTP Requests can be sent.
 
 ===> You should NOT try to CONNECT TO A DATABASE directly(-> credentials would be exposed)
@@ -21,3 +22,5 @@ Front-end(React, JS)
 Back-end(JS, C#, Java, PHP ...)
 
 ===> You can build Full-stack React app (=blend front-end & back-end) via NextJS or Remix
+
+
