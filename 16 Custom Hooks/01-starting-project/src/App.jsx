@@ -117,10 +117,7 @@ function App() {
             onSelectPlace={handleStartRemovePlace}
           />
         )}
-
-        <AvailablePlaces 
-        onSelectPlace={handleSelectPlace} 
-        />
+        <AvailablePlaces onSelectPlace={handleSelectPlace} />
       </main>
     </>
   );
