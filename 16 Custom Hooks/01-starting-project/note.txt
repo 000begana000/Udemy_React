@@ -1,0 +1,16 @@
+<<< Custom Hooks >>>
+- insdie of other hooks
+- wrap and reuse functions inside of your component functions
+
+- 1. sending http request
+- 2. managing loading state
+- 3. manaing error state
+
+=> those functionality is almost the same and we want to create re-useable function like reusable component 
+
+
+<<< How to create custom hooks >>>
+1. create "hooks" folder inside of "src" folder
+2. create a file e.x.) useFetch.js / use-fetch.js / fetch.js
+3. in the file, create a normal function - name has to be start "use" because it's a convention/ rule.
+: the function start with "use" is treated as a hooks 
