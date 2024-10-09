@@ -11,6 +11,7 @@
 
 <<< How to create custom hooks >>>
 1. create "hooks" folder inside of "src" folder
-2. create a file e.x.) useFetch.js / use-fetch.js / fetch.js
+2. create a file e.x. useFetch.js / use-fetch.js / fetch.js
 3. in the file, create a normal function - name has to be start "use" because it's a convention/ rule.
 : the function start with "use" is treated as a hooks 
+4. we need to import useState and useEffect 
