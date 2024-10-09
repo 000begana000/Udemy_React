@@ -15,3 +15,11 @@
 3. in the file, create a normal function - name has to be start "use" because it's a convention/ rule.
 : the function start with "use" is treated as a hooks 
 4. we need to import useState and useEffect 
+5. create 3 states up there 
+6. edit functions neutral (be careful with dependency)
+7. return 3 state values 
+8. export it 
+9. use! => const {isFetching, fetchedData, error} = useFetch(fetchUserPlaces);
+
+
+** any state we built in cutom hook will belongs to the component we are using it
