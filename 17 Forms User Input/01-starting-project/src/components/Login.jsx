@@ -1,32 +1,16 @@
-import { useState } from "react";
+import { useRef } from "react";
 
 export default function Login() {
-  // const [enteredEmail, setEnteredEmail] = useState("");
-  // const [enteredPassword, setEnteredPassword] = useState("");
-  const [enteredValues, setEnteredValues] = useState({
-    email: "",
-    password: "",
-  });
+  const email = useRef();
+  const password = useRef();
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(enteredValues);
-  }
 
-  // function handleEmailChange(event) {
-  //   setEnteredEmail(event.target.value);
-  // }
+    const enteredEmail = email.current.value;
+    const enteredPassword = password.current.value;
 
-  // function handlePasswordChange(event) {
-  //   setEnteredPassword(event.target.value);
-  // }
-
-  // a more generic and versatile change handling function
-  function handleChangeValues(identifier, value) {
-    setEnteredValues((prevValues) => ({
-      ...prevValues,
-      [identifier]: value,
-    }));
+    console.log(enteredEmail, enteredPassword);
   }
 
   return (
@@ -36,28 +20,12 @@ export default function Login() {
       <div className="control-row">
         <div className="control no-margin">
           <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            onChange={(event) =>
-              handleChangeValues("email", event.target.value)
-            }
-            value={enteredValues.email}
-          />
+          <input id="email" type="email" name="email" ref={email} />
         </div>
 
         <div className="control no-margin">
           <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            onChange={(event) =>
-              handleChangeValues("password", event.target.value)
-            }
-            value={enteredValues.password}
-          />
+          <input id="password" type="password" name="password" ref={password} />
         </div>
       </div>
 
