@@ -1,0 +1,13 @@
+<<< Form >>>
+
+x. Button(s) in a Form 
+Submits the form by default and technically it will create http request (default built-in behaviour)
+
+How to prevent default?
+1. add type="button" in the button element (type="submit" is default)
+2. add onSubmit={handleSubmit} in the form element 
+3.
+    function handleSubmit(event) {
+        event.preventDefault();
+        console.log('Submmited!')
+    }
