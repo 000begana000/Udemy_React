@@ -8,8 +8,12 @@ export default function Login() {
     password: "",
   });
 
-  const emailIsInvalid =
-    enteredValues.email !== "" && !enteredValues.email.includes("@");
+  const [didEdit, setDidEdit] = useState({
+    email: false,
+    password: false,
+  });
+
+  const emailIsInvalid = didEdit.email && !enteredValues.email.includes("@"); //didEdit.email => will be true after editing so we give some time to user until they type in something. even though they typed in something and it doesn't have @ sign, it's invalid
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -30,6 +34,20 @@ export default function Login() {
       ...prevValues,
       [identifier]: value,
     }));
+
+    // when user start to type a value again, the validation goes away
+    setDidEdit((prevState) => ({
+      ...prevState,
+      [identifier]: false,
+    }));
+  }
+
+  // onBlur fires when it lost the focus
+  function handleInputBlur(identifier) {
+    setDidEdit((prevState) => ({
+      ...prevState,
+      [identifier]: true,
+    }));
   }
 
   return (
@@ -43,6 +61,7 @@ export default function Login() {
             id="email"
             type="email"
             name="email"
+            onBlur={() => handleInputBlur("email")}
             onChange={(event) =>
               handleChangeValues("email", event.target.value)
             }
