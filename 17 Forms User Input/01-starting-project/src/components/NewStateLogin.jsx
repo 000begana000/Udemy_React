@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Input from "./Input.jsx";
+import { isEmail, isNotEmpty, hasMinLength } from "../util/validation.js";
 
 export default function Login() {
   // const [enteredEmail, setEnteredEmail] = useState("");
@@ -14,9 +15,12 @@ export default function Login() {
     password: false,
   });
 
-  const emailIsInvalid = didEdit.email && !enteredValues.email.includes("@"); //didEdit.email => will be true after editing so we give some time to user until they type in something. even though they typed in something and it doesn't have @ sign, it's invalid
+  const emailIsInvalid =
+    didEdit.email &&
+    !isEmail(enteredValues.email) &&
+    !isNotEmpty(enteredValues.email); // if it's empty
   const passwordIsInvalid =
-    didEdit.password && enteredValues.password.trim().length < 6;
+    didEdit.password && !hasMinLength(enteredValues.password, 6);
 
   function handleSubmit(event) {
     event.preventDefault();
