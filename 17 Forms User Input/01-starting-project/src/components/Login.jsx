@@ -13,20 +13,21 @@ export default function Login() {
     const enteredEmail = email.current.value;
     const enteredPassword = password.current.value;
 
-    const emailIsValid = email.current.includes("@");
+    const emailIsValid = enteredEmail.includes("@");
 
     if (!emailIsValid) {
       setEmailIsInvalid(true);
       return; //safe clause; - secure that any http request will not be sent if the validation is invalid
     }
 
+    // after user enetered validate input the error message goes away
     setEmailIsInvalid(false);
 
     console.log("sending http request...");
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} noValidate>
       <h2>Login</h2>
 
       <div className="control-row">

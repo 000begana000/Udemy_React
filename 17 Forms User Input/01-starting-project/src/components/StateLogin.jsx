@@ -17,6 +17,11 @@ export default function Login() {
 
   function handleSubmit(event) {
     event.preventDefault();
+
+    if (emailIsInvalid) {
+      return; //safe clause; - secure that any http request will not be sent if the validation is invalid
+    }
+
     console.log(enteredValues);
   }
 
@@ -51,7 +56,7 @@ export default function Login() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} noValidate>
       <h2>Login</h2>
 
       <div className="control-row">
