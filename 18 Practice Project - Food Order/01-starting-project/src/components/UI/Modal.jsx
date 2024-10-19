@@ -10,6 +10,7 @@ export default function Modal({ children, open, className = "" }) {
       modal.showModal();
     }
 
+    // to tidy up our code before our component unmounts. When our code runs and reruns for every render
     return () => {
       modal.close();
     };
