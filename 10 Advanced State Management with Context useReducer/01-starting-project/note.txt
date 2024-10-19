@@ -12,8 +12,14 @@ Context API
 5. consume context - import { useContext } and the context => const {initialValue} = useContext(context);
 6. link context to state - create an object for instance and provide the initial value & functionality we want to expose through this context (!!checkout the App component!!)=> <Context.Provider value={ctxValue}>
 7. repeat the same steps to consume functionality in a component
-8. checkout alternative way with CartContext.Consumer - but this is not easy to read so it's not a default approach
-return(<CartContext.Consumer>{(cartCtx) => {(helper functions) return (jsxcode)}}</CartContext.Consumer>)
+
+
+*** Component function will be re-executed when the Context value uses internal state as a value and connected context value changes. (like state) otherwise the UI will not updated 
+
+
+8. checkout alternative way with CartContext.Consumer - but this is not easy to read so it's not a default approach BUT maybe other developers could used it and to recognize it, we should know
+return(<CartContext.Consumer>{(contextValueAsParameter) => {(helper functions) return (jsxcodeInComponent)}}</CartContext.Consumer>)
+
 
 
 Outsourcing context & state 
