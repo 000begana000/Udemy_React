@@ -29,7 +29,7 @@ export function UserProgressContextProvider({ children }) {
   }
 
   const userProgressCtx = {
-    progress: "",
+    progress: userProgress,
     showCart,
     hideCart,
     showCheckout,
@@ -43,4 +43,4 @@ export function UserProgressContextProvider({ children }) {
   );
 }
 
-export default CartContext;
+export default UserProgressContext;
