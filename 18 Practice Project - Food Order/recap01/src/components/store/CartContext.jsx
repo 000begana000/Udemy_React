@@ -54,7 +54,28 @@ function cartReducer(state, action) {
 }
 
 export function CartContextProvider({ children }) {
-  const [state, dispatchCartAction] = useReducer(cartReducer, { items: [] });
+  const [cart, dispatchCartAction] = useReducer(cartReducer, { items: [] });
 
-  return <CartContext.Provider>{children}</CartContext.Provider>;
+  function addItem(item) {
+    dispatchCartAction({
+      type: "ADD_ITEM",
+      item, // payload is the data that is being passed along with the action, which can be used by the reducer to update the state.
+    });
+  }
+
+  function removeItem(id) {
+    dispatchCartAction({ action: "REMOVE_ITEM", id });
+  }
+
+  const cartContextValue = {
+    items: cart.items, //connect to state
+    addItem,
+    removeItem,
+  };
+
+  return (
+    <CartContext.Provider value={cartContextValue}>
+      {children}
+    </CartContext.Provider>
+  );
 }
