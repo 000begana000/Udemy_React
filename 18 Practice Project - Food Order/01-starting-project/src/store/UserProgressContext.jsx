@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import CartContext from "./CartContext";
 
 const UserProgressContext = createContext({
   progress: "", // cart, checkout
