@@ -27,6 +27,7 @@ export default function useHttp(url, config, initialData) {
       } catch (error) {
         setError(error.message || "Something went wrong!");
       }
+      setIsLoading(false);
     },
     [url, config]
   );
