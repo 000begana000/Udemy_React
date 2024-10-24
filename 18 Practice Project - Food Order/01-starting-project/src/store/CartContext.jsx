@@ -56,11 +56,11 @@ function cartReducer(state, action) {
       updatedItems[existingCartItemindex] = updatedItem; //update quantity
     }
 
-    if (action.type === "CLEAR_CART") {
-      return { ...state, items: [] };
-    }
-
     return { ...state, items: updatedItems }; // keep the old state and overwrite items
+  }
+
+  if (action.type === "CLEAR_CART") {
+    return { ...state, items: [] };
   }
 }
 
