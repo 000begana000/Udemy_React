@@ -10,6 +10,7 @@ import { currencyFormatter } from "../util/formatting";
 import Modal from "./UI/Modal.jsx";
 import Input from "./UI/Input.jsx";
 import Button from "./UI/Button.jsx";
+import ErrorMessage from "./ErrorMessage.jsx";
 
 const requestConfig = {
   method: "POST",
@@ -38,6 +39,11 @@ export default function Checkout() {
     userProgressCtx.hideCheckout();
   }
 
+  function handleFinish() {
+    userProgressCtx.hideCheckout();
+    cartCtx.clearCart();
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -54,6 +60,38 @@ export default function Checkout() {
     );
   }
 
+  let actions = (
+    <>
+      <Button textOnly type="button" onClick={handleClose}>
+        Close
+      </Button>
+      <Button>Submit Order</Button>
+    </>
+  );
+
+  if (isSending) {
+    actions = <span>Sending order data...</span>;
+  }
+
+  if (data && !error) {
+    return (
+      <Modal
+        open={userProgressCtx.progress === "checkout"}
+        onClose={handleClose}
+      >
+        <h2>Success!</h2>
+        <p>Your order was submitted successfully.</p>
+        <p>
+          We will get back to you with more details via email within the next
+          few days.
+        </p>
+        <p className="modal-actions">
+          <Button onClick={handleFinish}>Okay</Button>
+        </p>
+      </Modal>
+    );
+  }
+
   return (
     <Modal open={userProgressCtx.progress === "checkout"} onClose={handleClose}>
       <form onSubmit={handleSubmit}>
@@ -67,12 +105,11 @@ export default function Checkout() {
           <Input label="City" type="text" id="city" />
         </div>
 
-        <p className="modal-actions">
-          <Button textOnly type="button" onClick={handleClose}>
-            Close
-          </Button>
-          <Button>Submit Order</Button>
-        </p>
+        {error && (
+          <ErrorMessage title="Faild to submit order" message={error} />
+        )}
+
+        <p className="modal-actions">{actions}</p>
       </form>
     </Modal>
   );

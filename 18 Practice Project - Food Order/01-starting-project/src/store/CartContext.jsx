@@ -4,6 +4,7 @@ const CartContext = createContext({
   items: [], // manage array of items
   addItem: (item) => {},
   removeItem: (id) => {},
+  clearCart: () => {},
 });
 
 function cartReducer(state, action) {
@@ -55,6 +56,10 @@ function cartReducer(state, action) {
       updatedItems[existingCartItemindex] = updatedItem; //update quantity
     }
 
+    if (action.type === "CLEAR_CART") {
+      return { ...state, items: [] };
+    }
+
     return { ...state, items: updatedItems }; // keep the old state and overwrite items
   }
 }
@@ -76,10 +81,17 @@ export function CartContextProvider({ children }) {
     });
   }
 
+  function clearCart() {
+    dispatchCartAction({
+      type: "CLEAR_CART",
+    });
+  }
+
   const cartContext = {
     items: cart.items,
     addItem,
     removeItem,
+    clearCart,
   };
 
   console.log(cartContext); //for test
