@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import useHttp from "../hooks/useHttp.js";
 
 import { currencyFormatter } from "../util/formatting.js";
 
@@ -9,7 +10,19 @@ import Modal from "./UI/Modal.jsx";
 import Input from "./UI/Input.jsx";
 import Button from "./UI/Button.jsx";
 
+const requestConfig = {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+};
+
 export default function Checkout() {
+  const {
+    data,
+    isLoading: isSending,
+    error,
+    sendRequest,
+  } = useHttp("http://localhost:3000/orders", requestConfig);
+
   const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
 
@@ -31,16 +44,14 @@ export default function Checkout() {
     const customData = Object.fromEntries(fd.entries());
     console.log(customData);
 
-    fetch("http://localhost:3000/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    sendRequest(
+      JSON.stringify({
         order: {
           items: cartCtx.items,
           customer: customData,
         },
-      }),
-    });
+      })
+    );
   }
 
   return (
