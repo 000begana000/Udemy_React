@@ -1,0 +1,29 @@
+What is Redux? 
+
+- A "state management system" for "croress-component" or "app-wide" state = like useContext()
+
+
+
+
+Redux vs useContext
+
+"useContext has some potential disadvantages"
+(but we can use both Redux and useContext in the same application)
+- Deeply nested providers (too many providers)
+- Complex providers (too much work in one provider)
+- Not optimized for high-frequency changes
+
+
+
+
+Core Redux Concept
+
+- Central data (state) store
+** we have ONLY ONE store for entire application **
+- Components subscribe the store.
+- Components NEVER directly manipulate the store data but we use Reducer function.
+- Reducer function mutates(=changes) data in store. 
+** it's NOT useReducer hook but general concept as like reducer method ** 
+- How we trigger this reducer function? we have "Actions" and components "Dispatch" actions. (we can say component trigger actions)
+- Redux forwards actions to the reducer then this operation is performed by the reducer.
+- When the state is updated, subscribing components are notified, so they can update their UI.
