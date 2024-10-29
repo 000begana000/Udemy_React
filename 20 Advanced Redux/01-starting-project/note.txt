@@ -1,0 +1,58 @@
+What is Redux? 
+
+- A "state management system" for "crocess-component" or "app-wide" state = like useContext()
+
+
+
+
+Redux vs useContext
+
+"useContext has some potential disadvantages"
+(but we can use both Redux and useContext in the same application)
+- Deeply nested providers (too many providers)
+- Complex providers (too much work in one provider)
+- Not optimized for high-frequency changes
+
+
+
+
+Core Redux Concept
+
+- Central data (state) store
+** we have ONLY ONE store for entire application **
+- Components subscribe the store.
+- Components NEVER directly manipulate the store data but we use Reducer function.
+- Reducer function mutates(=changes) data in store. 
+** it's NOT useReducer hook but general concept as like js reducer method ** 
+- How we trigger this reducer function? we have "Actions" and components "Dispatch" actions. (we can say component trigger actions)
+- Redux forwards actions to the reducer then this operation is performed by the reducer.
+- When the state is updated, subscribing components are notified, so they can update their UI.
+
+
+
+
+How to start redux in the react app
+
+    1. import redux
+        import { createStore } from "redux";
+
+    2. create store and reducer function
+
+    3. export default store 
+        so we can connect it to react app
+
+    4. import Provider in index.js 
+        import { Provider } from "react-redux";
+
+    5. wrap the App into Provider
+        root.render(<Provider><App /></Provider>);
+
+    6. import store and set a store props into Provider
+        import store from "./store/index";
+        <Provider store={store}>
+
+    => it doesn't do anything yet.
+        but now App and any child components can tap into the store 
+        and they can get the data from store,
+        they can set up a subscription to that data,
+        they can dispatch actions.
