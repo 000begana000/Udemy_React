@@ -92,8 +92,28 @@ How to dispatch actions in a component
 
 
 
+How to attach Payloads to Actions (recieve value from user)
 
-Class based component
+    1. create a new handler function with new payload prop
+        //amount = name of payload and we can receive input value instead of 5
+        const increaseHandler = () => {
+            dispatch({ type: "increase", amount: 5 }); 
+        };
+
+
+    2. point the new handler
+        <button onClick={increaseHandler}>Increase by 5</button>
+
+    3. create new reducer if statement
+        if (action.type === "increase") {
+            return {
+                counter: state.counter + action.amount,
+            };
+        }
+
+
+
+Class based component ((optional))
 
     1. import Component from react 
         import { Component } from "react";
