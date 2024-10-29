@@ -65,9 +65,26 @@ How to use data in a component
     1. import useSelector hook in the component
         import { useSelector } from "react-redux";
 
-    2. in useSelector call a function which will be executed by a React Redux a fucntion basically determines which piece of data we want to extract from our store.
-
-        // this function will be excuted by react redux, to retrieve the part of state we need in this component.
+    2. useSelector will be excuted by react redux, to retrieve the part of state we need in this component.
         const counter = useSelector((state) => state.counter);
 
-        ** when you use useSelector react-redux will ""automatically set up a subscribtion"" to the redux store for this component. so your component will be updated and will ""receive the latest conter automatically"" whenever the data changes in Redux store and re-execute component function.
+        ** when you use useSelector react-redux will ""automatically set up a subscribtion"" to the redux store for this component. so your component will be ""updated"" and will ""receive the latest conter automatically"" whenever the data changes in Redux store and re-execute component function.
+
+
+
+
+How to dispatch actions in a component
+
+    1. import useDispatch hook in the component
+        import { useDispatch } from "react-redux";
+
+    
+    2. call useDispatch function
+        const dispatch = useDispatch()
+
+        when we call useDispatch we don't pass any argument to it but instead this gives us back a dispatch function which we can execute.
+
+    3. create handler functions and call the dispatch function
+        const toggleCounterHandler = () => {
+            dispatch({ type: "increment" });
+        };
