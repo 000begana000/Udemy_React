@@ -56,3 +56,18 @@ How to start redux in the react app
         and they can get the data from store,
         they can set up a subscription to that data,
         they can dispatch actions.
+
+
+
+
+How to use data in a component
+
+    1. import useSelector hook in the component
+        import { useSelector } from "react-redux";
+
+    2. in useSelector call a function which will be executed by a React Redux a fucntion basically determines which piece of data we want to extract from our store.
+
+        // this function will be excuted by react redux, to retrieve the part of state we need in this component.
+        const counter = useSelector((state) => state.counter);
+
+        ** when you use useSelector react-redux will ""automatically set up a subscribtion"" to the redux store for this component. so your component will be updated and will ""receive the latest conter automatically"" whenever the data changes in Redux store and re-execute component function.
