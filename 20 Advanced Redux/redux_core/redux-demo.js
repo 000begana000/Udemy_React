@@ -1,31 +1,33 @@
-// 1. import redux
-const redux = require("redux"); // node js syntax to import a third party package
+const redux = require("redux");
 
-// 3. create reducer => should be a pure function, no side effect inside this function
-// 7. give a default value (initial value) to the state
 const counterReducer = (state = { counter: 0 }, action) => {
-  // return new state
-  return {
-    counter: state.counter + 1,
-  };
+  // 1. set the action by type
+  if (action.type === "increment") {
+    return {
+      counter: state.counter + 1,
+    };
+  }
+
+  if (action.type === "decrement") {
+    return {
+      counter: state.counter - 1,
+    };
+  }
+
+  return state;
 };
 
-// 2. create store
-// 4. pass the reducer function
 const store = redux.createStore(counterReducer);
 
-console.log(store.getState());
-
-// 5. create subscriber function
-const conterSubscriber = () => {
-  // getState() will give us latest snapshot of the state
+// what subscribtion do inside
+const counterSubscriber = () => {
   const latestState = store.getState();
   console.log(latestState);
 };
 
-// 6. subscribe the subscriber function
-// redux will trigger this subscriber function whenever the data in store changes
-store.subscribe(conterSubscriber);
+// 3. the counter comes out from our subscribtion
+store.subscribe(counterSubscriber);
 
-// 8. create dispatch to dispatch action
+// 2. dispatch actions by type of actions
 store.dispatch({ type: "increment" });
+store.dispatch({ type: "decrement" });
