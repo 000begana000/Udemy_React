@@ -88,3 +88,72 @@ How to dispatch actions in a component
         const toggleCounterHandler = () => {
             dispatch({ type: "increment" });
         };
+
+
+
+
+
+Class based component
+
+    1. import Component from react 
+        import { Component } from "react";
+
+    2. build a component from scratch (but this doesn't have state)
+        class Counter extends Component {
+            render() {
+                return (
+                <main className={classes.counter}>
+                    <h1>Redux Counter</h1>
+                    <div className={classes.value}>{counter}</div>
+                    <div>
+                    <button onClick={incrementHandler}>Increment</button>
+                    <button onClick={decrementHandler}>Decrement</button>
+                    </div>
+                    <button onClick={toggleCounterHandler}>Toggle Counter</button>
+                </main>
+                );
+            }
+        }
+
+    3. create handler functions and point them with this keyword
+        incrementHandler() {}
+        <button onClick={this.incrementHandler}>Increment</button>
+
+    4. import connect hook from react-redux to connect class-based component to redux
+        import { connect } from "react-redux";
+
+    5. use connect 
+        export default connect()(Counter);
+        - we execute connect function then it returns a new function and we execute this returned, this new function as well. and to this returned function, we pass counter.
+
+        - connect wants 2 arguemnts and both of them are functions.
+            export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+
+        - set 2 argument functions 
+            a function that maps Redux state to props which will be received in this component then.
+
+            // we must use this name for it
+            const mapStateToProps = (state) => {
+            // it returns a object
+                return {
+                    counter: state.counter, // we pick up conter state and bind it to counter prop (equivalent to useSelector)
+                };
+            };
+
+            // equivalent to useDispatch
+            const mapDispatchToProps = (dispatch) => {
+                return {
+                    increment: () => dispatch({ type: "increment" }),
+                    decrement: () => dispatch({ type: "decrement" }),
+                };
+            };
+    
+    6. use props 
+        incrementHandler() {
+            this.props.increment();
+        }
+
+        <div className={classes.value}>{this.props.counter}</div>
+
+    7. use bind(this) for handlers so it refers to this keyword of this class for sure
+        <button onClick={this.incrementHandler.bind(this)}>Increment</button>
