@@ -104,12 +104,56 @@ How to attach Payloads to Actions (recieve value from user)
     2. point the new handler
         <button onClick={increaseHandler}>Increase by 5</button>
 
-    3. create new reducer if statement
+    3. create new if statement in reducer
         if (action.type === "increase") {
             return {
                 counter: state.counter + action.amount,
             };
         }
+
+
+
+
+How to add more state in our store?
+
+    1. add new state to initial value 
+        (in this case, showCounter)
+        const initialState = { counter: 0, showCounter: true }
+    
+    2. even though increment action doesn't related to showCounter, return showCounter together because we are returning the overall state object 
+        (redux won't merge your changes with the existing state)
+        if (action.type === "increment") {
+            return {
+                counter: state.counter + 1,
+                // the state we currently have 
+                showCounter: state.showCounter
+            };
+        }
+
+    3. add new if statement with new action type
+        if (action.type === 'toggle') {
+            return {
+                showCounter: !state.showCounter,
+                counter: state.counter
+            }
+        }
+
+    4. dispatch the action from related component
+        const toggleCounterHandler = () => {
+            dispatch({ type: 'toggle'})
+        };
+
+    5. pick the state with useSelector to retrieve the part of state we need in this component and update UI when the data is changed.
+        const show = useSelector((state) => state.showCounter);
+
+    6. use the new state
+        {show && <div className={classes.value}>{counter}</div>}
+
+
+
+
+
+
 
 
 
