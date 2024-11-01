@@ -152,6 +152,61 @@ How to add more state in our store?
 
 
 
+How to work with Redux state correctly
+
+    1. returned object will NOT merged to the existing state but "OVERWRITING" the existing state.
+
+    2. you should "NEVER MUTATE" the existing state - instead overwrite it by returning a brand new state object.
+        : never change original state 
+        (this can lead bugs and unpredictable behavior)
+
+        // don't do this!!!!!
+        if (action.type === "increment") {
+            state.counter++ ;
+            return state;
+        }
+
+
+
+
+How to use Redux Toolkit
+
+    1. import redux Toolkit
+        npm install @reduxjs/toolkit
+
+    2. we can remove redux package from package.json because redux toolkit is includes redux 
+
+    3. import createSlice in store
+        import { createSlice } from "@reduxjs/toolkit";
+
+    4. preparing slice of global state
+        const initialState = { counter: 0, showCounter: true };
+        createSlice({
+            name: "counter", //as we want
+            initialState, //initialState: initialState
+
+            // methods - we don't need action parameter becuase these methods will automatically be called for you depending on which action was triggered.
+
+            reducers: {
+                increment() {},
+                decrement() {},
+                increase() {},
+                toggleCounter() {},
+            },
+        });
+
+    5. with redux Toolkit, we CAN'T accidently manipulate the existing state. because Redux Toolkit internally uses another package called imgur, which will detect code like this and automatically clone the existing state, create a new state object, keep all the state which we're not editing, and overwrite the state in an immutable way.
+        increment(state) {
+            state.counter++;
+        },
+
+    6. when we have payload, accept action as an parameter 
+        increase(state, action) {
+            state.counter = state.counter + action.amount;
+        },
+
+
+
 
 
 

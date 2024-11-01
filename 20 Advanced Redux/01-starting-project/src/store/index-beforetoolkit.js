@@ -1,47 +1,45 @@
 // import { Component } from "react";
 // import { conect } from "react-redux";
 
-import { useSelector, useDispatch } from "react-redux";
+import { createStore } from "redux";
 
-import classes from "./Counter.module.css";
+const initialState = { counter: 0, showCounter: true };
 
-const Counter = () => {
-  const dispatch = useDispatch();
-  // this function will be excuted by react redux, to retrieve the part of state we need in this component.
-  const counter = useSelector((state) => state.counter);
-  const show = useSelector((state) => state.showCounter);
+const counterReducer = (state = initialState, action) => {
+  if (action.type === "increment") {
+    return {
+      counter: state.counter + 1,
+      showCounter: state.showCounter,
+    };
+  }
 
-  const incrementHandler = () => {
-    dispatch({ type: "increment" });
-  };
+  if (action.type === "increase") {
+    return {
+      counter: state.counter + action.amount,
+      showCounter: state.showCounter,
+    };
+  }
 
-  const increaseHandler = () => {
-    dispatch({ type: "increase", amount: 10 }); //amount = name of payload
-  };
+  if (action.type === "decrement") {
+    return {
+      counter: state.counter - 1,
+      showCounter: state.showCounter,
+    };
+  }
 
-  const decrementHandler = () => {
-    dispatch({ type: "decrement" });
-  };
+  if (action.type === "toggle") {
+    return {
+      showCounter: !state.showCounter,
+      counter: state.counter,
+    };
+  }
 
-  const toggleCounterHandler = () => {
-    dispatch({ type: "toggle" });
-  };
-
-  return (
-    <main className={classes.counter}>
-      <h1>Redux Counter</h1>
-      {show && <div className={classes.value}>{counter}</div>}
-      <div>
-        <button onClick={incrementHandler}>Increment</button>
-        <button onClick={increaseHandler}>Increase by 10</button>
-        <button onClick={decrementHandler}>Decrement</button>
-      </div>
-      <button onClick={toggleCounterHandler}>Toggle Counter</button>
-    </main>
-  );
+  return state;
 };
 
-export default Counter;
+const store = createStore(counterReducer);
+
+export default store;
 
 // class Counter extends Component {
 //   incrementHandler() {
