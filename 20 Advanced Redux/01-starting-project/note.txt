@@ -208,9 +208,64 @@ How to use Redux Toolkit
 
 
 
+How to connect Redux Toolkit to store
+
+    1. store the slice in const variable - it's responsible for working with our counter.
+        const counterSlice = createSlice({})
+
+    2. register our slice with our store
+        const store = createStore(counterSlice.reducer);
+        - with that we get access to the reducers set up in the slice 
+    
+    3. if we have more slices, we import configureStore function.
+        import { configureStore } from "@reduxjs/toolkit";
+        - it makees merging multiple reducers into one reducer easier.
+    
+    4. with configureStore we can set 1 global slice
+        const store = configureStore({
+            reducer: counterSlice.reducer,
+        });
+
+    5. or multiple reducers with key-value prop in an object (it merges into 1 big reducer)
+        const store = configureStore({
+            reducer: { counter: counterSlice.reducer },
+        });
 
 
 
+
+How to dispatch actions with Redux Toolkit 
+
+    1. it automatically create unique identifier for our different reducers.
+
+    2. access actions from slice name
+        counterSlice.actions.toggleCounter();
+            - it will returns an action object of this shape:
+            { type: 'some auto-generated unique identifier' }
+    
+    3. we don't have to worry about creating action objects on our own, coming up with unique identifiers, and typos.
+
+    4. based on this knowledge, we export actions.
+        export const counterActions = counterSlice.actions
+
+    5. import actions from where we need to use (component)
+        import { counterActions } from "../store/index";
+    
+    6. dispatch action 
+        const incrementHandler = () => {
+            dispatch(counterActions.increment());
+        };
+
+    7. this is how to work with payload :
+        const increaseHandler = () => {
+            dispatch(counterActions.increase(10)); 
+            //{type: SOME_UNIQUE_IDENTIFIER, payload: 10}
+        };
+
+    8. edit slice (action.amount => action.payload)
+        increase(state, action) {
+            state.counter = state.counter + action.payload; 
+        }
 
 Class based component ((optional))
 
