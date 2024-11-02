@@ -272,6 +272,13 @@ How to dispatch actions with Redux Toolkit
 
 How to work with multiple slices
 
+    const store = configureStore({
+    reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
+    });
+
+    export const counterActions = counterSlice.actions;
+    export const authActions = authSlice.actions;
+
 
 
 
