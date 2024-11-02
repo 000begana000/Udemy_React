@@ -282,7 +282,23 @@ How to work with multiple slices
 
 
 
+Split files 
 
+    1. create separate files 
+
+    2. export default reducer
+        export default auth.reducer;
+
+    3. import reducer
+        import authReducer from "./auth";
+
+    4. merge reducers 
+        const store = configureStore({
+        reducer: { counter: counterReducer, auth: authReducer },
+        });
+    
+    5. export actions in the local file 
+        export const counterActions = counter.actions;
 
 
 Class based component ((optional))
