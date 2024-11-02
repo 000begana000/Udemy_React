@@ -267,6 +267,17 @@ How to dispatch actions with Redux Toolkit
             state.counter = state.counter + action.payload; 
         }
 
+
+
+
+How to work with multiple slices
+
+
+
+
+
+
+
 Class based component ((optional))
 
     1. import Component from react 

@@ -9,8 +9,8 @@ import classes from "./Counter.module.css";
 const Counter = () => {
   const dispatch = useDispatch();
   // this function will be excuted by react redux, to retrieve the part of state we need in this component.
-  const counter = useSelector((state) => state.counter);
-  const show = useSelector((state) => state.showCounter);
+  const counter = useSelector((state) => state.counter.counter);
+  const show = useSelector((state) => state.counter.showCounter);
 
   const incrementHandler = () => {
     dispatch(counterActions.increment());
