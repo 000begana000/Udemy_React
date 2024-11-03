@@ -4,17 +4,17 @@ import classes from "./Cart.module.css";
 import CartItem from "./CartItem";
 
 const Cart = (props) => {
-  const items = useSelector((state) => state.cartItems);
+  const items = useSelector((state) => state.cart.items);
 
   let cartItems = items.map((item) => (
     <CartItem
       key={item.id}
       item={{
         id: item.id,
-        title: item.title,
+        title: item.name,
         quantity: item.quantity,
         price: item.price,
-        total: item.quantity * item.price,
+        total: item.totalPrice,
       }}
     />
   ));
