@@ -1,6 +1,8 @@
 Redux & Side Effects (and Asynchronous Code)
 
     - Reducers must be 'pure, side-effect free, synchronous' functions
+    => Never send fetch in our reducer!
+
 
 
     
@@ -8,3 +10,11 @@ Where should side-effects & async tasks be executed?
 
     => inside the 'components' (via useEffect())
     => insde the 'action creators' (we write our own)
+
+
+
+
+1) Fetch data inside the components
+    1. get our current cart with useSelector before it's updated
+    2. do all the transfomation which is doing in reducer "without mutating state"
+    3. send a request
