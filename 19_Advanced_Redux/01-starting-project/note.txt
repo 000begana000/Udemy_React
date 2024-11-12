@@ -47,6 +47,22 @@ So How to send request to server?
         });
     }, [cart]);
 
+    => check App.js how we handled notification (we added a state in ui slice too)
+
+
+    ** A Problem with useEffect()
+        We face one problem when using useEffect the way we currently do it: It will execute when our app starts.
+        Why is this an issue?
+        It's a problem because this will send the initial (i.e. empty) cart to our backend and overwrite any data stored there.
+
+    1. create const isInitial outside of component 
+        let isInitial = true;
+
+    2. just before call the fetch async function set a protection cause so it won't work when application has started
+        if (isInitial) {
+            isInitial = false;
+            return;
+        }
 
 
 1) Fetch data inside the components
