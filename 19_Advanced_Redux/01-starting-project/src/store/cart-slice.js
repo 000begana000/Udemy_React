@@ -44,7 +44,9 @@ const cartSlice = createSlice({
 });
 
 export const sendCartData = (cart) => {
+  // return another (async) function, with dispatch argument
   return async (dispatch) => {
+    // display "sending" message
     dispatch(
       uiActions.showNotification({
         status: "pending",
@@ -53,7 +55,8 @@ export const sendCartData = (cart) => {
       })
     );
 
-    const senddRequest = async () => {
+    // create sendRequest async function to catch all kind of errors
+    const sendRequest = async () => {
       const response = await fetch(
         "https://dummy-59bc5-default-rtdb.firebaseio.com/cart.json",
         {
@@ -69,8 +72,9 @@ export const sendCartData = (cart) => {
     };
 
     try {
-      await senddRequest();
+      await sendRequest();
 
+      // when the fetching is successful, display "success" message
       dispatch(
         uiActions.showNotification({
           status: "success",
@@ -79,6 +83,7 @@ export const sendCartData = (cart) => {
         })
       );
     } catch (error) {
+      // when there is error, display "error" message
       dispatch(
         uiActions.showNotification({
           status: "error",

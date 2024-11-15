@@ -17,11 +17,13 @@ function App() {
   const notification = useSelector((state) => state.ui.notification);
 
   useEffect(() => {
+    // prevent rewrite initial data to the server
     if (isInitial) {
       isInitial = false;
       return;
     }
 
+    // redux toolkit can dispatch function(custom action creator)
     dispatch(sendCartData(cart));
   }, [cart, dispatch]);
 
