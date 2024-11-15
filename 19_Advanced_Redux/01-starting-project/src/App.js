@@ -23,7 +23,7 @@ function App() {
       return;
     }
 
-    // redux toolkit can dispatch function(custom action creator)
+    // redux toolkit can dispatch function(Thunk, Thunk action creator)
     dispatch(sendCartData(cart));
   }, [cart, dispatch]);
 
