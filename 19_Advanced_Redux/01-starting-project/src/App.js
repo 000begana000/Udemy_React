@@ -27,8 +27,10 @@ function App() {
       return;
     }
 
-    // redux toolkit can dispatch function(Thunk, Thunk action creator)
-    dispatch(sendCartData(cart));
+    if (cart.changed) {
+      // redux toolkit can dispatch function(Thunk, Thunk action creator)
+      dispatch(sendCartData(cart));
+    }
   }, [cart, dispatch]);
 
   return (

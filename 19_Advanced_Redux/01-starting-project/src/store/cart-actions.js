@@ -51,7 +51,10 @@ export const sendCartData = (cart) => {
         {
           // PUT method will overwrite cart data with new cart data
           method: "PUT",
-          body: JSON.stringify(cart),
+          body: JSON.stringify({
+            items: cart.items,
+            totalQuantity: cart.totalQuantity,
+          }),
         }
       );
 
