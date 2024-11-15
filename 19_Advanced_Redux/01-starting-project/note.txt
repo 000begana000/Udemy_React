@@ -142,3 +142,16 @@ So How to send request to server?
                     }
                 };
                 };
+
+        4. import custom action creator and dispatch it in useEffect() in App (or in a component where fetching data)
+            useEffect(() => {
+                if (isInitial) {
+                    isInitial = false;
+                    return;
+                }
+
+                dispatch(sendCartData(cart));
+            }, [cart, dispatch]);
+
+
+        5. the code above might look weird but react redux will call the function inside of dispatch even though it's not a action object, and when we use dispatch as argument in the returning function, we can dispatch something again inside of return function. => this is built-in when we use redux toolkit.
