@@ -1,0 +1,43 @@
+What is a Routing?
+
+    - Url changes => Visible content changes
+    - Page change = New request + response (HTML requested & loaded)
+
+Building SPAs (Single Page Application)
+
+    when building complex user interfaces, we typically build SPAs.
+
+    => Only one initial HTML request & response
+
+    Page (url) changes are then handled by client-side React code, (watching how the url changes)
+    visible content is changed "without" fetching a new HTML file 
+
+
+
+Installing React Router & process 
+
+   1. npm install react-router-dom
+   2. which urls we will use and which path(url) will update which content
+   3. activate the router and load our route definitions 
+   4. have all the components we wanna load 
+   5. means of navigating between those pages so our users can move smoothly
+
+
+
+
+Defining Routes
+
+    1. import { createBrowserRouter } from "react-router-dom";
+        this allows us to define our routes
+    2. createBrowserRouter outside of component function - each {} represent 1 route
+        const router = createBrowserRouter([
+            {},
+            {}
+        ]);
+    3. create pages folder in src folder (it can be components too) and create components 
+    4. write router object
+        { path: "/", element: <HomePage />,}
+        element can be any jsx code but normally returns a component 
+    5. tell React this router should be use 
+        1. import { RouterProvider } from "react-router-dom";
+        2. return <RouterProvider router={router}/>; // the value of router should be const router above
