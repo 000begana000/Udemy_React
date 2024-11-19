@@ -55,3 +55,13 @@ Alternative way of defining routes
             </Route>
         );
     3. const router = createBrowserRouter(routeDefinition);
+
+
+
+
+Changing pages without sending http request 
+
+    1. import { Link } from "react-router-dom";
+    2. <Link to="/products">Product page</Link>
+        Link will listen to click, prevent default, look at the routes definition, 
+        and update page without sending new http request.
