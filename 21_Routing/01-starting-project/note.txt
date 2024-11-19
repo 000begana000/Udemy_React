@@ -98,3 +98,14 @@ Layouts & Nested Routes
             </>
         );
     8. we can have more than 1 root routes for the complex work 
+
+
+
+
+Handling Error Page
+    
+        1. create Error.js (ErrorPage) pages > Error.js
+        2. set the ErrorPage as a fallback error page to the root - it's for the situation when user types wrong route
+            path: "/",
+            element: <RootLayout />,
+            errorElement: <ErrorPage />,    <<==
