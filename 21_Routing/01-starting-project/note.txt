@@ -65,3 +65,36 @@ Changing pages without sending http request
     2. <Link to="/products">Product page</Link>
         Link will listen to click, prevent default, look at the routes definition, 
         and update page without sending new http request.
+
+
+
+
+Layouts & Nested Routes
+    1. create MainNavitation component (navbar) components > MainNavitation.js
+    2. creae Root.js component pages > Root.js
+    3. add new route object with path / and wrap other route definition in children prop
+        {
+            path: "/",
+            element: <RootLayout />,
+            children: [
+                { path: "/", element: <HomePage /> },
+                { path: "/products", element: <ProductsPage /> },
+            ],
+        },
+    4. import { Outlet } from "react-router-dom"; > RootLayout
+    5. retrun Outlet - this is a marker where the child routes should be rendered to
+        return (
+            <>
+                <h1>Root Layout</h1>
+                <Outlet /> 
+            </>
+        );
+    6. now you can see <h1>Root Layout</h1> acts like wrapper
+    7. return <MainNavitation /> instead of <h1>Root Layout</h1> as a navigation in Root component 
+        return (
+            <>
+                <MainNavigation /> <<=          nav 
+                <Outlet />                      pages components
+            </>
+        );
+    8. we can have more than 1 root routes for the complex work 
