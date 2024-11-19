@@ -41,3 +41,17 @@ Defining Routes
     5. tell React this router should be use 
         1. import { RouterProvider } from "react-router-dom";
         2. return <RouterProvider router={router}/>; // the value of router should be const router above
+
+
+
+
+Alternative way of defining routes
+
+    1. import { createRoutesFromElements, Route } from "react-router-dom";
+    2. const routeDefinition = createRoutesFromElements(
+            <Route>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/products" element={<ProductsPage />} />
+            </Route>
+        );
+    3. const router = createBrowserRouter(routeDefinition);
