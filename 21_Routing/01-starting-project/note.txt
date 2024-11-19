@@ -17,7 +17,7 @@ Building SPAs (Single Page Application)
 Installing React Router & process 
 
    1. npm install react-router-dom
-   2. which urls we will use and which path(url) will update which content
+   2. think which urls we will use and which path(url) will update which content
    3. activate the router and load our route definitions 
    4. have all the components we wanna load 
    5. means of navigating between those pages so our users can move smoothly
