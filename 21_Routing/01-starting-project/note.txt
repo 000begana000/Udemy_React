@@ -135,3 +135,16 @@ useNavigate
     2. const navigate = useNavigate();
     3. inside of handler navigate("/products");
     4. <button onClick={navigateHandler}>Navigate</button>
+
+
+
+
+Dynamic routes according to different products
+
+    1. { path: "/products/:productId", element: <ProductDetail /> } 
+        after : is dynamic placeholder and productId is identifier 
+    2. with this at the moment /products/something will always navigate to <ProductDetail />
+    3. import { useParams } from "react-router-dom";   > ProductDetail
+    4. const params = useParams();
+    5. params.productId => <p>{params.productId}</p> to print out 
+    6. we can interact with backend through this approach 
