@@ -1,15 +1,22 @@
-import classes from './MainNavigation.module.css';
+import { NavLink } from "react-router-dom";
 
+import classes from "./MainNavigation.module.css";
+// 4. Add properly working links to the MainNavigation
+// { index: true, element: <HomePage /> },
+// { path: "/events", element: <EventsPage /> },
+// { path: "/events/:eventId", element: <EventDetailPage /> },
+// { path: "/events/new", element: <NewEventPage /> },
+// { path: "/events/:eventId/edit", element: <EditEventPage /> },
 function MainNavigation() {
   return (
     <header className={classes.header}>
       <nav>
         <ul className={classes.list}>
           <li>
-            <a>Home</a>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <a>Events</a>
+            <NavLink to="/events">Events</NavLink>
           </li>
         </ul>
       </nav>
