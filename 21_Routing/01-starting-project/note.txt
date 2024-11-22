@@ -150,3 +150,27 @@ Dynamic routes according to different products
     4. const params = useParams();
     5. params.productId => <p>{params.productId}</p> to print out (productId is the placeholder I set)
     6. we can interact with backend through this approach 
+
+
+
+
+Absolute and Relative paths 
+
+    1. path starts with / after domain we call absoulte path 
+    2. if root path is /root, the children path /products won't work (has to be /root/products)
+    3. path without / is called relative path 
+    4. relative paths are appended after root path 
+        products => /root/products but /products is not working 
+    5. /products/id => localhost:3000/products/id ====> added after domain directly (absolute)
+    6. products/id => localhost:3000/root/products/id ====> appended (relative)
+    7. <Link to={product.id}>{product.title}</Link> ====> localhost:3000/root/products/id
+
+    relative prop 
+
+    1. { path: "products/:productId", element: <ProductDetail /> } note that this is directly added as child of /root 
+    2. <Link to="..">Back</Link> ===> to go 1 upward of path
+    3. http://localhost:3000/root/products/p1 => back => http://localhost:3000/root
+    4. because path: "products/:productId" => one upward is just /root
+    5. <Link to=".." relative="route"> will work as before (route is default)
+    6. <Link to=".." relative="path"> will remove only one segment => back => http://localhost:3000/root/products
+    7. <Link to="/something" relative="path"> => relative won't work because it uses absolute path in "to"
