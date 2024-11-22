@@ -128,9 +128,11 @@ NavLink
 
 
 useNavigate
+
     navigate to somewhere imperatively (Programmatically)
     we should use it to navigate something for example when timer is expired 
     this example is just to show how the useNavigate works
+
     1. import { useNavigate } from "react-router-dom";
     2. const navigate = useNavigate();
     3. inside of handler navigate("/products");
@@ -146,5 +148,5 @@ Dynamic routes according to different products
     2. with this at the moment /products/something will always navigate to <ProductDetail />
     3. import { useParams } from "react-router-dom";   > ProductDetail
     4. const params = useParams();
-    5. params.productId => <p>{params.productId}</p> to print out 
+    5. params.productId => <p>{params.productId}</p> to print out (productId is the placeholder I set)
     6. we can interact with backend through this approach 
