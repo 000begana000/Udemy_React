@@ -174,3 +174,11 @@ Absolute and Relative paths
     5. <Link to=".." relative="route"> will work as before (route is default)
     6. <Link to=".." relative="path"> will remove only one segment => back => http://localhost:3000/root/products
     7. <Link to="/something" relative="path"> => relative won't work because it uses absolute path in "to"
+
+
+
+
+Index route 
+
+    { index: true, element: <HomePage /> }
+    index: true => default route that should be displayed when parent route is active 
