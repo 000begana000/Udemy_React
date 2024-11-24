@@ -28,3 +28,5 @@ How to use data from loader
     2. react dom will get promise data for us so we don't need to worry about whether loader was async function or not.
     3. const data = useLoaderData();
     4. return <EventsList events={data} />;
+    5. we can use useLoaderData to the children routes directly
+    6. we cannot use it higher routes 
