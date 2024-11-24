@@ -30,3 +30,26 @@ How to use data from loader
     4. return <EventsList events={data} />;
     5. we can use useLoaderData to the children routes directly
     6. we cannot use it higher routes 
+
+
+
+
+Where should be loader() code to be stored? ====> in the component where you wanna get the response (fetch)
+
+    1. function name is up to me but write the fetching code in Events element 
+        export async function loader() {
+            const response = await fetch("http://localhost:8080/events");
+
+            if (!response.ok) {
+                // we will deal with incorrect response later
+            } else {
+                const resData = await response.json();
+                return resData.events;
+            }
+        }
+    2. import EventsPage, { loader as eventsLoader } from "./components/Events";  ===> App
+    3. {
+            index: true,
+            element: <EventsPage />,
+            loader: eventsLoader,  <<======
+          },
