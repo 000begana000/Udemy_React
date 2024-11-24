@@ -1,0 +1,20 @@
+loader()
+
+    1. an extra property in router and it wants a function as a value
+    2. and that function will be executed by react router when we are about to visit that route(path).
+    3. it execute loader() first then component.
+    4. {
+            index: true,
+            element: <EventsPage />,
+            loader: async () => {
+              const response = await fetch("http://localhost:8080/events");
+
+              if (!response.ok) {
+                // we will deal with incorrect response later
+              } else {
+                const resData = await response.json();
+                return resData.events;   <<======
+              }
+            },
+          },
+    5. react router will get the any returned values and be able to use this data at the component (in this case, EventPage)

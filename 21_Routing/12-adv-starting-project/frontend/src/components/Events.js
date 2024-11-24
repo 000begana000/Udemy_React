@@ -1,23 +1,31 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-const EVENTS = [
-  { title: "event1", id: "e1" },
-  { title: "event2", id: "e2" },
-  { title: "event3", id: "e3" },
-  { title: "event4", id: "e4" },
-];
+import EventsList from "../components/EventsList";
 
-export default function EventsPage() {
+function EventsPage() {
+  const [isLoading, setIsLoading] = useState(false); // loading state
+  const [fetchedEvents, setFetchedEvents] = useState(); // data (events)
+  const [error, setError] = useState(); // error
+
+  // this request is sended only when we reach to the Events Page, not earlier.
+  useEffect(() => {
+    async function fetchEvents() {
+      setIsLoading(true);
+
+      setIsLoading(false);
+    }
+
+    fetchEvents();
+  }, []);
   return (
     <>
-      <h1>Events Page</h1>
-      <ul>
-        {EVENTS.map((e) => (
-          <li key={e.id}>
-            <Link to={e.id}>{e.title}</Link>
-          </li>
-        ))}
-      </ul>
+      <div style={{ textAlign: "center" }}>
+        {isLoading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+      </div>
+      {!isLoading && fetchedEvents && <EventsList events={fetchedEvents} />}
     </>
   );
 }
+
+export default EventsPage;
