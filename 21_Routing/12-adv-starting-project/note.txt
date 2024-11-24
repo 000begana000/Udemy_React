@@ -18,3 +18,13 @@ loader()
             },
           },
     5. react router will get the any returned values and be able to use this data at the component (in this case, EventPage)
+
+
+
+
+How to use data from loader
+
+    1. import { useLoaderData } from "react-router-dom";
+    2. react dom will get promise data for us so we don't need to worry about whether loader was async function or not.
+    3. const data = useLoaderData();
+    4. return <EventsList events={data} />;
