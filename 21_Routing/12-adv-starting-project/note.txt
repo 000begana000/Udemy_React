@@ -53,3 +53,12 @@ Where should be loader() code to be stored? ====> in the component where you wan
             element: <EventsPage />,
             loader: eventsLoader,  <<======
           },
+
+
+
+
+When does loader execute?
+
+    1. react route will wait for the data fetching first by default and render the component 
+    2. we don't need to worry about if there is data or not because it will be rendered when there is data only
+    3. we don't need to render a loading state on the Events page
