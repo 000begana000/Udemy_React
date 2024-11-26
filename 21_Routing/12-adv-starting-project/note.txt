@@ -5,7 +5,7 @@ loader()
     3. it execute loader() first then component.
     4. {
             index: true,
-            element: <EventsPage />,
+            element: <EventsPage />, <=====
             loader: async () => {
               const response = await fetch("http://localhost:8080/events");
 
@@ -59,6 +59,19 @@ Where should be loader() code to be stored? ====> in the component where you wan
 
 When does loader execute?
 
-    1. react route will wait for the data fetching first by default and render the component 
+    1. react route will wait for the 1) data fetching first by default and render the 2) component 
     2. we don't need to worry about if there is data or not because it will be rendered when there is data only
     3. we don't need to render a loading state on the Events page
+
+
+
+
+Current route transition state to User :
+  wheather it is initiated, waiting for data, or if we are done.
+
+    1. RootLayout
+    2. import { useNavigation } from "react-router-dom";
+    3. const navigation = useNavigation();
+    4. navigation.state ===> has 3 properties in string. idle, loading, submitting
+    5. {navigation.state === "loading" && <p>Loading...</p>}
+    6. we can see the message already when the transition has started already.
