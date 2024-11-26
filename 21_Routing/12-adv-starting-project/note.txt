@@ -93,3 +93,13 @@ Returning response in loader()
       // return resData.events;
       // const res = new Response("any data", { status: 201 });
       return response;        <=== without all the code above we can simply return response like this 
+
+
+
+
+Which kind of code goes into loader() ?
+
+    1. Remember, loader() is not server side code but it's executed in the browser.
+    2. means we can use any broswer API in the loader() function.
+    3. we can access to the localStorage, cookies and any JS codes.
+    4. we cannot use hooks (like useState) because hooks work only in react components
