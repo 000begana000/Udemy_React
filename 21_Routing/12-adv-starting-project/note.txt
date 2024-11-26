@@ -103,3 +103,28 @@ Which kind of code goes into loader() ?
     2. means we can use any broswer API in the loader() function.
     3. we can access to the localStorage, cookies and any JS codes.
     4. we cannot use hooks (like useState) because hooks work only in react components
+
+
+
+
+Error handling with custom Errors 
+    
+    <alternative>
+    1. if (!response.ok) {
+          return { isError: true, message: "Could not fetch events." }; 
+       } 
+    2. if (data.isError) {
+          return <p>{data.message}</p>;
+      }
+    
+    <in real>
+    3. if (!response.ok) {
+        throw { message: "Could not fetch events." };
+      }
+    4. when an error thrown in a loader, react router renders the closet errorElement in router definition.
+    5. that errorElement will be rendered as a fall-back for 404 error 
+    6. but it also rendered when there is error with any route related code, including loader().
+    7. element: <RootLayout />,
+       errorElement: <ErrorPage />,
+    8. ErrorPage will be displayed by any kind of error from any routes.
+    9. remember, the "closest" errorElement will be rendered!
