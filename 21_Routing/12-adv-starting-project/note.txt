@@ -75,3 +75,21 @@ Current route transition state to User :
     4. navigation.state ===> has 3 properties in string. idle, loading, submitting
     5. {navigation.state === "loading" && <p>Loading...</p>}
     6. we can see the message already when the transition has started already.
+
+
+
+
+Returning response in loader()
+
+    1. we can return any kind of data in loader, for example number, text whatevver we want.
+    2. we can also reatun new Response() function that built-in from the browser, which is a modern browser feature.
+    3. we can build our own new Response() function.
+    4. but the loader() is not executed on a server, but all happening in the browser. (it's still a client-side code.)
+    5. return new Response('any data', {status: 201});     we can return any data and set the status 
+    6. 'any data' will become the data we return through useLoaderData hook
+            ====> But why do we need to use it?
+    7. we can return response directly without checking if it's ok or not 
+    8 // const resData = await response.json();
+      // return resData.events;
+      // const res = new Response("any data", { status: 201 });
+      return response;        <=== without all the code above we can simply return response like this 
