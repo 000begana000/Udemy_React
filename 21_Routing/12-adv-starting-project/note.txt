@@ -109,7 +109,6 @@ Which kind of code goes into loader() ?
 
 Error handling with custom Errors 
     
-    <alternative>
     1. if (!response.ok) {
           return { isError: true, message: "Could not fetch events." }; 
        } 
@@ -117,7 +116,7 @@ Error handling with custom Errors
           return <p>{data.message}</p>;
       }
     
-    <in real>
+    <alternative>
     3. if (!response.ok) {
         throw { message: "Could not fetch events." };
       }
@@ -128,3 +127,30 @@ Error handling with custom Errors
        errorElement: <ErrorPage />,
     8. ErrorPage will be displayed by any kind of error from any routes.
     9. remember, the "closest" errorElement will be rendered!
+
+
+
+
+Extracting error data & throwing Response
+
+    1. import { useRouteError } from "react-router-dom";  ====> we can use this hook in the errorElement
+    2. if (!response.ok) {
+          throw new Response(JSON.stringify({ message: "Could not fetch events." }), {
+            status: 500,
+          });
+        }
+    3. we need to use JSON.stringify to include data in new Response.
+    4. const error = useRouteError(); ====> will depend on thrown Response or any kind of data.
+    5. for example error.status will be 500
+        500 : he server encountered an unexpected condition that prevented it from fulfilling the request
+    6. we want to use new Response because it allows us to add extra status property 
+    7. if (error.status === 500) {
+          message = JSON.parse(error.data).message;  
+                  ====> error.data allows us to reach the data that thrown from Response()
+        }
+    8. if (error.status === 404) {     ====> default error status from react router
+          title = "Not Found!";
+          message = "Could not found resourse or page.";
+        }
+
+    Summary : we throw new Response to handle any kind of errors 
