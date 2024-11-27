@@ -154,3 +154,23 @@ Extracting error data & throwing Response
         }
 
     Summary : we throw new Response to handle any kind of errors 
+
+
+
+
+Dynamic routes & loaders 
+
+    1. We want to render a EventList in EventDetail page
+    2. so we set another loader in EventDetail page
+    3. but we cannot use hook (useParams) in the loader function
+    4. export async function loader({request, params}) {
+          fetch("http://localhost:8080/events");
+        }
+    5. fortunately loader includes 2 parameters {request, params}
+    6. const id = params.eventId;    ====> same is useParams()
+      fetch(`http://localhost:8080/events/${id}`);
+    7. write rest of code (return response)
+    8. DON'T FORGET TO SET THE LOADER IN ROUTER DEFINITION!!!
+    9. import { useLoaderData } from "react-router-dom"; (EventDetail)
+    10. const data = useLoaderData();
+    11. return <EventItem event={data.event} />;
