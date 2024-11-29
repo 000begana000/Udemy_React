@@ -81,8 +81,8 @@ Current route transition state to User :
 
 Returning response in loader()
 
-    1. we can return any kind of data in loader, for example number, text whatevver we want.
-    2. we can also reatun new Response() function that built-in from the browser, which is a modern browser feature.
+    1. we can return any kind of data in loader, for example number, text whatever we want.
+    2. we can also retrun new Response() function that built-in from the browser, which is a modern browser feature.
     3. we can build our own new Response() function.
     4. but the loader() is not executed on a server, but all happening in the browser. (it's still a client-side code.)
     5. return new Response('any data', {status: 201});     we can return any data and set the status 
@@ -99,10 +99,10 @@ Returning response in loader()
 
 Which kind of code goes into loader() ?
 
-    1. Remember, loader() is not server side code but it's executed in the browser.
+    1. Remember, loader() is not server side code and it's executed in the browser.
     2. means we can use any broswer API in the loader() function.
     3. we can access to the localStorage, cookies and any JS codes.
-    4. we cannot use hooks (like useState) because hooks work only in react components
+    4. but we cannot use hooks (like useState) because hooks work only in react components
 
 
 
@@ -160,7 +160,7 @@ Extracting error data & throwing Response
 
 Dynamic routes & loaders 
 
-    1. We want to render a EventList in EventDetail page
+    1. We want to render a EventDetail in EventList page
     2. so we set another loader in EventDetail page
     3. but we cannot use hook (useParams) in the loader function
     4. export async function loader({request, params}) {
@@ -168,9 +168,38 @@ Dynamic routes & loaders
         }
     5. fortunately loader includes 2 parameters {request, params}
     6. const id = params.eventId;    ====> same is useParams()
-      fetch(`http://localhost:8080/events/${id}`);
+        fetch(`http://localhost:8080/events/${id}`);
     7. write rest of code (return response)
     8. DON'T FORGET TO SET THE LOADER IN ROUTER DEFINITION!!!
     9. import { useLoaderData } from "react-router-dom"; (EventDetail)
     10. const data = useLoaderData();
     11. return <EventItem event={data.event} />;
+
+
+
+
+Accessing data from other routes
+    How to get access to the higher level loader
+
+    1. we want to use the same data for EventDetail to EditEvent to pre-fill the form 
+    2. create another nested data so they can share loader together
+      {
+            path: ":eventId",
+            loader: eventDetailLoader,
+            children: [
+              {
+                index: true,
+                element: <EventDetailPage />,
+              },
+              { path: "edit", element: <EditEventPage /> },
+            ],
+      },
+    3. now EditEvent can access to the data through useLoaderData()
+    4. but we will face error because useLoaderData() will searches the closest loader data and highest route definition of loader. means from here => { path: "edit", element: <EditEventPage /> }
+    5. to fix it, we need to add 
+        path: ":eventId",
+        id: "event-detail",  <=== this
+        loader: eventDetailLoader,
+    6. import { useRouteLoaderData } from "react-router-dom"; in EventDetailPage
+    7. const data = useRouteLoaderData('event-detail');   ===> 'event-detail' is the id 
+    8. use the same hook in EditEventPage
