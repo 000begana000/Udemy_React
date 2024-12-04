@@ -160,7 +160,7 @@ Extracting error data & throwing Response
 
 Dynamic routes & loaders 
 
-    1. We want to render a EventDetail in EventList page
+    1. We want to render a EventList on EventDetail page
     2. so we set another loader in EventDetail page
     3. but we cannot use hook (useParams) in the loader function
     4. export async function loader({request, params}) {
@@ -203,3 +203,33 @@ Accessing data from other routes
     6. import { useRouteLoaderData } from "react-router-dom"; in EventDetailPage
     7. const data = useRouteLoaderData('event-detail');   ===> 'event-detail' is the id 
     8. use the same hook in EditEventPage
+
+
+
+
+Working with action() functions 
+
+    1. keep in mind, action code is still client side code.
+    2. to make it sure check if your form inputs have name attribute.
+    3. import { Form } from "react-router-dom";  (EventForm)
+    4. change form to <Form>
+    5. this Form tag will promise that the giving data to action 
+        => contain every data submitted as part of Form
+    6. <Form method="post"> 
+        this method will not send the data to the backend but to "action" and it will includes all the data.
+    7. export async function action({ request, params })
+    8. const data = await request.formData();
+    9. data.get('title') <=== get data of name tag of title 
+    10. const eventData = { title: data.get("title"), ... }
+        create an object to grab all the data at once 
+    11. const response = await fetch("http://localhost:8080/events", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(eventData),
+        });
+    12. set if(!response.ok) statement (status: 500)
+    13. import NewEventPage, {action as newEventAction} from "./pages/NewEvent";  (App)
+    14. { path: "new", element: <NewEventPage />, action: newEventAction },
+    15. Now we can submit new event but the page won't navigate to events page automatically
+    16. import { redirect } from "react-router-dom";    (NewEvent)
+    17. return redirect('/events')     <=== at the end of action function, return this.
