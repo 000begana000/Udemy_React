@@ -233,3 +233,48 @@ Working with action() functions
     15. Now we can submit new event but the page won't navigate to events page automatically
     16. import { redirect } from "react-router-dom";    (NewEvent)
     17. return redirect('/events')     <=== at the end of action function, return this.
+  
+
+
+
+Submitting data programatically (for delete)
+
+    1. using <Form /> component is standard way and we should follow.
+    2. <Form action="/any_other_path" />  ===> can trigger action at the different route.
+    3. EventItem is rendered on EventDetail page and it has delete button
+    4. so add action on the EventDetail
+      export async function action({ params }) {
+        const id = params.eventId;
+
+        const response = await fetch(`http://localhost:8080/events/${id}`);
+
+        if (!response.ok) {
+          throw new Response(
+            JSON.stringify({
+              message: "Could not delete event.",
+            }),
+            { status: 500 }
+          );
+        }
+
+        return redirect("/events");
+      }
+    5. add it to the route
+      {
+        index: true,
+        element: <EventDetailPage />,
+        action: deleteEventAction,  <===  (action as deleteEventAction)
+      }
+    6. import { useSubmit } from "react-router-dom";  (EventItem)
+    7. const submit = useSubmit();
+    8. function startDeleteHandler() {
+          const proceed = window.confirm("are you sure?"); // boolean
+
+          if (proceed) {
+            // trigger action to delete this event
+            submit(null, { method: "delete" });    <=== method here is important 
+          }
+        }
+    9. const response = await fetch(`http://localhost:8080/events/${id}`, {
+          method: request.method,  <==== add this method to the action 
+        });
