@@ -64,16 +64,34 @@
 // const editedHobbies = hobbies.map((item) => ({ text: item }));
 // console.log(editedHobbies);
 
-const [firstName, lastName] = ["Begana", "Choi"];
-// const firstName = userNameData[0];
-// const lastName = userNameData[1];
+// const [firstName, lastName] = ["Begana", "Choi"];
+// // const firstName = userNameData[0];
+// // const lastName = userNameData[1];
 
-console.log(firstName, lastName);
+// console.log(firstName, lastName);
 
-// have to use the same property name to distructure this
-const { name: userName, age } = {
+// // have to use the same property name to distructure this
+// const { name: userName, age } = {
+//   name: "Begana",
+//   age: 34,
+// };
+
+// console.log(userName, age);
+
+const hobbies = ["Sports", "Cooking"];
+const user = {
   name: "Begana",
-  age: 34,
+  age: 35,
 };
 
-console.log(userName, age);
+const newHobbies = ["Reading"];
+
+const mergedHobbies = [...hobbies, ...newHobbies];
+console.log(mergedHobbies);
+
+const extendedUser = {
+  isAdmin: true,
+  ...user,
+};
+
+console.log(extendedUser);
