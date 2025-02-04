@@ -78,20 +78,26 @@
 
 // console.log(userName, age);
 
+// const hobbies = ["Sports", "Cooking"];
+// const user = {
+//   name: "Begana",
+//   age: 35,
+// };
+
+// const newHobbies = ["Reading"];
+
+// const mergedHobbies = [...hobbies, ...newHobbies];
+// console.log(mergedHobbies);
+
+// const extendedUser = {
+//   isAdmin: true,
+//   ...user,
+// };
+
+// console.log(extendedUser);
+
 const hobbies = ["Sports", "Cooking"];
-const user = {
-  name: "Begana",
-  age: 35,
-};
 
-const newHobbies = ["Reading"];
-
-const mergedHobbies = [...hobbies, ...newHobbies];
-console.log(mergedHobbies);
-
-const extendedUser = {
-  isAdmin: true,
-  ...user,
-};
-
-console.log(extendedUser);
+for (const hobby of hobbies) {
+  console.log(hobby);
+}
