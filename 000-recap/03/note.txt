@@ -1,0 +1,16 @@
+// what does do React to JSX code?
+
+React translates JSX (JavaScript XML) into regular JavaScript that browsers can understand. JSX looks like HTML inside JavaScript, making it easier to write and read UI components.
+
+How React Handles JSX:
+
+1. JSX is written in your code
+const element = <h1>Hello, World!</h1>;
+
+2. React converts it to JavaScript using Babel
+const element = React.createElement("h1", null, "Hello, World!");
+
+3. The browser renders it as HTML
+<h1>Hello, World!</h1>
+
+JSX is just a shortcut for writing React elements in a more readable way! 
