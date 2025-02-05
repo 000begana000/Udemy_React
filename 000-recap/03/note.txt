@@ -14,3 +14,28 @@ const element = React.createElement("h1", null, "Hello, World!");
 <h1>Hello, World!</h1>
 
 JSX is just a shortcut for writing React elements in a more readable way! 
+
+
+// Image => Import!!
+
+import reactImg from "./assets/react-core-concepts.png";
+<img src={reactImg} alt="Stylized atom" />
+
+
+// Props Accept All Value Types
+
+function CoreConcept(props) {
+  return (
+    <li>
+      <img src={props.image} alt={props.title} />
+      <h3>{props.title}</h3>
+      <p>{props.description}</p>
+    </li>
+  );
+}
+
+<CoreConcept
+    title="Components"
+    description="The core UI building block."
+    image={componentsImg}
+/>
