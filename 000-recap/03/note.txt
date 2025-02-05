@@ -39,3 +39,24 @@ function CoreConcept(props) {
     description="The core UI building block."
     image={componentsImg}
 />
+
+
+// Alternative ver. = Short ver.
+
+function CoreConcept({ title, description, image }) {
+  return (
+    <li>
+      <img src={image} alt={title} />
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </li>
+  );
+}
+
+// they are the same
+<CoreConcept
+    title={CORE_CONCEPTS[0].title}
+    description={CORE_CONCEPTS[0].description}
+    image={CORE_CONCEPTS[0].image}
+/>
+<CoreConcept {...CORE_CONCEPTS[1]} />
