@@ -73,3 +73,15 @@ export default function TabButton({ children }) {
 }
 
 <TabButton>Components</TabButton>
+
+
+// Passing custom argument to event function
+
+<TabButton onSelect={() => handleSelect("jsx")}>JSX</TabButton>
+
+function handleSelect(selectedButton) {
+    // selectedButton => 'components', 'jsx' ...
+    console.log(selectedButton);
+}
+
+// React execute the component function only once.
