@@ -87,3 +87,5 @@ function handleSelect(selectedButton) {
 // React execute the component function only once.
 
 // import { useState } from "react"; => start with 'use' are React Hooks
+
+const [selectedTopic, setSelectedTopic] = useState("Initial value");
