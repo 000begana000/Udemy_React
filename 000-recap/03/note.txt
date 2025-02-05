@@ -60,3 +60,16 @@ function CoreConcept({ title, description, image }) {
     image={CORE_CONCEPTS[0].image}
 />
 <CoreConcept {...CORE_CONCEPTS[1]} />
+
+
+// children prop
+
+export default function TabButton({ children }) {
+  return (
+    <li>
+      <button>{children}</button>
+    </li>
+  );
+}
+
+<TabButton>Components</TabButton>
