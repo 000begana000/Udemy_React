@@ -87,7 +87,7 @@ const [selectedTopic, setSelectedTopic] = useState("Initial value");
 {!selectedTopic && <p>Please select a topic.</p>}
 
 
-// Output content conditionally
+// Rendering content conditionally
 let tabContent = <p>Please select a topic.</p>;
 
 if (selectedTopic) {
