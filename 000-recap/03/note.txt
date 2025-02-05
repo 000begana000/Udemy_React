@@ -17,13 +17,11 @@ JSX is just a shortcut for writing React elements in a more readable way!
 
 
 // Image => Import!!
-
 import reactImg from "./assets/react-core-concepts.png";
 <img src={reactImg} alt="Stylized atom" />
 
 
 // Props Accept All Value Types
-
 function CoreConcept(props) {
   return (
     <li>
@@ -33,7 +31,6 @@ function CoreConcept(props) {
     </li>
   );
 }
-
 <CoreConcept
     title="Components"
     description="The core UI building block."
@@ -42,7 +39,6 @@ function CoreConcept(props) {
 
 
 // Alternative ver. = Short ver.
-
 function CoreConcept({ title, description, image }) {
   return (
     <li>
@@ -63,7 +59,6 @@ function CoreConcept({ title, description, image }) {
 
 
 // children prop
-
 export default function TabButton({ children }) {
   return (
     <li>
@@ -71,12 +66,10 @@ export default function TabButton({ children }) {
     </li>
   );
 }
-
 <TabButton>Components</TabButton>
 
 
 // Passing custom argument to event function
-
 <TabButton onSelect={() => handleSelect("jsx")}>JSX</TabButton>
 
 function handleSelect(selectedButton) {
@@ -87,5 +80,28 @@ function handleSelect(selectedButton) {
 // React execute the component function only once.
 
 // import { useState } from "react"; => start with 'use' are React Hooks
-
 const [selectedTopic, setSelectedTopic] = useState("Initial value");
+
+
+// && operator will return when the condition is truthy
+{!selectedTopic && <p>Please select a topic.</p>}
+
+
+// Output content conditionally
+let tabContent = <p>Please select a topic.</p>;
+
+if (selectedTopic) {
+    tabContent = (
+        <div id="tab-content">
+        <h3>{EXAMPLES[selectedTopic].title}</h3>
+        <p>{EXAMPLES[selectedTopic].description}</p>
+        <pre>
+            <code>{EXAMPLES[selectedTopic].code}</code>
+        </pre>{" "}
+        </div>
+    );
+}
+
+</menu>
+    {tabContent}
+</section>
