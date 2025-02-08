@@ -9,10 +9,10 @@ export default function Section({ title, children, ...props }) {
     </section>
   );
 }
+(Examples.jsx)
 <Section title="Examples" id="examples">
 
 export default function TabButton({ children, isSelected, ...props }) {
-  console.log("TABBUTTON COMPONENT EXECUTING");
   return (
     <li>
       <button className={isSelected ? "active" : undefined} {...props}>
@@ -21,7 +21,52 @@ export default function TabButton({ children, isSelected, ...props }) {
     </li>
   );
 }
+(Examples.jsx)
 <TabButton
     isSelected={selectedTopic === "jsx"}
     onClick={() => handleClick("jsx")}
 >
+
+
+// reuseable Tabs component
+export default function Tabs({ children, buttons }) {
+  return (
+    <>
+      <menu>{buttons}</menu>
+      {children}
+    </>
+  );
+}
+(Examples.jsx)
+<Tabs
+    buttons={
+        <>
+        <TabButton
+            isSelected={selectedTopic === "components"}
+            onClick={() => handleClick("components")}
+        >
+            Components
+        </TabButton>
+        <TabButton
+            isSelected={selectedTopic === "jsx"}
+            onClick={() => handleClick("jsx")}
+        >
+            JSX
+        </TabButton>
+        <TabButton
+            isSelected={selectedTopic === "props"}
+            onClick={() => handleClick("props")}
+        >
+            Props
+        </TabButton>
+        <TabButton
+            isSelected={selectedTopic === "state"}
+            onClick={() => handleClick("state")}
+        >
+            State
+        </TabButton>
+        </>
+    }
+>
+{tabContent}
+</Tabs>
