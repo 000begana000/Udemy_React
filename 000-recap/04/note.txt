@@ -70,3 +70,24 @@ export default function Tabs({ children, buttons }) {
 >
 {tabContent}
 </Tabs>
+
+
+// Setting component tabs dynamically
+export default function Tabs({ children, buttons, ButtonsContainer }) {
+  // const ButtonsContainer = buttonsContainer;
+  return (
+    <>
+      <ButtonsContainer>{buttons}</ButtonsContainer>
+      {children}
+    </>
+  );
+}
+(Examples.jsx)
+ <Tabs
+        ButtonsContainer="menu" (built-in)  ===> ButtonsContainer={Section} (custom)
+        buttons={
+          <>
+            <TabButton
+              isSelected={selectedTopic === "components"}
+              onClick={() => handleClick("components")}
+            >
