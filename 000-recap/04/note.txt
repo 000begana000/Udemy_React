@@ -84,10 +84,13 @@ export default function Tabs({ children, buttons, ButtonsContainer }) {
 }
 (Examples.jsx)
  <Tabs
-        ButtonsContainer="menu" (built-in)  ===> ButtonsContainer={Section} (custom)
-        buttons={
-          <>
-            <TabButton
-              isSelected={selectedTopic === "components"}
-              onClick={() => handleClick("components")}
-            >
+  ButtonsContainer="menu" (built-in)  ===> ButtonsContainer={Section} (custom)
+  buttons={
+    <>
+      <TabButton
+        isSelected={selectedTopic === "components"}
+        onClick={() => handleClick("components")}
+      >
+
+// Default tab value
+export default function Tabs({ children, buttons, ButtonsContainer = "menu" }) 
