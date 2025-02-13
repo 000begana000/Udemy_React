@@ -1,5 +1,4 @@
 // <span> Tag
-
 <li>
     <span className="player-name">Player 1</span>
     <span className="player-symbol">X</span>
@@ -10,8 +9,10 @@ The <span> tag is much like the <div> element, but <div> is a block-level elemen
 
 // Every custom Component has isolated instances.
 
-// prefix input field
+
+// prefix input field 
 <input type="text" required value={name} />    ====> use value prop 
+
 
 // update state based on old state must pass a function for guaranteed latest state value
 (X) setIsEditing(!isEditing);
@@ -23,8 +24,21 @@ State update are not performed instantly but at some point in the future
 In most cases, those state updates of course still are executed almost instantly.
 
 
+// how to change input & save (2 way binding)
+const [playerName, setPlayerName] = useState(initialName);
+
+<input type="text" required value={playerName} onChange={handleChange} />
+** updated value is reflexted with state
+
+function handleChange(event) {
+    setPlayerName(event.target.value);
+}
+
+
 
 1. Header (Title of game)
+
 2. 2 Players Slots - Player Components in <ol>
 3. useState for Player name & Edit button (editing mode)
-4. prefix input field with value property 
+4. prefix input field & let it edit with value property 
+5. create another state for player name & onChange (2 way binding)
