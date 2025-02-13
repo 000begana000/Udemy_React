@@ -10,4 +10,4 @@ The <span> tag is much like the <div> element, but <div> is a block-level elemen
 
 
 1. Header (Title of game)
-2. Player names
+2. 2 Players Slots - Player Components in <ol>
