@@ -8,6 +8,8 @@
 The <span> tag is an inline container used to mark up a part of a text, or a part of a document.
 The <span> tag is much like the <div> element, but <div> is a block-level element and <span> is an inline element.
 
+// Every custom Component has isolated instances.
+
 
 1. Header (Title of game)
 2. 2 Players Slots - Player Components in <ol>
