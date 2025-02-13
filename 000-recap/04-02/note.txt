@@ -42,3 +42,4 @@ function handleChange(event) {
 3. useState for Player name & Edit button (editing mode)
 4. prefix input field & let it edit with value property 
 5. create another state for player name & onChange (2 way binding)
+6. create GameBoard component (3x3)
