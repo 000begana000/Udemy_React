@@ -154,4 +154,4 @@ export default function GameBoard({ onSelectSquare, turns }) {
 
 11. for the Log component we need to share the info of array from Gameboard component ===> create new state (gameTurns)
 12. add setGameTurns function to handleSelectSquare
-13. 
+13. update Log <li> with gameTurns state
