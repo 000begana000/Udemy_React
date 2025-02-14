@@ -55,10 +55,62 @@ function handleSelectSquare(rowIndex, colIndex) {
 use initialGameBoard just for initial value and now we are using state which to provide latest update to UI 
 
 
+// lifting state up
+State value that's needed by both child 1 & 2, Ancester passes the state value via props to the child components 
+
+(App.jsx)
+const [activePlayer, setActivePlayer] = useState("X");
+
+  function handleSelectSquare() {
+    setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
+  }
+
+  return (
+    <main>
+      <div id="game-container">
+        <ol id="players" className="highlight-player">
+          <Player
+            initialName="Player 1"
+            symbol="X"
+            // to highlight active player
+            isActive={activePlayer === "X"}
+          />
+          <Player
+            initialName="Player 2"
+            symbol="O"
+            isActive={activePlayer === "O"}
+          />
+        </ol>
+        {/* squar get selected here */}
+        <GameBoard
+          onSelectSquare={handleSelectSquare}
+          activePlayerSymbol={activePlayer}
+        />
+
+(Player.jsx)
+export default function Player({ initialName, symbol, isActive })
+<li className={isActive ? "active" : undefined}>
+
+(GameBoard.jsx)
+export default function GameBoard({ onSelectSquare, activePlayerSymbol })
+function handleSelectSquare(rowIndex, colIndex) {
+    setGameBoard((prevGameBoard) => {
+      const updatedBoard = [
+        ...prevGameBoard.map((innerArray) => [...innerArray]),
+      ];
+      updatedBoard[rowIndex][colIndex] = activePlayerSymbol;  <=====
+      return updatedBoard;
+    });
+
+    // this function is executed when square is selected and update activePlayer state
+    onSelectSquare();
+  }
+
 1. Header (Title of game)
 
 2. 2 Players Slots - Player Components in <ol>
 3. useState for Player name & Edit button (editing mode)
 4. prefix input field & let it edit with value property 
-5. create another state for player name & onChange (2 way binding)
+5. create another state for player name (onChange, 2 way binding)
 6. create GameBoard component (3x3)
+7. create state for gameboard & update with onClick (!be careful with updating object)
