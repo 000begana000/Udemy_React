@@ -106,6 +106,39 @@ function handleSelectSquare(rowIndex, colIndex) {
     onSelectSquare();
   }
 
+
+//updating & handling 2 state updates in one function
+function handleSelectSquare(rowIndex, colIndex) {
+    setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
+    setGameTurns((prevTurns) => {
+      let currentPlayer = "X";
+
+      if (prevTurns.length > 0 && prevTurns[0].player === "X") {
+        currentPlayer = "O";
+      }
+
+      const updatedTurns = [
+        { square: { row: rowIndex, col: colIndex }, player: currentPlayer },
+        ...prevTurns,
+      ];
+
+      return updatedTurns;
+    });
+  }
+
+
+//deriving state from props => use less state 
+export default function GameBoard({ onSelectSquare, turns }) {
+  let gameBoard = initialGameBoard;
+
+  for (const turn of turns) {
+    const { square, player } = turn;
+    const { row, col } = square;
+
+    gameBoard[row][col] = player;
+  }
+
+
 1. Header (Title of game)
 
 2. 2 Players Slots - Player Components in <ol>
@@ -114,3 +147,11 @@ function handleSelectSquare(rowIndex, colIndex) {
 5. create another state for player name (onChange, 2 way binding)
 6. create GameBoard component (3x3)
 7. create state for gameboard & update with onClick (!be careful with updating object)
+
+8. create activePlayer state in App.jsx (to share state to 2 children components)
+9. Player => isActive by current players symbol 
+10. GameBoard => share the function to update state & receive activePlayerSymbol to update symbol on the board
+
+11. for the Log component we need to share the info of array from Gameboard component ===> create new state (gameTurns)
+12. add setGameTurns function to handleSelectSquare
+13. 
