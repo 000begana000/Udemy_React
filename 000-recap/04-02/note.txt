@@ -34,6 +34,8 @@ function handleChange(event) {
     setPlayerName(event.target.value);
 }
 
+// Update Object(Array)-State Immutably
+Otherwise new value is updated immediately to the old value in memory
 
 
 1. Header (Title of game)
