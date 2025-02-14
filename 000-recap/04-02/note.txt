@@ -37,6 +37,23 @@ function handleChange(event) {
 // Update Object(Array)-State Immutably
 Otherwise new value is updated immediately to the old value in memory
 
+const [gameBoard, setGameBoard] = useState(initialGameBoard);
+
+function handleSelectSquare(rowIndex, colIndex) {
+    setGameBoard((prevGameBoard) => {
+        const updatedBoard = [
+            ...prevGameBoard.map((innerArray) => [...innerArray]),
+            ];
+        updatedBoard[rowIndex][colIndex] = "X";
+        return updatedBoard;
+    });
+}
+(another tip)
+ <ol id="game-board">
+      {gameBoard.map((row, rowIndex) => (
+
+use initialGameBoard just for initial value and now we are using state which to provide latest update to UI 
+
 
 1. Header (Title of game)
 
