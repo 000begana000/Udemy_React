@@ -210,6 +210,17 @@ function App() {
   {/* squar get selected here */}
   <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
 
+
+// implement draw situation too
+(App.jsx)
+ const hasDraw = gameTurns.length === 9 && !winner; (after winning if statement)
+ {(winner || hasDraw) && <GameOver winner={winner} />}
+(GameOver.jsx)
+{winner && <p>{winner} won!</p>}
+{!winner && <p>It's a draw!</p>}
+
+
+
 1. Header (Title of game)
 
 2. 2 Players Slots - Player Components in <ol>
@@ -232,3 +243,8 @@ function App() {
 16. import winning combinations
 17. grab out of initialGameBoard out side of Gameboard.jsx to out side of App.jsx
 18. grab out of gameBoard var. and loop of turns to compare winning combinations
+19. create a winner var. and if statement to check the winner 
+20. print out winner message (temporary)
+
+21. create GameOver component to show the game result
+22. in App.jsx & GameOver.jsx implement situation for draw
