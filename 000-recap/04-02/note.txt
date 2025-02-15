@@ -220,6 +220,16 @@ function App() {
 {!winner && <p>It's a draw!</p>}
 
 
+// how to Rematch 
+Reset the array to the empty array 
+function handleRestart() {
+    setGameTurns([]);
+  }
+<GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
+
+it doesn't work first time because we didn't make copy of original array so..
+let gameBoard = [...initialGameBoard.map((array) => [...array])];
+Please make sure that handle arrays Immutably
 
 1. Header (Title of game)
 
