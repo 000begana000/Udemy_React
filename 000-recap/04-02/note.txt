@@ -138,6 +138,32 @@ export default function GameBoard({ onSelectSquare, turns }) {
     gameBoard[row][col] = player;
   }
 
+//deriving state from gameTurns state (get rid of activePlayer state)
+We already have an info of player in gameTurns state - then why do we need extra state?
+(outside of App.jsx function)
+function deriveActivePlayer(gameTurns) {
+  let currentPlayer = "X";
+
+  if (gameTurns.length > 0 && gameTurns[0].player === "X") {
+    currentPlayer = "O";
+  }
+
+  return currentPlayer;
+}
+
+function App() {
+  const [gameTurns, setGameTurns] = useState([]);
+  // (X) const [activePlayer, setActivePlayer] = useState("X");
+
+  // deriving state: instaed of activePlayer state, we use infos from gameTurns state (every turn makes object with player prop)
+  const activePlayer = deriveActivePlayer(gameTurns);
+
+  function handleSelectSquare(rowIndex, colIndex) {
+    // (X) setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
+
+    setGameTurns((prevTurns) => {
+      // update gameTurns based on prevTurns
+      const currentPlayer = deriveActivePlayer(prevTurns);
 
 1. Header (Title of game)
 
