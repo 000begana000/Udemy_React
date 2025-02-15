@@ -1,11 +1,21 @@
 import { useState } from "react";
 
-export default function Player({ initialName, symbol, isActive }) {
+export default function Player({
+  initialName,
+  symbol,
+  isActive,
+  onChangeName,
+}) {
   const [playerName, setPlayerName] = useState(initialName);
   const [isEditing, setIsEditing] = useState(false);
 
   function handleEditClick() {
     setIsEditing((editing) => !editing);
+
+    // trigger when it's on editing mode, when user clicks 'save' button
+    if (isEditing) {
+      onChangeName(symbol, playerName); // playerName state
+    }
   }
 
   function handleChange(event) {

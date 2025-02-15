@@ -231,6 +231,42 @@ it doesn't work first time because we didn't make copy of original array so..
 let gameBoard = [...initialGameBoard.map((array) => [...array])];
 Please make sure that handle arrays Immutably
 
+
+// don't lift the state up instead create a new state
+Because states in Player.jsx will be updated every key stroke and if we lift up that state to the App.jsx, the App.jsx will be updated every key stroke. and that's what we don't want => create new state in App.jsx
+(App.jsx)
+const [players, setPlayers] = useState({ X: "Player 1", O: "Player 2" });
+
+function handlePlayerNameChange(symbol, newName) {
+    setPlayers((prevPlayers) => {
+      return {
+        ...prevPlayers,
+        [symbol]: newName,
+      };
+    });
+  }
+
+(in if statement)
+winner = players[firstSquarSymbol];
+
+ <Player
+    initialName="Player 1"
+    symbol="X"  <====
+    isActive={activePlayer === "X"}
+    onChangeName={handlePlayerNameChange} <====
+  />
+
+(Player.jsx)
+function handleEditClick() {
+    setIsEditing((editing) => !editing);
+
+    // trigger when it's on editing mode, when user clicks 'save' button
+    if (isEditing) {
+      onChangeName(symbol, playerName); // playerName state
+    }
+}
+
+
 1. Header (Title of game)
 
 2. 2 Players Slots - Player Components in <ol>
@@ -258,3 +294,6 @@ Please make sure that handle arrays Immutably
 
 21. create GameOver component to show the game result
 22. in App.jsx & GameOver.jsx implement situation for draw
+33. implement Rematch function (watch out of gameBoard var. if we treat the array Immutably)
+
+34. create new players state in App.jsx to keep the player names to print the winner's name
