@@ -165,6 +165,13 @@ function App() {
       // update gameTurns based on prevTurns
       const currentPlayer = deriveActivePlayer(prevTurns);
 
+
+// disable button conditionally
+<button
+  onClick={() => onSelectSquare(rowIndex, colIndex)}
+  disabled={playerSymbol !== null}
+>
+
 1. Header (Title of game)
 
 2. 2 Players Slots - Player Components in <ol>
@@ -181,3 +188,6 @@ function App() {
 11. for the Log component we need to share the info of array from Gameboard component ===> create new state (gameTurns)
 12. add setGameTurns function to handleSelectSquare
 13. update Log <li> with gameTurns state
+
+14. get rid of activePlayer state and derive state from gameTurns state
+15. disable button conditionally 
