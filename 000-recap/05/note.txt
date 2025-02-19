@@ -1,0 +1,23 @@
+// to handle state as object
+const [userInput, setUserInput] = useState({
+    initialInvestment: 10000,
+    annualInvestment: 1200,
+    expectedReturn: 6,
+    duration: 10,
+  });
+
+  function handleChange(inputIdentifier, newValue) {
+    setUserInput((prevUserInput) => {
+      return {
+        ...prevUserInput,
+        [inputIdentifier]: newValue,
+      };
+    });
+  }
+
+  // event.target.value ===> always string
+  even input field type="number"
+
+  // convert string to number (super simple)
+  add + in front of the string value
+  [inputIdentifier]: +newValue,
