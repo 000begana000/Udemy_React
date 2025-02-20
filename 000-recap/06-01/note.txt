@@ -1,0 +1,10 @@
+// default setting & splitting css
+
+src/index.css <== file address
+(src/main.jsx)
+import './index.css';
+
+src/components/Header.jsx
+src/components/Header.css <== cut and paste all the Header stylings
+(Header.jsx)
+import "./Header.css";
