@@ -45,3 +45,19 @@ with style prop, apply object in dynamic express {}
 - You need to know css
 - You need to style every element individually
 - No separation between css & jsx code 
+
+
+// Inline styling - conditional (with Ternary operator)
+style={{ backgroundColor: emailNotValid ? "#fed2d2" : "#d1d5db" }}
+
+
+// Dynamic value with css className
+
+className={passwordNotValid ? "invalid" : undefined} ===> undefined is very important
+
+we want to set 'label' class everytime but 'invalid' conditionally
+<label className="label invalid">Email</label>
+
+with a {} and ``, separated by an empty space between ${}
+<label className={`label ${emailNotValid ? "invalid" : ""}`}>
+
