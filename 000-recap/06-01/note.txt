@@ -1,4 +1,4 @@
-// default setting & splitting css
+// Default setting & splitting css
 
 src/index.css <== file address
 (src/main.jsx)
@@ -8,3 +8,40 @@ src/components/Header.jsx
 src/components/Header.css <== cut and paste all the Header stylings
 (Header.jsx)
 import "./Header.css";
+
+
+// Styling react with vanila css - pros & cons
+
+<Pros> 
+- Css code is decoupled from JSX code
+- You write css code as you (maybe) know ad (maybe) love it
+- Css code can be written by anohter developer who needs only a minial amount of acess to your JSX code
+
+<Cons>
+Css code is not scoped to components => Css rules may clash across components (e.g., same css class name used in different components for different purposes)
+
+
+// Vanila css are not scoped to specific component but applied globally to the page
+
+
+// Inline styling 
+with style prop, apply object in dynamic express {}
+ <p
+    style={{
+        color: "red",
+        textAlign: "left",
+    }}
+>
+
+
+// Inline styling pros & cons 
+
+<Pros>
+- Quick & easy to add to JSX
+- Styles only affect the element to which you add them
+- Dynamic (conditional) styling is simple
+
+<Cons>
+- You need to know css
+- You need to style every element individually
+- No separation between css & jsx code 
