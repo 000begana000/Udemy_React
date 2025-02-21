@@ -167,3 +167,21 @@ const StyledHeader = styled.header`
   }
   }
 `;
+
+
+// Key of this lecture 
+
+ Simply as a React developer, you should always look for opportunity wehre you can either outsource reusable components that have a certain styling applied to them which you might need in different parts of the application, and/or components that maybe have certain combinations of JSX elements that you might need to reuse in ohter parts of the application.
+
+
+ // Pros & cons of styled components 
+
+ <pros>
+ - Quick & easy to add 
+ - You continue "thinking in React" => configurable style functions
+ - Styles are scoped to components => No css rule clashes 
+
+ <cons>
+ - You need to know css
+ - No clear separation of React & Css code 
+ - You end up with many relatively small 'wrapper' components 
