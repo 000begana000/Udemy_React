@@ -114,3 +114,24 @@ const ControlContainer = styled.div`
 
 // Styled components migrate all the props (we can simply use it as a normal tag)
 <Label className={`label ${emailNotValid ? "invalid" : ""}`}>
+
+
+// Dynamic & conditional styling with styled components 
+
+<Label invalid={emailNotValid}>Email</Label> ==> emailNotValid is boolean
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: ${({ invalid }) => (invalid ? "#f87171" : "#6b7280")}; <==
+`;
+
+
+// Avoid built-in props crash => use $ in front of prop name 
+
+<Label $invalid={emailNotValid}>Email</Label>
+color: ${({ $invalid }) => ($invalid ? "#f87171" : "#6b7280")};
