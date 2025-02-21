@@ -110,3 +110,7 @@ const ControlContainer = styled.div`
   gap: 0.5rem;
   margin-bottom: 1.5rem;
 `;
+
+
+// Styled components migrate all the props (we can simply use it as a normal tag)
+<Label className={`label ${emailNotValid ? "invalid" : ""}`}>
