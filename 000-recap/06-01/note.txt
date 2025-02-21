@@ -87,3 +87,26 @@ or
 <cons>
 - You need to know css 
 - You may end up with many relatively small css files in your project
+
+
+// Styled components 
+
+(install)
+npm install styled-components
+(import in "component" ex in Header.jsx)
+import { styled } from 'styled-components';
+
+- it will create a div as a separate component but a component that will have any styles you want to applied to it.
+styled.div
+
+- it's called "Tagged templates" => regular javascript feature
+it's like a function which receives this template literal as an input.
+styled.div``;
+
+- this overall code will give you will be a React component that automatically returns a div that has these styles applied to it. and that will be a div that internally also uses the special children prop so it can be wrapped around other content.
+const ControlContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+`;
