@@ -10,7 +10,7 @@ src/components/Header.css <== cut and paste all the Header stylings
 import "./Header.css";
 
 
-// Styling react with vanila css - pros & cons
+// Styling react with vanilla css - pros & cons
 
 <Pros> 
 - Css code is decoupled from JSX code
@@ -61,3 +61,29 @@ we want to set 'label' class everytime but 'invalid' conditionally
 with a {} and ``, separated by an empty space between ${}
 <label className={`label ${emailNotValid ? "invalid" : ""}`}>
 
+
+// CSS Modules - Vanilla css with file-specific scoping
+
+Css modules is an approach, a solution that in the end needs to be implemented and enforced by the build process that's used in your React project.
+it't not a default browser or Javascript feature. instead css modules is an approach where the build tool will transform your css class names and only those two class names that are guaranteed to be unique per file.
+
+Header.module.css <== file name
+(Header.jsx)
+import classes from "./Header.module.css"; <== import as an object
+<p className={classes.paragraph}>
+or
+<p className={ 1 === 1 ? classes.paragraph : undefined }>
+<p className={`${classes.paragraph}`}>
+
+
+// Css modules - pros & cons
+
+<pros>
+- Css code is decoupled from JSX code
+- You write css code as you (maybe) know ad (maybe) love it
+- Css code can be written by anohter developer who needs only a minial amount of acess to your JSX code
+- Css classes are scoped to the component (files) which import them => no css class name clasehs 
+
+<cons>
+- You need to know css 
+- You may end up with many relatively small css files in your project
