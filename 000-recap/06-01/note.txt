@@ -185,3 +185,8 @@ const StyledHeader = styled.header`
  - You need to know css
  - No clear separation of React & Css code 
  - You end up with many relatively small 'wrapper' components 
+
+
+ // Tailwind  - follow docs to install tailwind 
+ 
+className="flex flex-col items-center mt-8 mb-16"
