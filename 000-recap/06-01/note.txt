@@ -188,5 +188,14 @@ const StyledHeader = styled.header`
 
 
  // Tailwind  - follow docs to install tailwind 
- 
+
 className="flex flex-col items-center mt-8 mb-16"
+
+
+// With Tailwind, we can still add custom style like vanilla css in css file & customize style too 
+
+@theme {
+  --font-title: "Pacifico", "cursive";
+}
+
+<h1 className="font-title">
