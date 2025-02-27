@@ -222,3 +222,17 @@ if (invalid) {
 
 <label className={labelClasses}>{label}</label>
 <input className={inputClasses} {...props} />
+
+
+// Tailwind pros & cons 
+
+<pros>
+- You don't need to know (a lot about) Css
+- Rapid development
+- No style clashes between components since you don't define any css rules
+- Highly configurable & extensible
+
+<cons>
+- Relatively long classNmae values 
+- Any style changes require editing JSX
+- You end up with many relatively small "wrapper" components OR lets of copy & pasting
