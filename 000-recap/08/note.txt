@@ -1,0 +1,29 @@
+// Ref
+
+import { useRef } from 'react';
+
+const playerName = useRef();
+
+<input ref={playerName} type='text' />
+
+- ref is always a javascript object has current property only.
+through current property, I can access all the methods and properties that are exposed by the native input HTML element.
+function handleClick() {
+    playerName.current.value;
+}
+
+- update state
+function handleClick() {
+    setEnteredPlayerName(playerName.current.value);
+}
+
+<h2>
+    {enteredPlayerName ? enteredPlayerName : 'unknown entity'}
+</h2>
+
+=> {enteredPlayerName ?? 'unknown entity'}
+JS expression: if left is truthy, output it, else the right 
+
+=> {enteredPlayerName || 'unknown entity'}
+if left falthy, output it, else right 
+(if left is truthy, else output right)
