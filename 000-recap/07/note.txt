@@ -1,0 +1,10 @@
+// Strict mode
+it will execute every component function twice instead of once and it does that during development mode only.
+when every components gets executed twice, it helps you catch errors.
+we can use it anywhere, not only for App component but only a single component is possible
+
+import
+import { StrictMode } from 'react';
+
+wrap the App component
+ReactDOM.createRoot(document.getElementById('root')).render(<StrictMode><App /></StrictMode>);
