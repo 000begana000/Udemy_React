@@ -27,3 +27,8 @@ JS expression: if left is truthy, output it, else the right
 => {enteredPlayerName || 'unknown entity'}
 if left falthy, output it, else right 
 (if left is truthy, else output right)
+
+
+// Clear input after submit
+(playerName is ref)
+playerName.current.value = '';
