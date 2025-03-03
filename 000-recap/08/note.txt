@@ -30,5 +30,18 @@ if left falthy, output it, else right
 
 
 // Clear input after submit
+
 (playerName is ref)
 playerName.current.value = '';
+
+
+// Ref can't be used instead of state because it doesn't re-render the component
+
+<state>
+- causes component re-evaluation (re-execution) when changed
+- should be used for values that are directly reflected in the UI
+- should not be used for "behind the scenes" values that have no direct UI impact
+
+<refs>
+- do not cause component re-evaluation when changed
+- can be used to gain direct DOM element access (-> great for reading values or accessing certain browser APIs)
