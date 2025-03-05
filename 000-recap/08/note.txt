@@ -45,3 +45,30 @@ playerName.current.value = '';
 <refs>
 - do not cause component re-evaluation when changed
 - can be used to gain direct DOM element access (-> great for reading values or accessing certain browser APIs)
+
+
+// We can use Refs to manage any kind of value, not only to HTML elements
+
+
+// Another Ref usage
+- when we need a value that doesn't re-evaluate when the UI updated
+- when the value is not related to UI but behind the scene
+
+export default function TimerChallenge({ title, targetTime }) {
+  const timer = useRef();
+
+  const [timerStarted, setTimerStarted] = useState(false);
+  const [timerExpired, setTimerExpired] = useState(false);
+
+  function handleStart() {
+    setTimerStarted(true);
+
+    timer.current = setTimeout(() => {
+      setTimerExpired(true);
+    }, targetTime * 1000);
+  }
+
+  function handleStop() {
+    clearTimeout(timer.current);
+    setTimerStarted(false);
+  }
