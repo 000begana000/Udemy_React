@@ -72,3 +72,16 @@ export default function TimerChallenge({ title, targetTime }) {
     clearTimeout(timer.current);
     setTimerStarted(false);
   }
+
+
+// Create Modal with <dialog>
+- if you add a form with the method set to dialog inside of a dialog, a button that submitts the form will close the dialog without any extra JS or anything like that required.
+
+- dialog tag default is invisible and we need to make it visible with "open" tag.
+
+<dialog className="result-modal" open>
+    <h2>you {result}</h2>
+    <form method="dialog">
+        <button>Close</button>
+    </form>
+</dialog>
