@@ -85,3 +85,46 @@ export default function TimerChallenge({ title, targetTime }) {
         <button>Close</button>
     </form>
 </dialog>
+
+
+// useImperativeHandle
+- useImperativeHandle lets you customize or restrict by exposing only specific methods or properties, rather than the whole object. It's particularly useful when you need to provide a controlled interface, such as custom method.
+
+(TimerChallenge.jsx)
+const timer = useRef();
+
+function handleStart() {
+  setTimerStarted(true);
+
+  timer.current = setTimeout(() => {
+    // player will lose when this function is called because player couldn't stop the timer before it's expired
+    setTimerExpired(true);
+
+    // execute showModal() when timer is expired
+    // open() method is from ResultModal of useImperativeHandle
+    dialog.current.open();
+  }, targetTime * 1000);
+}
+
+<ResultModal ref={dialog} targetTime={targetTime} result="lost" />
+<button onClick={timerStarted ? handleStop : handleStart}>
+  {timerStarted ? "Stop" : "Start"} Challenge
+</button>
+
+(ResultModal.jsx)
+import { useImperativeHandle, useRef } from "react";
+
+// refers the dialog ref from TimerChallenge.jsx 
+const dialog = useRef();
+
+// let your function be executed outside of this component
+useImperativeHandle(ref, () => {
+  return {
+    open() {
+      dialog.current.showModal();
+    },
+  };
+});
+
+return (
+  <dialog ref={dialog} className="result-modal">

@@ -19,7 +19,8 @@ export default function TimerChallenge({ title, targetTime }) {
       setTimerExpired(true);
 
       // execute showModal() when timer is expired
-      dialog.current.showModal();
+      // open() method is from ResultModal of useImperativeHandle
+      dialog.current.open();
     }, targetTime * 1000);
   }
 
