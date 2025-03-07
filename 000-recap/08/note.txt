@@ -146,3 +146,7 @@ if (timeRemaining <= 0) {
   clearInterval(timer.current);
   dialog.current.open();
 }
+
+
+// Format number until 2 decimal
+const formattedRemainingTime = (remainingTime / 1000).toFixed(2);
