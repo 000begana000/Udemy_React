@@ -1,4 +1,10 @@
-export default function ResultModal({ ref, result, targetTime }) {
+// forwardRef is optional - new React allows to connect ref property directly as like other normal property
+import { forwardRef } from "react";
+
+const ResultModal = forwardRef(function ResultModal(
+  { result, targetTime },
+  ref
+) {
   return (
     <dialog ref={ref} className="result-modal">
       <h2>you {result}</h2>
@@ -13,4 +19,6 @@ export default function ResultModal({ ref, result, targetTime }) {
       </form>
     </dialog>
   );
-}
+});
+
+export default ResultModal;
