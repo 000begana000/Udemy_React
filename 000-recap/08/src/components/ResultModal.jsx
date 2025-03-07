@@ -1,5 +1,6 @@
 // forwardRef is optional - new React allows to connect ref property directly as like other normal property
 import { forwardRef, useImperativeHandle, useRef } from "react";
+import { createPortal } from "react-dom";
 
 const ResultModal = forwardRef(function ResultModal(
   { targetTime, remainingTime, onReset },
@@ -21,7 +22,7 @@ const ResultModal = forwardRef(function ResultModal(
     };
   });
 
-  return (
+  return createPortal(
     <dialog ref={dialog} className="result-modal">
       {userLost && <p>You lost</p>}
       {!userLost && <h2>Your Score: {score}</h2>}
@@ -32,10 +33,11 @@ const ResultModal = forwardRef(function ResultModal(
         You stopped the timer with{" "}
         <strong>{formattedRemainingTime} seconds left.</strong>
       </p>
-      <form method="dialog" onSubmit={onReset}>
+      <form method="dialog" onClose={onReset}>
         <button>Close</button>
       </form>
-    </dialog>
+    </dialog>,
+    document.getElementById("modal")
   );
 });
 
