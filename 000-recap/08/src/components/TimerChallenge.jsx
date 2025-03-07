@@ -17,10 +17,13 @@ export default function TimerChallenge({ title, targetTime }) {
 
   // stops setInterval when the time is expired
   if (timeRemaining <= 0) {
-    clearInterval(timer.current);
     // it won't cause infinite loop because it's in if statement
-    setTimeRemaining(targetTime * 1000);
+    clearInterval(timer.current);
     dialog.current.open();
+  }
+
+  function handleReset() {
+    setTimeRemaining(targetTime * 1000);
   }
 
   function handleStart() {
@@ -34,6 +37,8 @@ export default function TimerChallenge({ title, targetTime }) {
       // // execute showModal() when timer is expired
       // // open() method is from ResultModal of useImperativeHandle
       // dialog.current.open();
+
+      // calculate how much time remained
       setTimeRemaining(prevTimeRemaining => prevTimeRemaining - 10);
     }, 10);
   }
@@ -47,7 +52,12 @@ export default function TimerChallenge({ title, targetTime }) {
 
   return (
     <>
-      <ResultModal ref={dialog} targetTime={targetTime} result="lost" />
+      <ResultModal
+        ref={dialog}
+        targetTime={targetTime}
+        remainingTime={timeRemaining}
+        onReset={handleReset}
+      />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
