@@ -8,24 +8,40 @@ export default function TimerChallenge({ title, targetTime }) {
   const dialog = useRef(); // forward this ref to the ResultModal
   const timer = useRef();
 
-  const [timerStarted, setTimerStarted] = useState(false);
-  const [timerExpired, setTimerExpired] = useState(false);
+  // const [timerStarted, setTimerStarted] = useState(false);
+  // const [timerExpired, setTimerExpired] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(targetTime * 1000);
 
-  function handleStart() {
-    setTimerStarted(true);
+  // expire condition & after start condition
+  const timerIsActive = timeRemaining > 0 && timeRemaining < targetTime * 1000;
 
-    timer.current = setTimeout(() => {
-      // player will lose when this function is called because player couldn't stop the timer before it's expired
-      setTimerExpired(true);
-
-      // execute showModal() when timer is expired
-      // open() method is from ResultModal of useImperativeHandle
-      dialog.current.open();
-    }, targetTime * 1000);
+  // stops setInterval when the time is expired
+  if (timeRemaining <= 0) {
+    clearInterval(timer.current);
+    // it won't cause infinite loop because it's in if statement
+    setTimeRemaining(targetTime * 1000);
+    dialog.current.open();
   }
 
+  function handleStart() {
+    // setTimerStarted(true);
+
+    // setInterval execute the code every X millisecond (this case 10millisec.)
+    timer.current = setInterval(() => {
+      // // player will lose when this function is called because player couldn't stop the timer before it's expired
+      // setTimerExpired(true);
+
+      // // execute showModal() when timer is expired
+      // // open() method is from ResultModal of useImperativeHandle
+      // dialog.current.open();
+      setTimeRemaining(prevTimeRemaining => prevTimeRemaining - 10);
+    }, 10);
+  }
+
+  // stops setInterval menually
   function handleStop() {
-    clearTimeout(timer.current);
+    clearInterval(timer.current);
+    dialog.current.open();
     setTimerStarted(false);
   }
 
@@ -38,12 +54,12 @@ export default function TimerChallenge({ title, targetTime }) {
           {targetTime} second{targetTime > 1 ? "s" : ""}
         </p>
         <p>
-          <button onClick={timerStarted ? handleStop : handleStart}>
-            {timerStarted ? "Stop" : "Start"} Challenge
+          <button onClick={timerIsActive ? handleStop : handleStart}>
+            {timerIsActive ? "Stop" : "Start"} Challenge
           </button>
         </p>
-        <p className={timerStarted ? "active" : undefined}>
-          {timerStarted ? "Time is running..." : "Timer inactive"}
+        <p className={timerIsActive ? "active" : undefined}>
+          {timerIsActive ? "Time is running..." : "Timer inactive"}
         </p>
       </section>
     </>

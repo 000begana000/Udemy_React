@@ -128,3 +128,13 @@ useImperativeHandle(ref, () => {
 
 return (
   <dialog ref={dialog} className="result-modal">
+
+
+// setInterval
+- setInterval execute the code every X millisecond (this case 10millisec.)
+timer.current = setInterval(() => {
+  setTimeRemaining(prevTimeRemaining => prevTimeRemaining - 10);
+}, 10);
+
+- clear
+clearInterval(timer.current);
