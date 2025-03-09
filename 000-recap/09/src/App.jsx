@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import ProjectsSidebar from "./components/ProjectsSidebar.jsx";
 import NewProject from "./components/NewProject.jsx";
-import NoProject from "./components/NoProjectSelected.jsx";
 import NoProjectSelected from "./components/NoProjectSelected.jsx";
 
 // button clicks = New Project
@@ -10,17 +9,31 @@ import NoProjectSelected from "./components/NoProjectSelected.jsx";
 // fetch values and create new project
 
 function App() {
-  const [isCreatingNewProject, setIsCreatingNewProject] = useState(false);
+  const [projectState, setProjectState] = useState({
+    selectedProjectId: undefined,
+    projects: [],
+  });
 
-  function handleAddNewProject() {
-    setIsCreatingNewProject(prevState => !prevState);
+  function handleStartAddProject() {
+    setProjectState(prevState => {
+      return {
+        ...prevState,
+        selectedProjectId: null,
+      };
+    });
+  }
+
+  let content;
+  if (projectState.selectedProjectId === null) {
+    content = <NewProject />;
+  } else if (projectState.selectedProjectId === undefined) {
+    content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectsSidebar onAddNewProject={handleAddNewProject} />
-      {isCreatingNewProject && <NewProject />}
-      {!isCreatingNewProject && <NoProjectSelected />}
+      <ProjectsSidebar onStartAddProject={handleStartAddProject} />
+      {content}
     </main>
   );
 }
