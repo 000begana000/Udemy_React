@@ -1,0 +1,9 @@
+// Managing State
+- try to create state as less as possible
+- don't forget to use object to store data efficiently 
+- find correct title 
+
+// Ref
+- ref.current <=== must remember
+- when the version of React is under 19, we need to use forwardRef
+- when we forward a ref, don't forget to connect ref={ref}
