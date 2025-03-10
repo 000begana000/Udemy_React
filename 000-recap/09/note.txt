@@ -1,7 +1,8 @@
 // Managing State
 - try to create state as less as possible
 - don't forget to use object to store data efficiently 
-- find correct title 
+- find correct title
+- use console.log right after, outside of handle function
 
 // Ref
 - ref.current <=== must remember

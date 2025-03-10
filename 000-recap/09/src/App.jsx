@@ -6,8 +6,11 @@ import NoProjectSelected from "./components/NoProjectSelected.jsx";
 
 // button clicks = New Project (done)
 // default = fallback area (done)
-// fetch values and create new project
-// onClick, Ref {title, description, dueDate}
+// fetch values and create new project (done)
+// see the project on the sidebar (done)
+// cancel button
+// warning modal for invalid (empty) value
+// display project detail
 
 function App() {
   const [projectState, setProjectState] = useState({
@@ -32,11 +35,21 @@ function App() {
       };
       return {
         ...prevState,
+        selectedProjectId: undefined, // temporary
         projects: [...prevState.projects, newProject],
       };
     });
   }
-  console.log(projectState);
+  // console.log(projectState);
+
+  function handleSelectProject(id) {
+    setProjectState(prevState => {
+      return {
+        ...prevState,
+        selectedProjectId: id,
+      };
+    });
+  }
 
   let content;
 
@@ -44,11 +57,17 @@ function App() {
     content = <NewProject onAdd={handleAddNewProject} />;
   } else if (projectState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
+  } else {
+    content = projectState.selectedProjectId;
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectsSidebar onStartAddProject={handleStartAddProject} />
+      <ProjectsSidebar
+        onStartAddProject={handleStartAddProject}
+        onSelectProject={handleSelectProject}
+        projects={projectState.projects}
+      />
       {content}
     </main>
   );
