@@ -1,6 +1,10 @@
 // Managing State
 - try to create state as less as possible
 - don't forget to use object to store data efficiently 
+const [projectState, setProjectState] = useState({
+    selectedProjectId: undefined,   ===> to null dynamically
+    projects: [],
+});
 - find correct title
 - use console.log right after, outside of handle function
 
@@ -33,3 +37,22 @@ function handleSave() {
       dueDate: enteredDate,
     });
   }
+
+
+// Format the dueDate
+
+const formattedDate = new Date(project.dueDate).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+});
+
+
+// Select a project by its id 
+
+const selectedProject = projectState.projects.find(
+    project => project.id === projectState.selectedProjectId
+);
+
+- we set a component as default value so we don't need to add more if else statement 
+  let content = <SelectedProject project={selectedProject} />;

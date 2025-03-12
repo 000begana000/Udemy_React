@@ -3,12 +3,13 @@ import { useState } from "react";
 import ProjectsSidebar from "./components/ProjectsSidebar.jsx";
 import NewProject from "./components/NewProject.jsx";
 import NoProjectSelected from "./components/NoProjectSelected.jsx";
+import SelectedProject from "./components/SelectedProject.jsx";
 
 // button clicks = New Project (done)
 // default = fallback area (done)
 // fetch values and create new project (done)
 // see the project on the sidebar (done)
-// cancel button
+// cancel button (done)
 // warning modal for invalid (empty) value
 // display project detail
 
@@ -60,7 +61,11 @@ function App() {
     });
   }
 
-  let content;
+  const selectedProject = projectState.projects.find(
+    project => project.id === projectState.selectedProjectId
+  );
+
+  let content = <SelectedProject project={selectedProject} />;
 
   if (projectState.selectedProjectId === null) {
     content = (
@@ -71,8 +76,6 @@ function App() {
     );
   } else if (projectState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
-  } else {
-    content = projectState.selectedProjectId;
   }
 
   return (
