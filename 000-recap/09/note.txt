@@ -56,3 +56,19 @@ const selectedProject = projectState.projects.find(
 
 - we set a component as default value so we don't need to add more if else statement 
   let content = <SelectedProject project={selectedProject} />;
+
+
+// Delete a project 
+
+- filter function creates a new array and only truthy items will stay
+function handleDeleteProject() {
+    setProjectState(prevState => {
+        return {
+        ...prevState,
+        selectedProjectId: undefined, ===> to be default page 
+        projects: prevState.projects.filter(
+            project => project.id !== prevState.selectedProjectId
+        ),
+        };
+    });
+}
