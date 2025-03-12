@@ -8,3 +8,28 @@
 - ref.current <=== must remember
 - when the version of React is under 19, we need to use forwardRef
 - when we forward a ref, don't forget to connect ref={ref}
+
+// Save function with validation
+
+function handleSave() {
+    const enteredTitle = title.current.value;
+    const enteredDescription = description.current.value;
+    const enteredDate = dueDate.current.value;
+
+    // validation
+    if (
+      enteredTitle.trim() === "" ||
+      enteredDescription.trim() === "" ||
+      enteredDate.trim() === ""
+    ) {
+      // show error modal
+      modal.current.open();
+      return; // prevent create if the value is invalid
+    }
+
+    onAdd({
+      title: enteredTitle,
+      description: enteredDescription,
+      dueDate: enteredDate,
+    });
+  }
