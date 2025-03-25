@@ -1,0 +1,74 @@
+- prop drilling
+- component composition
+- context
+- reducers
+
+// Comonent composition
+(App.jsx)
+<Shop onAddItemToCart={handleAddItemToCart}/>
+
+(Shop.jsx)
+<ul id="products">
+    {DUMMY_PRODUCTS.map(product => (
+        <li key={product.id}>
+        <Product {...product} onAddToCart={onAddItemToCart} />
+        </li>
+    ))}
+</ul>
+
+get rid of one level of prop drilling by wrapping map & Product component
+and using children 
+
+(App.jsx)
+<Shop>
+    {DUMMY_PRODUCTS.map(product => (
+        <li key={product.id}>
+        <Product {...product} onAddToCart={handleAddItemToCart} />
+        </li>
+    ))}
+</Shop>
+
+(Shop.jsx)
+<ul id="products">{children}</ul>
+
+
+// Create Context API
+- create a context value and wrap around all components of my app
+- it's easily connected to the State
+- get rid of prop drilling
+
+1. create src/store folder & shopping-cart-context.jsx
+
+2. (shopping-cart-context.jsx)
+import { createContext } from "react";
+
+// the value produced by createContext will be an object that contains a React Component which we'll need later
+
+// initial value can be anything, just like a state
+export const CartContext = createContext({
+  items: [],
+});
+
+3. (App.jsx) - where wraps all the components we need to use that context
+import { CartContext } from "./store/shopping-cart-context.jsx";
+
+return (
+    <CartContext.Provider>  ====> wrap the components 
+      <Header
+        cart={shoppingCart}
+        onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
+      />
+      <Shop>
+        {DUMMY_PRODUCTS.map(product => (
+          <li key={product.id}>
+            <Product {...product} onAddToCart={handleAddItemToCart} />
+          </li>
+        ))}
+      </Shop>
+    </CartContext.Provider>
+  );
+
+4. if you are using react ver.19 or higher, (without .Provider)
+<CartContext>
+...
+ </CartContext>
