@@ -3,7 +3,7 @@
 - context
 - reducers
 
-// Comonent composition
+//// Comonent composition
 (App.jsx)
 <Shop onAddItemToCart={handleAddItemToCart}/>
 
@@ -32,7 +32,7 @@ and using children
 <ul id="products">{children}</ul>
 
 
-// Create Context API
+//// Create Context API
 - create a context value and wrap around all components of my app
 - it's easily connected to the State
 - get rid of prop drilling
@@ -44,7 +44,8 @@ import { createContext } from "react";
 
 // the value produced by createContext will be an object that contains a React Component which we'll need later
 
-// initial value can be anything, just like a state
+// this initial value is for auto completion 
+(<CartContext.Provider value={{items: []}}>) value =>> initial value
 export const CartContext = createContext({
   items: [],
 });
@@ -53,7 +54,8 @@ export const CartContext = createContext({
 import { CartContext } from "./store/shopping-cart-context.jsx";
 
 return (
-    <CartContext.Provider>  ====> wrap the components 
+    // this initial value can be anything, just like a state (real initial value)
+    <CartContext.Provider value={{items: []}}>  ====> wrap the components 
       <Header
         cart={shoppingCart}
         onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
@@ -72,3 +74,22 @@ return (
 <CartContext>
 ...
  </CartContext>
+
+
+// Consuming Context
+
+1.
+import { useContext } from "react";
+import { CartContext } from "../store/shopping-cart-context.jsx";
+
+or import { use } from "react";
+- use hook can be used in if block or loops (!not useContext)
+- use hook is availble from react v19 or higher
+
+2. (inside of component function)
+const cartCtx = useContext(CartContext);
+or
+const { items } = useContext(CartContext);
+
+3. example : 
+{items.length === 0 && <p>No items in cart!</p>}
