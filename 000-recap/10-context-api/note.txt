@@ -116,3 +116,14 @@ const { addItemToCart } = useContext(CartContext);
 
 4. use function directly without prop drilling
 <button onClick={() => addItemToCart(id)}>Add to Cart</button>
+
+
+// Alternative approach to consume Context - it's not a default approach
+<CartContext.Consumer>
+{(ctxValue) => {
+  return {
+    (// JSX code & approach the consumer value via ctxValue)
+    ctxValue.items.map 
+  }
+}}
+<CartContext.Consumer>
