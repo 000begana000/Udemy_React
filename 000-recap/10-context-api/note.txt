@@ -93,3 +93,26 @@ const { items } = useContext(CartContext);
 
 3. example : 
 {items.length === 0 && <p>No items in cart!</p>}
+
+
+// Connect Context to State
+
+(App.jsx)
+1. create an object using state value & functions 
+const ctxValue = {
+  items: shoppingCart.items,
+  addItemToCart: handleAddItemToCart,
+};
+
+2. consume it as a initial value 
+<CartContext.Provider value={ctxValue}>
+
+(Product.jsx)
+import { CartContext } from "../store/shopping-cart-context.jsx";
+import { useContext } from "react";
+
+3. destructure the value we wanna consume
+const { addItemToCart } = useContext(CartContext);
+
+4. use function directly without prop drilling
+<button onClick={() => addItemToCart(id)}>Add to Cart</button>

@@ -5,4 +5,5 @@ import { createContext } from "react";
 // initial value can be anything, just like a state
 export const CartContext = createContext({
   items: [],
+  addItemToCart: () => {},
 });
