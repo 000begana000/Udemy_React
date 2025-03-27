@@ -119,6 +119,7 @@ const { addItemToCart } = useContext(CartContext);
 
 
 // Alternative approach to consume Context - it's not a default approach
+
 <CartContext.Consumer>
 {(ctxValue) => {
   return {
@@ -127,3 +128,7 @@ const { addItemToCart } = useContext(CartContext);
   }
 }}
 <CartContext.Consumer>
+
+
+// Context function will be re-executed by React when there is change with the Context value so UI will be updated.
+
