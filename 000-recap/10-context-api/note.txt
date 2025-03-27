@@ -132,3 +132,40 @@ const { addItemToCart } = useContext(CartContext);
 
 // Context function will be re-executed by React when there is change with the Context value so UI will be updated.
 
+
+// Outsourcing Context & State into a seperate Provider Component
+
+(shopping-cart-context.jsx)
+
+1. import useState & Dummy data
+import { useState } from "react";
+import { DUMMY_PRODUCTS } from "../dummy-products.jsx";
+
+2. create Context Component function
+3. return Provider function with initial context value
+export default function CartContextProvider({children}) {
+  (....here goes every state & functions related to the state)
+  return {
+    <CartContext.Provider value={cartCtx}>{children}</CartContext.Provider>
+  }
+}
+
+4. import Provider Component
+(App.jsx)
+import CartContextProvider from "./store/shopping-cart-context.jsx";
+
+5. use it as a wrapper in App.jsx (or somewhere)
+function App() {
+  return (
+    <CartContextProvider>
+      <Header />
+      <Shop>
+        {DUMMY_PRODUCTS.map(product => (
+          <li key={product.id}>
+            <Product {...product} />
+          </li>
+        ))}
+      </Shop>
+    </CartContextProvider>
+  );
+}
