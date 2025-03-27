@@ -1,16 +1,28 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useReducer } from "react";
 import { DUMMY_PRODUCTS } from "../dummy-products.js";
 
-// the value produced by createContext will be an object that contains a React Component which we'll need later
-
-// initial value can be anything, just like a state
 export const CartContext = createContext({
   items: [],
   addItemToCart: () => {},
   updateItemQuantity: () => {},
 });
 
+// should be created outside of component function because it shouldn't be re-created & doesn't connected to an actual value of the state
+
+// state here will be guaranteed latest state snapshot
+function shoppingCartReducer(state, action) {
+  return state;
+}
+
 export default function CartContextProvider({ children }) {
+  // const [state, dispatch] = useReducer(actionFunctionPointer, initialValueForState);
+  const [shoppingCartState, shoppingCartDispatch] = useReducer(
+    shoppingCartReducer,
+    {
+      items: [],
+    }
+  );
+
   const [shoppingCart, setShoppingCart] = useState({
     items: [],
   });
@@ -72,7 +84,7 @@ export default function CartContextProvider({ children }) {
   }
 
   const ctxValue = {
-    items: shoppingCart.items,
+    items: shoppingCartState.items,
     addItemToCart: handleAddItemToCart,
     updateItemQuantity: handleUpdateCartItemQuantity,
   };

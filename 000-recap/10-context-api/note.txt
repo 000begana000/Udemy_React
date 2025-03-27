@@ -154,7 +154,7 @@ export default function CartContextProvider({children}) {
 (App.jsx)
 import CartContextProvider from "./store/shopping-cart-context.jsx";
 
-5. use it as a wrapper in App.jsx (or somewhere)
+5. ****use it as a wrapper in App.jsx (or somewhere)
 function App() {
   return (
     <CartContextProvider>
@@ -169,3 +169,35 @@ function App() {
     </CartContextProvider>
   );
 }
+
+
+// useReducer hook
+just like reducer hook, reduce complicate state into simple
+
+1. import { useReducer } from "react";
+
+2. create reducer 
+// const [state, dispatch] = useReducer(actionFunctionPointer, initialValueForState);
+
+const [shoppingCartState, shoppingCartDispatch] = useReducer(
+    shoppingCartReducer,
+    {
+      items: [],
+    }
+  );
+
+
+3. create action function pointer 
+!!! should be created outside of component function because it shouldn't be re-created & doesn't connected to an actual value of the state
+!!! state here will be guaranteed latest state snapshot
+
+function shoppingCartReducer(state, action) {
+  return state;
+}
+
+3. use that state value of the Reducer with Context 
+const ctxValue = {
+    items: shoppingCartState.items, ===> it's not from useState but useReducer
+    addItemToCart: handleAddItemToCart,
+    updateItemQuantity: handleUpdateCartItemQuantity,
+  };
