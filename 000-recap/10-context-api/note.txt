@@ -287,3 +287,5 @@ function handleUpdateCartItemQuantity(productId, amount) {
       },
     });
   }
+
+!! now we can get rid of useState and use useReducer instead
