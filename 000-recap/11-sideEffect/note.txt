@@ -128,3 +128,34 @@ const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
 const storedPlaces = storedIds.map(id =>
 AVAILABLE_PLACES.find(place => place.id === id)
 );
+
+
+// Preparing another use-case for useEffect 
+
+We switch from managing the modal in an imparative way to managing it in a declarative way.
+
+to synchronize some value,
+the open prop in this case here,
+to a DOM API or to a certain behavior.
+
+1.  this will cause error because initially open is false in the app component so that we try to call close on undefined.
+function Modal({ open, children })
+
+if (open) {
+    dialog.current.showModal();
+} else {
+    dialog.current.close();
+}
+
+2.  also dialog ref will not be connected yet because this JSX code hasn't executed yet. So this connection between a ref and dialog element hasn't been established yet and therefore calling close fails because initially, this ref is undefined.
+
+3.  useEffect will be executed right after the component function. And since it executes after the component function and not before it or at the same time, this connection between the ref and the dialog will be established at this point of time.
+
+
+  useEffect(() => {
+    if (open) {
+      dialog.current.showModal();
+    } else {
+      dialog.current.close();
+    }
+  }, []); <== what dependency will it be?
