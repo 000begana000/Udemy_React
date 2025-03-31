@@ -1,0 +1,38 @@
+Dealing with side effects
+- understanding Side Effects & useEffect()
+- Effects & Dependencies
+- When Not to use useEffect()
+
+// What is Side Effects?
+- Side effects are "tasks" that don't impact the current component render cycle
+
+  // navigator => provided by browser
+  navigator.geolocation.getCurrentPosition(position => {
+    // run a callback function once when we get the current location
+    const sortedPlaces = sortPlacesByDistance(
+      AVAILABLE_PLACES,
+      position.coords.latitude,
+      position.coords.longitude
+    );
+  });
+
+  "we need this code to figure out the location but it's not directly related to the task, to the main goal, of this component function. because main goal of each component function is to return renderable JSX code."
+
+
+// A potential problem with the Side Effect : infinite loop
+
+  1. this operation of getting the user's location will take some time. So the first app component render cycle will be finished at the point of time where we have this location.
+  
+  navigator.geolocation.getCurrentPosition(position => {
+    const sortedPlaces = sortPlacesByDistance(
+      AVAILABLE_PLACES,
+      position.coords.latitude,
+      position.coords.longitude
+    );
+
+    2. we start with an empty array and we set this state to these sorted places once we have them.
+
+    3. So once this operation of fetching the user's location finished and since this then triggers a new render cycle, the state will be updated with those sorted places - but it would cause an infinite loop.
+
+    setAvailablePlaces(sortedPlaces);
+  });
