@@ -7,11 +7,21 @@ import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
 import logoImg from "./assets/logo.png";
 import { sortPlacesByDistance } from "./loc.js";
 
+// this code got no callback function or promise or infinite loop so we don't need to use useEffect
+
+// this code can be stored outside of component function because we need to run this when we re-open the app again
+
+// load stred places when we re-load the app
+const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+const storedPlaces = storedIds.map(id =>
+  AVAILABLE_PLACES.find(place => place.id === id)
+);
+
 function App() {
   const modal = useRef();
   const selectedPlace = useRef();
   const [availablePlaces, setAvailablePlaces] = useState([]);
-  const [pickedPlaces, setPickedPlaces] = useState([]);
+  const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(position => {
@@ -43,20 +53,9 @@ function App() {
       return [place, ...prevPickedPlaces];
     });
 
-    /// use useEffect to prevent infinite loop or if you have code that can only run after the component function executed at least once.
-
-    /// the code under is technically side effect because it doesn't update UI directly but it doesn't need to be stored in useEffect hook because we need this code to be executed when we call the handleSelectPlace function
-
-    /// this code is not causing infinite loop as well
-
-    // we don't lose these places when we reload the app. localStorage is coming from the browser
-    // convert is back to array
     const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
 
-    // if there is no new id (index -1 means falshy) then store the new id
     if (storedIds.indexOf(id) === -1) {
-      // localStorage.setItem(identifier, data_in_string_format);
-      // JSON.stringify([id, ...storedIds]) => new id we get & storedIds
       localStorage.setItem(
         "selectedPlaces",
         JSON.stringify([id, ...storedIds])
@@ -69,6 +68,13 @@ function App() {
       prevPickedPlaces.filter(place => place.id !== selectedPlace.current)
     );
     modal.current.close();
+
+    const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+
+    localStorage.setItem(
+      "selectedPlaces",
+      JSON.stringify(storedIds.filter(id => id !== selectedPlace.current))
+    );
   }
 
   return (

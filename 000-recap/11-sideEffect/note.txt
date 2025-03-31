@@ -3,6 +3,8 @@ Dealing with side effects
 - Effects & Dependencies
 - When Not to use useEffect()
 
+
+
 // What is Side Effects?
 - Side effects are "tasks" that don't impact the current component render cycle
 
@@ -17,6 +19,7 @@ Dealing with side effects
   });
 
   "we need this code to figure out the location but it's not directly related to the task, to the main goal, of this component function. because main goal of each component function is to return renderable JSX code."
+
 
 
 // A potential problem with the Side Effect : infinite loop
@@ -37,35 +40,36 @@ Dealing with side effects
     setAvailablePlaces(sortedPlaces);
   });
 
+
   
-  // Using useEffect hook
+// Using useEffect hook
 
-  import { useEffect } from "react";
+import { useEffect } from "react";
 
-  1.  useEffect, unlike useState or useRef does not return a value.
+1.  useEffect, unlike useState or useRef does not return a value.
 
-  2.  first argument is a function that should wrap your side effect code.
-  second argument is an array of dependencies of that effect function.
+2.  first argument is a function that should wrap your side effect code.
+second argument is an array of dependencies of that effect function.
 
-  3.  You will not run into this infinite loop problem. Because the idea behind useEffect is that this function which you pass as a first argument to useEffect will be executed by React "after" every component execution.
+3.  You will not run into this infinite loop problem. Because the idea behind useEffect is that this function which you pass as a first argument to useEffect will be executed by React "after" every component execution.
 
-  4.  this code here will not be executed right away. Instead, it's only after the app component function execution finished. So, "after" this JSX code here has been returned.
+4.  this code here will not be executed right away. Instead, it's only after the app component function execution finished. So, "after" this JSX code here has been returned.
 
-  5.  it will only execute this effect function again if the dependency values changed.
+5.  it will only execute this effect function again if the dependency values changed.
 
-  6.  if there is no dependencies, it only executes it once after this app component function was executed for the first time.
+6.  if there is no dependencies, it only executes it once after this app component function was executed for the first time.
 
-  useEffect(() => {
+useEffect(() => {
     navigator.geolocation.getCurrentPosition(position => {
-      const sortedPlaces = sortPlacesByDistance(
+        const sortedPlaces = sortPlacesByDistance(
         AVAILABLE_PLACES,
         position.coords.latitude,
         position.coords.longitude
-      );
+        );
 
-      setAvailablePlaces(sortedPlaces);
-    });
-  }, []);
+    setAvailablePlaces(sortedPlaces);
+});
+}, []);
 
 
 7. fallbackText will be shown during the time where we don't have any places yet.
@@ -75,6 +79,7 @@ Dealing with side effects
     fallbackText="Sorting places by distance..."
     onSelectPlace={handleSelectPlace}
 />
+
 
 
 // Not all side Effects need useEffect
@@ -108,3 +113,18 @@ function handleSelectPlace(id) {
       );
     }
   }
+
+
+
+// useEffect not needed: another example
+
+1.  this code got no callback function or promise or infinite loop so we don't need to use useEffect
+
+2.  this code can be stored outside of component function because we need to run this when we re-open the app again
+
+// load stred places when we re-load the app
+const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+
+const storedPlaces = storedIds.map(id =>
+AVAILABLE_PLACES.find(place => place.id === id)
+);
