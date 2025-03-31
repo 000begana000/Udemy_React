@@ -75,3 +75,36 @@ Dealing with side effects
     fallbackText="Sorting places by distance..."
     onSelectPlace={handleSelectPlace}
 />
+
+
+// Not all side Effects need useEffect
+
+1.  use useEffect to prevent infinite loop or if you have code that can only run after the component function executed at least once.
+
+2.  the code under is technically side effect because it doesn't update UI directly but it doesn't need to be stored in useEffect hook because we need this code to be executed when we call the handleSelectPlace function
+
+3. this code is not causing infinite loop as well
+
+function handleSelectPlace(id) {
+    setPickedPlaces(prevPickedPlaces => {
+      if (prevPickedPlaces.some(place => place.id === id)) {
+        return prevPickedPlaces;
+      }
+      const place = AVAILABLE_PLACES.find(place => place.id === id);
+      return [place, ...prevPickedPlaces];
+    });
+
+    // we don't lose these places when we reload the app. localStorage is coming from the browser
+    // JSON.parse => convert is back to array
+    const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+
+    // if there is no new id (index -1 means falshy) then store the new id
+    if (storedIds.indexOf(id) === -1) {
+      // localStorage.setItem(identifier, data_in_string_format);
+      // JSON.stringify([id, ...storedIds]) => new id we get & storedIds
+      localStorage.setItem(
+        "selectedPlaces",
+        JSON.stringify([id, ...storedIds])
+      );
+    }
+  }

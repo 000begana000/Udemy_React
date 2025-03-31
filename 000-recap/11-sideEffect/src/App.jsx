@@ -13,19 +13,6 @@ function App() {
   const [availablePlaces, setAvailablePlaces] = useState([]);
   const [pickedPlaces, setPickedPlaces] = useState([]);
 
-  // useEffect, unlike useState or useRef does not return a value.
-
-  // first argument is a function that should wrap your side effect code.
-  // second argument is an array of dependencies of that effect function.
-
-  // You will not run into this infinite loop problem. Because the idea behind useEffect is that this function which you pass as a first argument to useEffect will be executed by React after every component execution.
-
-  // this code here will not be executed right away. Instead, it's only after the app component function execution finished. So, after this JSX code here has been returned.
-
-  // it will only execute this effect function again if the dependency values changed.
-
-  // if there is no dependencies, it only executes it once after this app component function was executed for the first time.
-
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(position => {
       const sortedPlaces = sortPlacesByDistance(
@@ -55,6 +42,26 @@ function App() {
       const place = AVAILABLE_PLACES.find(place => place.id === id);
       return [place, ...prevPickedPlaces];
     });
+
+    /// use useEffect to prevent infinite loop or if you have code that can only run after the component function executed at least once.
+
+    /// the code under is technically side effect because it doesn't update UI directly but it doesn't need to be stored in useEffect hook because we need this code to be executed when we call the handleSelectPlace function
+
+    /// this code is not causing infinite loop as well
+
+    // we don't lose these places when we reload the app. localStorage is coming from the browser
+    // convert is back to array
+    const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+
+    // if there is no new id (index -1 means falshy) then store the new id
+    if (storedIds.indexOf(id) === -1) {
+      // localStorage.setItem(identifier, data_in_string_format);
+      // JSON.stringify([id, ...storedIds]) => new id we get & storedIds
+      localStorage.setItem(
+        "selectedPlaces",
+        JSON.stringify([id, ...storedIds])
+      );
+    }
   }
 
   function handleRemovePlace() {
