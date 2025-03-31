@@ -1,11 +1,11 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import Places from "./components/Places.jsx";
 import { AVAILABLE_PLACES } from "./data.js";
 import Modal from "./components/Modal.jsx";
 import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
 import logoImg from "./assets/logo.png";
-import { sortPlacesByDistance } from "./data.js";
+import { sortPlacesByDistance } from "./loc.js";
 
 function App() {
   const modal = useRef();
@@ -13,19 +13,30 @@ function App() {
   const [availablePlaces, setAvailablePlaces] = useState([]);
   const [pickedPlaces, setPickedPlaces] = useState([]);
 
-  // this operation of getting the user's location will take some time. So the first app component render cycle will be finished at the point of time where we have this location.
-  navigator.geolocation.getCurrentPosition(position => {
-    const sortedPlaces = sortPlacesByDistance(
-      AVAILABLE_PLACES,
-      position.coords.latitude,
-      position.coords.longitude
-    );
+  // useEffect, unlike useState or useRef does not return a value.
 
-    // we start with an empty array and we set this state to these sorted places once we have them.
+  // first argument is a function that should wrap your side effect code.
+  // second argument is an array of dependencies of that effect function.
 
-    // So once this operation of fetching the user's location finished and since this then triggers a new render cycle, the state will be updated with those sorted places - but it would cause an infinite loop.
-    setAvailablePlaces(sortedPlaces);
-  });
+  // You will not run into this infinite loop problem. Because the idea behind useEffect is that this function which you pass as a first argument to useEffect will be executed by React after every component execution.
+
+  // this code here will not be executed right away. Instead, it's only after the app component function execution finished. So, after this JSX code here has been returned.
+
+  // it will only execute this effect function again if the dependency values changed.
+
+  // if there is no dependencies, it only executes it once after this app component function was executed for the first time.
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(position => {
+      const sortedPlaces = sortPlacesByDistance(
+        AVAILABLE_PLACES,
+        position.coords.latitude,
+        position.coords.longitude
+      );
+
+      setAvailablePlaces(sortedPlaces);
+    });
+  }, []);
 
   function handleStartRemovePlace(id) {
     modal.current.open();
@@ -80,6 +91,7 @@ function App() {
         <Places
           title="Available Places"
           places={availablePlaces}
+          fallbackText="Sorting places by distance..." // will be shown during the time where we don't have any places yet.
           onSelectPlace={handleSelectPlace}
         />
       </main>

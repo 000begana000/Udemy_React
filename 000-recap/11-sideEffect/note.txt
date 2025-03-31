@@ -22,7 +22,7 @@ Dealing with side effects
 // A potential problem with the Side Effect : infinite loop
 
   1. this operation of getting the user's location will take some time. So the first app component render cycle will be finished at the point of time where we have this location.
-  
+
   navigator.geolocation.getCurrentPosition(position => {
     const sortedPlaces = sortPlacesByDistance(
       AVAILABLE_PLACES,
@@ -36,3 +36,42 @@ Dealing with side effects
 
     setAvailablePlaces(sortedPlaces);
   });
+
+  
+  // Using useEffect hook
+
+  import { useEffect } from "react";
+
+  1.  useEffect, unlike useState or useRef does not return a value.
+
+  2.  first argument is a function that should wrap your side effect code.
+  second argument is an array of dependencies of that effect function.
+
+  3.  You will not run into this infinite loop problem. Because the idea behind useEffect is that this function which you pass as a first argument to useEffect will be executed by React "after" every component execution.
+
+  4.  this code here will not be executed right away. Instead, it's only after the app component function execution finished. So, "after" this JSX code here has been returned.
+
+  5.  it will only execute this effect function again if the dependency values changed.
+
+  6.  if there is no dependencies, it only executes it once after this app component function was executed for the first time.
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(position => {
+      const sortedPlaces = sortPlacesByDistance(
+        AVAILABLE_PLACES,
+        position.coords.latitude,
+        position.coords.longitude
+      );
+
+      setAvailablePlaces(sortedPlaces);
+    });
+  }, []);
+
+
+7. fallbackText will be shown during the time where we don't have any places yet.
+<Places
+    title="Available Places"
+    places={availablePlaces}
+    fallbackText="Sorting places by distance..."
+    onSelectPlace={handleSelectPlace}
+/>
