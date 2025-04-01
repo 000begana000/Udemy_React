@@ -7,11 +7,6 @@ import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
 import logoImg from "./assets/logo.png";
 import { sortPlacesByDistance } from "./loc.js";
 
-// this code got no callback function or promise or infinite loop so we don't need to use useEffect
-
-// this code can be stored outside of component function because we need to run this when we re-open the app again
-
-// load stred places when we re-load the app
 const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
 const storedPlaces = storedIds.map(id =>
   AVAILABLE_PLACES.find(place => place.id === id)
@@ -19,6 +14,7 @@ const storedPlaces = storedIds.map(id =>
 
 function App() {
   const selectedPlace = useRef();
+  ///// why not refactor with useReducer?
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [availablePlaces, setAvailablePlaces] = useState([]);
   const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
@@ -79,7 +75,7 @@ function App() {
 
   return (
     <>
-      <Modal open={isModalOpen}>
+      <Modal open={isModalOpen} onClose={handleStopRemovePlace}>
         <DeleteConfirmation
           onCancel={handleStopRemovePlace}
           onConfirm={handleRemovePlace}
