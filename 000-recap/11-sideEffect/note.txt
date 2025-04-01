@@ -216,3 +216,37 @@ Solution 2 - (Modal.jsx)
 
 
 ===> even though will be a problem if I click "no" (not to delete the modal) because now you will see that even though I clicked no, after three seconds this item disappeared.
+
+
+
+// Introducing useEffect's clean up function
+
+(this code here, of course, again in the end, is a side effect because it's not directly related to outputting this JSX code.)
+
+setTimeout(() => {
+    onConfirm();
+  }, 3000);
+
+
+now just to be clear, for setting this timer, we would not need this effect function because setting the timer wasn't the problem.
+
+Neither does this create an infinite loop, nor do we have the problem we faced in the modal where we needed to work with some ref that wasn't connected yet.
+
+Instead here the problem is not setting the timer but cleaning it up, getting rid of it, when this component function disappears.
+
+return another function which will then be executed by React right before this effect function runs again or, right before it's removed from the DOM.
+
+ useEffect(() => {
+    console.log("TIMER SET");
+    const timer = setTimeout(() => {
+      onConfirm();
+    }, 3000);
+
+    // this will now stop this timer whenever this component is removed from the DOM.
+    return () => {
+      console.log("Cleaning up timer");
+      clearTimeout(timer);
+    };
+  }, []);
+
+cleanup function runs right before the effect function runs. But this is not something that can happen here because currently I have no dependencies here and therefore this effect function never runs again.
