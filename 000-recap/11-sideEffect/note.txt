@@ -180,3 +180,39 @@ useEffect(() => {
       dialog.current.close();
     }
   }, [open]);   ====> open prop changes (boolean)
+
+
+
+// Another problem that can be fixed with useEffect()
+
+this delete confirmation component is always part of the DOM, and therefore this timer will actually be set and started when the app component renders for the first time.
+
+<Modal open={isModalOpen} onClose={handleStopRemovePlace}>
+  <DeleteConfirmation
+    onCancel={handleStopRemovePlace}
+    onConfirm={handleRemovePlace}
+  />
+</Modal>
+
+export default function DeleteConfirmation({ onConfirm, onCancel }) {
+  setTimeout(() => {
+    onConfirm();
+  }, 3000);
+
+
+Solution 1 - (App.jsx)
+
+{isModalOpen && (
+  <DeleteConfirmation
+    onCancel={handleStopRemovePlace}
+    onConfirm={handleRemovePlace}
+  />
+)}
+
+
+Solution 2 - (Modal.jsx)
+
+{open ? children : null}
+
+
+===> even though will be a problem if I click "no" (not to delete the modal) because now you will see that even though I clicked no, after three seconds this item disappeared.
