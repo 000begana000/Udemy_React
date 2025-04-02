@@ -250,3 +250,28 @@ return another function which will then be executed by React right before this e
   }, []);
 
 cleanup function runs right before the effect function runs. But this is not something that can happen here because currently I have no dependencies here and therefore this effect function never runs again.
+
+
+
+// The Problem with Object & Function Dependencies
+
+if you're using prop or state values in your effect function, you should add them as dependencies.
+
+but there is a problem you should be aware of when adding functions as dependencies.  and when adding functions as dependencies, there is a danger of creating an infinite loop.
+
+if you take a look at this function, you would probably say that it never changes, the code and the function is always the same, but technically, that's not correct because functions in JavaScript are just values.
+
+Specifically, they are objects.
+
+And this function object, this (handleRemovePlace) function object is indeed recreated every time this App component function executes because this entire function body then runs again.
+
+And all the values that are defined in this app component function are recreated whenever the app component function is executed again.
+
+but in this case, because of isModalOpen state, the <Modal> component won't be executed and we will not face the infinite loop, but still, there will be some cases and there is another hook that we can ensure to prevent infinite loop according to function dependency. 
+
+<Modal open={isModalOpen} onClose={handleStopRemovePlace}>
+  <DeleteConfirmation
+    onCancel={handleStopRemovePlace}
+    onConfirm={handleRemovePlace}
+  />
+</Modal>

@@ -1,22 +1,17 @@
 import { useEffect } from "react";
 
 export default function DeleteConfirmation({ onConfirm, onCancel }) {
-  // return another function which will then be executed by React right before this effect function runs again or, right before it's removed from the DOM.
-
   useEffect(() => {
     console.log("TIMER SET");
     const timer = setTimeout(() => {
       onConfirm();
     }, 3000);
 
-    // this will now stop this timer whenever this component is removed from the DOM.
     return () => {
       console.log("Cleaning up timer");
       clearTimeout(timer);
     };
-  }, []);
-
-  // cleanup function runs right before the effect function runs. But this is not something that can happen here because currently I have no dependencies here and therefore this effect function never runs again.
+  }, [onConfirm]);
 
   return (
     <div id="delete-confirmation">
