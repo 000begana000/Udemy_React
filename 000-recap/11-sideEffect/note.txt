@@ -278,7 +278,8 @@ but in this case, because of isModalOpen state, the <Modal> component won't be e
 
 
 
-// The useCallback hook
+// The useCallback hook (prevent infinite loop for function dependency value from useEffect)
+
 you can use to make sure that this function is not recreated all the time.
 
 So with useCallback, React makes sure that this inner-function is not recreated. Instead, it stores it internally in memory and reuses that stored function whenever the component function executes again.
@@ -326,3 +327,14 @@ export default function DeleteConfirmation({ onConfirm, onCancel }) {
 
 (HTML)
 <progress value={remainingTime} max={TIMER} />
+
+
+
+// Optimizing state update 
+I am managing this interval in my delete confirmation component.
+
+And in this interval, we're updating the state every 10 milliseconds which means that this component runs every 10 milliseconds which also means that every 10 milliseconds, React has to compare the unconfirmed value here to figure out whether this effect function should run again.
+
+And React has to reevaluate this entire JSX code and this works and also doesn't really slow down the app here on a modern computer but it's not optimal.
+
+It would be better to outsource this progress indicator and this related state logic and useEffect hook into a separate component so that it's then just this one single component that should be re-executed all the time.
