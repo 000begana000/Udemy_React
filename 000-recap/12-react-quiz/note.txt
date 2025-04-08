@@ -4,3 +4,12 @@
 // this logic comes after if state to prevent error
 const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers];
 shuffledAnswers.sort(() => Math.random() - 0.5);
+
+- no answer selected
+// set the answer value as null
+<QuestionTimer
+    timeout={10000}
+    onTimeout={() => {
+        () => handleSelectAnswer(null);
+    }}
+/>
