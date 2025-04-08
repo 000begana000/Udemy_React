@@ -1,1 +1,6 @@
 //// important mistakes & thoughts 
+
+- how to shuffle an array 
+// this logic comes after if state to prevent error
+const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers];
+shuffledAnswers.sort(() => Math.random() - 0.5);
