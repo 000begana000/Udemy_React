@@ -1,5 +1,5 @@
 // control this quiz and render other quiz related components
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 import QUESTIONS from "../questions.js";
 import QuestionTimer from "./QuestionTimer.jsx";
@@ -12,11 +12,21 @@ export default function Quiz() {
   const activeQuestionIndex = userAnswers.length;
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
-  function handleSelectAnswer(selectedAnswer) {
+  // Memoized to avoid unnecessary re-creation of the function and to optimize performance.
+  const handleSelectAnswer = useCallback(function handleSelectAnswer(
+    selectedAnswer
+  ) {
     setUserAnswers(prevUserAnswers => {
       return [...prevUserAnswers, selectedAnswer];
     });
-  }
+  },
+  []);
+
+  // Memoized to create a new function that always calls handleSelectAnswer with null as an argument, which may have a specific use case in the application.
+  const handleSkipAnswer = useCallback(() => {
+    handleSelectAnswer(null);
+    // Any function/variable defined in the body of a React component function and referenced in an effect function, should be specified in the dependency array of said hook.
+  }, [handleSelectAnswer]);
 
   if (quizIsComplete) {
     return (
@@ -34,10 +44,7 @@ export default function Quiz() {
   return (
     <div id="quiz">
       <div id="question">
-        <QuestionTimer
-          timeout={10000}
-          onTimeout={() => handleSelectAnswer(null)}
-        />
+        <QuestionTimer timeout={10000} onTimeout={handleSkipAnswer} />
         <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
         <ul id="answers">
           {shuffledAnswers.map(answer => (
