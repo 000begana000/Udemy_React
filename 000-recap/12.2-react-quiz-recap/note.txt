@@ -1,0 +1,8 @@
+1. create Header & Quiz component
+
+- Quiz
+control quiz and render other quiz related components
+
+x. show currently active question to user
+x. when question is answered switch to the next question
+x. collection user answers 
