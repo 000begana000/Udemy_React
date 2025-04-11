@@ -8,7 +8,6 @@ export default function Quiz() {
   const [userAnswers, setUserAnswers] = useState([]);
 
   const activeQuestionIndex = userAnswers.length;
-  console.log(activeQuestionIndex);
 
   const quizIsComplete = QUESTIONS.length === activeQuestionIndex;
 
