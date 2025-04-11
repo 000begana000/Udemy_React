@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import QUESTIONS from "../questions";
 import QuestionTimer from "./QuestionTimer";
 
@@ -12,9 +12,19 @@ export default function Quiz() {
 
   const quizIsComplete = QUESTIONS.length === activeQuestionIndex;
 
-  function handleSelectAnswer(selectedAnswer) {
+  // Memoized to avoid unnecessary re-creation of the function and to optimize performance.
+  const handleSelectAnswer = useCallback(function handleSelectAnswer(
+    selectedAnswer
+  ) {
     setUserAnswers(prevUserAnswers => [...prevUserAnswers, selectedAnswer]);
-  }
+  },
+  []);
+
+  // Memoized to create a new function that always calls handleSelectAnswer with null as an argument
+  const handleSkipAnswer = useCallback(
+    () => handleSelectAnswer(null),
+    [handleSelectAnswer]
+  );
 
   if (quizIsComplete) {
     return (
@@ -33,8 +43,9 @@ export default function Quiz() {
     <div id="quiz">
       <div id="question">
         <QuestionTimer
+          key={activeQuestionIndex}
           timeout={10000}
-          onTimeout={() => handleSelectAnswer(null)}
+          onTimeout={handleSkipAnswer}
         />
         <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
         <ul id="answers">

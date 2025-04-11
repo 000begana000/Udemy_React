@@ -9,3 +9,6 @@ x. collection user answers
 
 useEffect
 - to prevent infinite loop
+
+useCallback
+- to prevent function re-creation
