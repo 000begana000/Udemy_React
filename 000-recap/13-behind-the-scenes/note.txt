@@ -41,3 +41,8 @@ Memo only prevents function executions that are triggered by the parent componen
 
 - Don't use it on components where props will change frequently
 : memo() would just perform a meaningless check in such cases (which costs performance)
+
+
+// Clever Structuring 
+
+Another technique that is often even more powerful than memo is a clever component composition in your application.
