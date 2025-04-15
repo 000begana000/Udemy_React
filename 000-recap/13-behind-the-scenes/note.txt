@@ -2,3 +2,11 @@
 - Avoiding unnecessary updates
 - A closer look at keys
 - State scheduling & state batching
+
+// How does React update the DOM?
+& how are component functions executed?
+
+1. react builds the tree of components
+
+2. check Profiler extention that what components are rendered & why by recording
+: this also helps to optimize performance 
