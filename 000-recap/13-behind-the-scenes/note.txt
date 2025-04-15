@@ -1,0 +1,4 @@
+- how React updates the DOM
+- Avoiding unnecessary updates
+- A closer look at keys
+- State scheduling & state batching
