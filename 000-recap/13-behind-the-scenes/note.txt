@@ -61,3 +61,15 @@ const initialCountIsPrime = useMemo(
 
 useMemo => prevent re-calculating
 useCallback => prevent re-executing(re-creating) function itself
+
+
+// Virtual DOM
+React checks for necessary DOM updates via a "Virtual DOM"
+: it creates & compares virtual DOM smapshots to find out which parts of the rendered UI need to be updated
+
+How React updates the Website UI
+1. Creating a Component tree 
+2. Creating a Virtual Snapshot of the target HTML code
+: it's not a real DOM, insdead, it just creates a virtual representation of how that real DOM should look like.
+3. Compare New virtual DOM snapshot to previous (old) virtual DOM snapshot 
+4. Identify & apply changes to the "real DOM"
