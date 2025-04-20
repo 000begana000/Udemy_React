@@ -76,7 +76,6 @@ How React updates the Website UI
 
 
 // Why keys matter when managing state 
-
 when we use index as a key prop to specify of the component it accours error because the index always stays the same. so avoid to use index as a key but some value that is strictly connected to a specific value. 
 
 - create unique id (this is just an example, Math.random() is not a perfect solution)
@@ -106,3 +105,9 @@ export default function CounterHistory({ history }) {
     </ol>
   );
 }
+
+
+// More reasons for why keys matter 
+using index as a key polute virtual DOM snapshot and React doesn't recognize which component(element) has been changed or not. so every element with the same key will be updated all again. very not efficient.
+
+but with unique key, react recognize the differences and update only the components have changes. 
