@@ -111,3 +111,14 @@ export default function CounterHistory({ history }) {
 using index as a key polute virtual DOM snapshot and React doesn't recognize which component(element) has been changed or not. so every element with the same key will be updated all again. very not efficient.
 
 but with unique key, react recognize the differences and update only the components have changes. 
+
+
+// Using keys for resetting components 
+this code will cause executing components 2 times 
+useEffect(() => {
+    setCounterChanges([{ value: initialCount, id: Math.random() * 1000 }]);
+  }, [initialCount]);
+
+
+instead using useEffect, use key to reset the component 
+ <Counter key={chosenCount} initialCount={chosenCount} />
