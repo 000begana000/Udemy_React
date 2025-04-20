@@ -46,3 +46,18 @@ Memo only prevents function executions that are triggered by the parent componen
 // Clever Structuring 
 
 Another technique that is often even more powerful than memo is a clever component composition in your application.
+
+
+// useMemo
+- memo : for component functions
+- useMemo: for normal functions in the component function to prevent their execution. it has to be used if you have a "complex" calculation that you want to prevent.
+
+execute the funtion when the dependencies change only
+
+const initialCountIsPrime = useMemo(
+    () => isPrime(initialCount),
+    [initialCount]
+  );
+
+useMemo => prevent re-calculating
+useCallback => prevent re-executing(re-creating) function itself
