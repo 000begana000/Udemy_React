@@ -4,3 +4,15 @@ Data Fetching & HTTP requests
 - how to connect a backend/ database
 - fetching data
 - sending data 
+
+// How (not) to connect to a database
+
+- with React, you build a client-side web application (= it runs in the browser)
+
+- You communicate with a backend(API) via HTTP requests 
+
+- You should not try to connect to a database directly (-> credentials would be exeposed)
+
+- Frontend (React app) & backend (API) are often separated (=separate projects)
+
+- You can build a fullstack React app (= blend frontend & backend) via NextJS or Remix
