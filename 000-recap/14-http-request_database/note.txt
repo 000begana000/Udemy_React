@@ -1,0 +1,6 @@
+Data Fetching & HTTP requests
+:sending & receiving Data via HTTP
+
+- how to connect a backend/ database
+- fetching data
+- sending data 
