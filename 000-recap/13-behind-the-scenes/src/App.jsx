@@ -10,6 +10,8 @@ function App() {
 
   function handleSetCount(newCount) {
     setChosenCount(newCount);
+    setChosenCount(prevChosenCount => prevChosenCount + 1); // 10
+    console.log(chosenCount); // won't work!
   }
 
   log("<App /> rendered");

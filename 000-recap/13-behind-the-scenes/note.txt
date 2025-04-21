@@ -122,3 +122,25 @@ useEffect(() => {
 
 instead using useEffect, use key to reset the component 
  <Counter key={chosenCount} initialCount={chosenCount} />
+
+
+ // State scheduling and batching 
+ : state update is "scheduled" not updating immedately.
+
+"let's say we typed 10"
+
+const [chosenCount, setChosenCount] = useState(0);
+
+function handleSetCount(newCount) {
+  setChosenCount(newCount);
+  setChosenCount(chosenCount + 1); // 0
+}
+
+"BUT" 
+
+function handleSetCount(newCount) {
+  setChosenCount(newCount);
+  setChosenCount((prevChosenCount) => prevChosenCount + 1) // 10
+}
+
+=> in this case, it has 2 state update functions but the state isn't update twice, react performs state batching, simply means that multiple state updates that are triggered from the same function are batched together and will only lead to one component execution.
