@@ -144,3 +144,8 @@ function handleSetCount(newCount) {
 }
 
 => in this case, it has 2 state update functions but the state isn't update twice, react performs state batching, simply means that multiple state updates that are triggered from the same function are batched together and will only lead to one component execution.
+
+
+// millionJS package
+for optimizing react 
+it replaces React's virtual DOM mechanism with a more efficient mechanism.
