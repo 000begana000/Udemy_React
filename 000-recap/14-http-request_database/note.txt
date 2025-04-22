@@ -55,3 +55,43 @@ useEffect(() => {
 
     fetchPlaces();
   }, []);
+
+
+// Loading state
+
+(AvailablePlaces)
+const [isFetching, setIsFetching] = useState(false);
+
+useEffect(() => {
+    // update UI with get request
+    async function fetchPlaces() {
+      setIsFetching(true); // loading state
+      const response = await fetch("http://localhost:3000/places");
+      const resData = await response.json();
+      setAvailablePlaces(resData.places);
+      setIsFetching(false); // loading state
+    }
+
+    fetchPlaces();
+  }, []);
+
+return (
+    <Places
+      title="Available Places"
+      places={availablePlaces}
+      isLoading={isFetching}
+      loadingText="Fetching place data..."
+      fallbackText="No places available."
+      onSelectPlace={onSelectPlace}
+    />
+  );
+
+(Places)
+
+{isLoading && <p className="fallback-text">{loadingText}</p>}
+{!isLoading && places.length === 0 && (
+        <p className="fallback-text">{fallbackText}</p>
+      )}
+{!isLoading && places.length > 0 && (
+        ...contents....
+      )}
