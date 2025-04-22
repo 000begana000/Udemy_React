@@ -10,14 +10,13 @@ export default function AvailablePlaces({ onSelectPlace }) {
 
   useEffect(() => {
     // update UI with get request
-    fetch("http://localhost:3000/places")
-      .then(response => {
-        return response.json(); //returns another promise
-      })
-      .then(resData => {
-        console.log(resData);
-        setAvailablePlaces(resData.places);
-      });
+    async function fetchPlaces() {
+      const response = await fetch("http://localhost:3000/places");
+      const resData = await response.json();
+      setAvailablePlaces(resData.places);
+    }
+
+    fetchPlaces();
   }, []);
 
   return (

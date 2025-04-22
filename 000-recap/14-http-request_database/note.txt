@@ -39,3 +39,19 @@ useEffect(() => {
         setAvailablePlaces(resData.places);
       });
 }, []);
+
+
+// Using async & await
+
+async/await generally has a few advantages over .then() in terms of readability, maintainability, and error handling. 
+
+useEffect(() => {
+    // update UI with get request
+    async function fetchPlaces() {
+      const response = await fetch("http://localhost:3000/places");
+      const resData = await response.json();
+      setAvailablePlaces(resData.places);
+    }
+
+    fetchPlaces();
+  }, []);
