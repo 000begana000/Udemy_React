@@ -16,3 +16,23 @@ Data Fetching & HTTP requests
 - Frontend (React app) & backend (API) are often separated (=separate projects)
 
 - You can build a fullstack React app (= blend frontend & backend) via NextJS or Remix
+
+
+// How NOT to send HTTP Requests 
+
+what is fetch and promise?
+Fetch then returns a promise which is a JavaScript value that will eventually resolve to another value.
+So it's basically a wrapper object around a value that's not there yet but that will eventually be there.
+In this case, it's a wrapper around an eventually received response object.
+
+But this function, which you're passing to then will be executed by the browser only once the response is there. 
+So not instantly, but at some point in the future.
+
+fetch("http://localhost:3000/places")
+    .then(response => {
+        return response.json(); //returns another promise
+    })
+    .then(resData => {
+        console.log(resData);
+        setAvailablePlaces(resData.places);
+    });
