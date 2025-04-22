@@ -28,11 +28,14 @@ In this case, it's a wrapper around an eventually received response object.
 But this function, which you're passing to then will be executed by the browser only once the response is there. 
 So not instantly, but at some point in the future.
 
-fetch("http://localhost:3000/places")
-    .then(response => {
+useEffect(() => {
+    // update UI with get request
+    fetch("http://localhost:3000/places")
+      .then(response => {
         return response.json(); //returns another promise
-    })
-    .then(resData => {
+      })
+      .then(resData => {
         console.log(resData);
         setAvailablePlaces(resData.places);
-    });
+      });
+}, []);
