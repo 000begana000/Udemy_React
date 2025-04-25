@@ -147,5 +147,42 @@ useEffect(() => {
   }
 
 
-  // Transforming fetched data 
-  
+// Transforming fetched data 
+the point of this lecture is we can transform the fetched data as we want once we get fetched data. 
+
+  useEffect(() => {
+    async function fetchPlaces() {
+      setIsFetching(true);
+
+      try {
+        const response = await fetch("http://localhost:3000/places");
+        const resData = await response.json();
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch places");
+        }
+
+        // works at some point when we got the position
+        // since it works as callback function, we can't await this function, so we should move the setIsFetching, otherwise it's called too fast that before we get the sorted places 
+        navigator.geolocation.getCurrentPosition(position => {
+          const sortedPlaces = sortPlacesByDistance(
+            resData.places,
+            position.coords.latitude,
+            position.coords.longitude
+          );
+          setAvailablePlaces(sortedPlaces);
+          setIsFetching(false); // call this after we sorting and set the places
+        });
+      } catch (error) {
+        setError({
+          message:
+            error.message || "Could not fetch places, please try again later",
+        });
+        setIsFetching(false); // call this after we set error
+      }
+
+      // setIsFetching(false); => if it's here, it's called too fast, before we sort the places
+    }
+
+    fetchPlaces();
+  }, []);
