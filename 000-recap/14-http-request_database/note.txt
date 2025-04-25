@@ -95,3 +95,57 @@ return (
 {!isLoading && places.length > 0 && (
         ...contents....
       )}
+
+
+// Handling HTTP errors 
+we commonly need 3 states for fetching data 
+
+1. loading state 
+const [isFetching, setIsFetching] = useState(false); 
+2. data state 
+const [availablePlaces, setAvailablePlaces] = useState([]);
+3. error state
+const [error, setError] = useState();
+
+
+try and catch allows you to stop the application from crashing and enables you to define which code should be executed instead.
+
+useEffect(() => {
+    // update UI with get request
+    async function fetchPlaces() {
+      setIsFetching(true); // loading state
+
+      try {
+        const response = await fetch("http://localhost:3000/placessss");
+        const resData = await response.json();
+
+        // 400
+        if (!response.ok) {
+          throw new Error("Failed to fetch places");
+        }
+
+        // update data state when there is no error 
+        setAvailablePlaces(resData.places);
+      } catch (error) {
+        // handle the error - update UI and show an error message to user
+        setError({
+          message:
+            error.message || "Could not fetch places, please try again later",
+        }); // error message from Error object & fallback message
+      }
+
+      setIsFetching(false); // loading state
+    }
+
+    fetchPlaces();
+  }, []);
+
+
+  // error from error state
+  if (error) {
+    return <ErrorPage title="An error occured!" meessage={error.message} />;
+  }
+
+
+  // Transforming fetched data 
+  
