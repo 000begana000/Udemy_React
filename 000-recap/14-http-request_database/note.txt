@@ -186,3 +186,6 @@ the point of this lecture is we can transform the fetched data as we want once w
 
     fetchPlaces();
   }, []);
+
+
+  // Extracting code & improving code structure
