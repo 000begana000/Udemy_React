@@ -298,3 +298,31 @@ function handleError() {
 </Modal>
 
 *** The fetch it's self have a default error message which is "Failed to Fetch" and the default message is up to browser.
+
+
+// Deleting data
+
+when it's successful, filter the selectedPlace
+else catch the error and use optimistic updating skill 
+
+const handleRemovePlace = useCallback(
+    async function handleRemovePlace() {
+      setUserPlaces(prevPickedPlaces =>
+        prevPickedPlaces.filter(place => place.id !== selectedPlace.current.id)
+      );
+
+      try {
+        await updateUserPlaces(
+          userPlaces.filter(place => place.id !== selectedPlace.current.id)
+        );
+      } catch (error) {
+        setUserPlaces(userPlaces);
+        setErrorUpdatingPlaces({
+          message: error.message || "Failed to delete place.",
+        });
+      }
+
+      setModalIsOpen(false);
+    },
+    [userPlaces]
+  );
