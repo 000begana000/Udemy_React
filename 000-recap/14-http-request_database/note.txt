@@ -326,3 +326,6 @@ const handleRemovePlace = useCallback(
     },
     [userPlaces]
   );
+
+
+// Practice: fetching data 
