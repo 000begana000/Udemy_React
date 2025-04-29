@@ -21,6 +21,7 @@ export async function updateUserPlaces(places) {
 
   const resData = await response.json();
 
+  // only for 400/500 status
   if (!response.ok) {
     throw new Error("Failed to update user data.");
   }

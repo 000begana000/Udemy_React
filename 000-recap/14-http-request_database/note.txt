@@ -258,3 +258,43 @@ update normal function to async function and call the post function in try catch
   }
 
 after this, when we selet the places, there is update in user-places.json file. means it works well.
+
+
+// Using optimistic updating
+
+instead throw new Error, cancel UI update and showing error message.
+
+const [errorUpdatingPlaces, setErrorUpdatingPlaces] = useState();
+
+  try {
+    await updateUserPlaces([selectedPlace, ...userPlaces]);
+  } catch (error) {
+    console.log(error);
+
+    // optimistic updating
+    setUserPlaces(userPlaces); // not including newly seleted places
+    setErrorUpdatingPlaces({
+      message: error.message || "failed to update places.",
+    });
+  }
+}
+
+Create modal for the error message - open modal when there is errorUpdatingPlaces(error) only, 
+render ErrorPage when errorUpdatingPlaces only, to prevent error from message={errorUpdatingPlaces.message} 
+(if there is no error, message object doesn't exist)
+
+function handleError() {
+    setErrorUpdatingPlaces(null); // clear error to close modal
+  }
+
+<Modal open={errorUpdatingPlaces} onClose={handleError}>
+  {errorUpdatingPlaces && (
+    <ErrorPage
+      title="An error occured!"
+      message={errorUpdatingPlaces.message}
+      onConfirm={handleError}
+    />
+  )}
+</Modal>
+
+*** The fetch it's self have a default error message which is "Failed to Fetch" and the default message is up to browser.
