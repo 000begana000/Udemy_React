@@ -188,4 +188,73 @@ the point of this lecture is we can transform the fetched data as we want once w
   }, []);
 
 
-  // Extracting code & improving code structure
+// Extracting code & improving code structure
+
+extract fetching code in http.js
+
+export async function fetchAvailablePlaces() {
+  const response = await fetch("http://localhost:3000/places");
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch places");
+  }
+
+  return resData.places;
+}
+
+import it in the try block and await it, because it returns promise.
+
+import { fetchAvailablePlaces } from "../http.js";
+
+ try {
+        const places = await fetchAvailablePlaces();
+
+
+// Sending data with POST request 
+
+we send the post request at App.js - it has selectedPlaces state
+but first, create new async funtion at http.js
+
+export async function updateUserPlaces(places) {
+  const response = await fetch("http://localhost:3000/user-places", {
+    method: "PUT",
+    // const places = req.body.places; => an object with places key
+    body: JSON.stringify({ places }), //which data?
+    headers: {
+      "Content-Type": "application/json", // inform backend the request will be in JSON format
+    },
+  });
+
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to update user data.");
+  }
+
+  return resData.message; // if you check the backed data, the response will contain the messsage property.
+}
+
+update normal function to async function and call the post function in try catch block 
+
+// selec places & update the places to the backend
+  async function handleSelectPlace(selectedPlace) {
+    setUserPlaces(prevPickedPlaces => {
+      if (!prevPickedPlaces) {
+        prevPickedPlaces = [];
+      }
+      if (prevPickedPlaces.some(place => place.id === selectedPlace.id)) {
+        return prevPickedPlaces;
+      }
+      return [selectedPlace, ...prevPickedPlaces];
+    });
+
+    // load state?
+    try {
+      await updateUserPlaces([selectedPlace, ...userPlaces]); //userPlaces is not updated yet but scheduled so we can't use userPlaces only
+    } catch (error) {
+      //...
+    }
+  }
+
+after this, when we selet the places, there is update in user-places.json file. means it works well.

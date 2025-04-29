@@ -1,10 +1,12 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback } from "react";
 
-import Places from './components/Places.jsx';
-import Modal from './components/Modal.jsx';
-import DeleteConfirmation from './components/DeleteConfirmation.jsx';
-import logoImg from './assets/logo.png';
-import AvailablePlaces from './components/AvailablePlaces.jsx';
+import Places from "./components/Places.jsx";
+import Modal from "./components/Modal.jsx";
+import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
+import logoImg from "./assets/logo.png";
+import AvailablePlaces from "./components/AvailablePlaces.jsx";
+
+import { updateUserPlaces } from "./http.js";
 
 function App() {
   const selectedPlace = useRef();
@@ -22,21 +24,29 @@ function App() {
     setModalIsOpen(false);
   }
 
-  function handleSelectPlace(selectedPlace) {
-    setUserPlaces((prevPickedPlaces) => {
+  // select & update the places to the backend
+  async function handleSelectPlace(selectedPlace) {
+    setUserPlaces(prevPickedPlaces => {
       if (!prevPickedPlaces) {
         prevPickedPlaces = [];
       }
-      if (prevPickedPlaces.some((place) => place.id === selectedPlace.id)) {
+      if (prevPickedPlaces.some(place => place.id === selectedPlace.id)) {
         return prevPickedPlaces;
       }
       return [selectedPlace, ...prevPickedPlaces];
     });
+
+    // load state?
+    try {
+      await updateUserPlaces([selectedPlace, ...userPlaces]); //userPlaces is not updated yet but scheduled so we can't use userPlaces only
+    } catch (error) {
+      //...
+    }
   }
 
   const handleRemovePlace = useCallback(async function handleRemovePlace() {
-    setUserPlaces((prevPickedPlaces) =>
-      prevPickedPlaces.filter((place) => place.id !== selectedPlace.current.id)
+    setUserPlaces(prevPickedPlaces =>
+      prevPickedPlaces.filter(place => place.id !== selectedPlace.current.id)
     );
 
     setModalIsOpen(false);
