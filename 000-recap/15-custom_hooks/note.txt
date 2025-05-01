@@ -1,0 +1,5 @@
+Custom hooks
+- repetition: rules of hooks 
+- why custom hooks?
+- creating custom hooks 
+- using custom hooks
