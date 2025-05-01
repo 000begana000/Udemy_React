@@ -10,3 +10,11 @@ Custom hooks
 as other functions we can outsource the fetching function 
 but we use hooks (e.x. useEffect) and state management we can't simply outsource the function - it's not guaranteed working.
 => how can we make it works?
+
+// Creating a custom hook 
+
+we can reuse fetch function everywhere
+
+1. create a folder src/hooks
+2. create a file useFetch.js (up to me)
+3. create a normal function, starting with 'use' - it's a convention for a hook, it's recognized as a hook to react 
