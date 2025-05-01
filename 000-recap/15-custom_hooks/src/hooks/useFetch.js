@@ -1,19 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-function useFetch() {
+export function useFetch(fetchFn, initialValue) {
+  const [isFetching, setIsFetching] = useState(); // loading
+  const [error, setError] = useState(); // error
+  const [fetchedData, setFetchedData] = useState(initialValue); // data
+
   useEffect(() => {
-    async function fetchPlaces() {
+    async function fetchData() {
+      //genetic name
       setIsFetching(true);
       try {
-        const places = await fetchUserPlaces();
-        setUserPlaces(places);
+        const data = await fetchFn(); // genetic name & fetch function from parameter
+        setFetchedData(data);
       } catch (error) {
-        setError({ message: error.message || "Failed to fetch user places." });
+        setError({ message: error.message || "Failed to fetch data." });
       }
 
       setIsFetching(false);
     }
 
-    fetchPlaces();
-  }, []);
+    fetchData();
+  }, [fetchFn]); // it's data from outside, therefore when it's changed, useEffect function has to be called
+
+  // returning state values
+  return {
+    isFetching,
+    error,
+    fetchedData,
+  };
 }
