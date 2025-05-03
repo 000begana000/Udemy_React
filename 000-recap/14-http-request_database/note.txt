@@ -79,9 +79,9 @@ return (
     <Places
       title="Available Places"
       places={availablePlaces}
-      isLoading={isFetching}
-      loadingText="Fetching place data..."
-      fallbackText="No places available."
+      isLoading={isFetching}  // loading state 
+      loadingText="Fetching place data..."  // loading state 
+      fallbackText="No places available." // loading state - when fetching is failed 
       onSelectPlace={onSelectPlace}
     />
   );
@@ -108,7 +108,7 @@ const [availablePlaces, setAvailablePlaces] = useState([]);
 const [error, setError] = useState();
 
 
-try and catch allows you to stop the application from crashing and enables you to define which code should be executed instead.
+try and catch allows you to "stop the application from crashing" and enables you to define which code should be executed instead.
 
 useEffect(() => {
     // update UI with get request
@@ -203,7 +203,7 @@ export async function fetchAvailablePlaces() {
   return resData.places;
 }
 
-import it in the try block and await it, because it returns promise.
+import it in the try block and "await" it, because it returns promise.
 
 import { fetchAvailablePlaces } from "../http.js";
 
@@ -214,7 +214,10 @@ import { fetchAvailablePlaces } from "../http.js";
 // Sending data with POST request 
 
 we send the post request at App.js - it has selectedPlaces state
-but first, create new async funtion at http.js
+first, create new async funtion at http.js
+and call this function in the update UI function 
+
+for post request, we need 3 things : method, body, headers 
 
 export async function updateUserPlaces(places) {
   const response = await fetch("http://localhost:3000/user-places", {
@@ -232,12 +235,12 @@ export async function updateUserPlaces(places) {
     throw new Error("Failed to update user data.");
   }
 
-  return resData.message; // if you check the backed data, the response will contain the messsage property.
+  return resData.message; // if you check the backed data, the response will contain the messsage property. the message will be returned when fetching is successful.
 }
 
 update normal function to async function and call the post function in try catch block 
 
-// selec places & update the places to the backend
+// select places & update the places to the backend
   async function handleSelectPlace(selectedPlace) {
     setUserPlaces(prevPickedPlaces => {
       if (!prevPickedPlaces) {
@@ -257,22 +260,20 @@ update normal function to async function and call the post function in try catch
     }
   }
 
-after this, when we selet the places, there is update in user-places.json file. means it works well.
+after this, when we select the places, there is update in user-places.json file. means it works well.
 
 
 // Using optimistic updating
-
-instead throw new Error, cancel UI update and showing error message.
+: instead throw new Error, cancel UI update and showing error message.
 
 const [errorUpdatingPlaces, setErrorUpdatingPlaces] = useState();
 
   try {
     await updateUserPlaces([selectedPlace, ...userPlaces]);
   } catch (error) {
-    console.log(error);
 
     // optimistic updating
-    setUserPlaces(userPlaces); // not including newly seleted places
+    setUserPlaces(userPlaces); // not including newly seleted places but old places 
     setErrorUpdatingPlaces({
       message: error.message || "failed to update places.",
     });
@@ -284,7 +285,7 @@ render ErrorPage when errorUpdatingPlaces only, to prevent error from message={e
 (if there is no error, message object doesn't exist)
 
 function handleError() {
-    setErrorUpdatingPlaces(null); // clear error to close modal
+    setErrorUpdatingPlaces(null); // clear error when user press ESC to close modal
   }
 
 <Modal open={errorUpdatingPlaces} onClose={handleError}>
@@ -297,7 +298,7 @@ function handleError() {
   )}
 </Modal>
 
-*** The fetch it's self have a default error message which is "Failed to Fetch" and the default message is up to browser.
+*** The fetch it self have a default error message which is "Failed to Fetch" and the default message is up to browser.
 
 
 // Deleting data
