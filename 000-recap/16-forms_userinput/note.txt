@@ -16,3 +16,25 @@ Working with forms & user input
 - providing a good user experience is tricky
 - you can validate on every keystroke -> errors may be shown too early 
 - you can validate on lost focus -> errors may be shown too long
+
+
+// Handling form submission
+
+** htmlFor = for in html and it works with id in input 
+<label htmlFor="email">Email</label>
+
+** page refreshing is happening because form tag sending http request default
+=> how to prevent default ?
+
+1. type="button" (default type is submit)
+<button type="button" className="button" onClick={handleSubmit}>
+    Login
+</button>
+
+2. instead of onClick, use onSubmit on <form>
+<form onSubmit={handleSubmit}>
+
+function handleSubmit(event) {
+    event.preventDefault(); <======
+    console.log("submitted!");
+}
