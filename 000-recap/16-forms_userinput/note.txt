@@ -1,0 +1,6 @@
+Working with forms & user input
+
+- what's difficult about forms?
+- handling form submission & validating user input
+- using built-in form features
+- building custom solutions
