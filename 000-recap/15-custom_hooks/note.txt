@@ -100,3 +100,22 @@ const {
 
 
 => now we can add/ remove places 
+
+
+// Using a custom hook in multiple components 
+
+(AvailablePlaces.jx)
+
+import { useFetch } from "../hooks/useFetch.js";
+
+export default function AvailablePlaces({ onSelectPlace }) {
+  const {
+    isFetching,
+    error,
+    fetchedData: availablePlaces,
+    setFetchedData: setAvailablePlaces,
+  } = useFetch(fetchAvailablePlaces, []);
+
+  useFetch();
+
+===> but how can we able to use geolocation and sortPlacesByDistance function?
