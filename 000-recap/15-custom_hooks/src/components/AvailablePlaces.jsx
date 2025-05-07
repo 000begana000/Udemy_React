@@ -1,28 +1,34 @@
-import { useState, useEffect } from "react";
-
 import Places from "./Places.jsx";
 import Error from "./Error.jsx";
 import { sortPlacesByDistance } from "../loc.js";
 import { fetchAvailablePlaces } from "../http.js";
 import { useFetch } from "../hooks/useFetch.js";
 
-// navigator.geolocation.getCurrentPosition(position => {
-//           const sortedPlaces = sortPlacesByDistance(
-//             places,
-//             position.coords.latitude,
-//             position.coords.longitude
-//           );
-//           setAvailablePlaces(sortedPlaces);
-//           setIsFetching(false);
-//         });
+async function fetchSortedPlaces() {
+  const places = await fetchAvailablePlaces(); // get available places first
+
+  // insure this returns a promise = promisfying navigator.geolocation function, which is not a promise
+  //  const data = await fetchFn(); expecting a promise (in useFetch hook)
+  return new Promise(resolve => {
+    navigator.geolocation.getCurrentPosition(position => {
+      const sortedPlaces = sortPlacesByDistance(
+        places,
+        position.coords.latitude,
+        position.coords.longitude
+      );
+
+      // when we call fetchSortedPlaces function, we get a sortedPlaces as a value
+      resolve(sortedPlaces);
+    });
+  });
+}
 
 export default function AvailablePlaces({ onSelectPlace }) {
   const {
     isFetching,
     error,
     fetchedData: availablePlaces,
-    setFetchedData: setAvailablePlaces,
-  } = useFetch(fetchAvailablePlaces, []);
+  } = useFetch(fetchSortedPlaces, []); //use that function as a data setting function
 
   useFetch();
 
