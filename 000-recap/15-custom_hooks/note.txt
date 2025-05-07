@@ -75,3 +75,28 @@ import { useFetch } from "./hooks/useFetch.js";
 <Places
     places={userPlaces}  <====
 />
+
+
+// Exposing nested function from the custom hook
+expose state updating function to update state independently
+
+** every state managing is managed independently even if we use the same custom hook as we reuse components several times 
+
+(useFetch.js)
+return {
+    isFetching,
+    error,
+    fetchedData,
+    setFetchedData, // to update data
+  };
+
+(App.js)
+const {
+    isFetching,
+    error,
+    fetchedData: userPlaces, // change name to userPlaces
+    setFetchedData: setUserPlaces, // change name to setUserPlaces
+  } = useFetch(fetchUserPlaces, []);
+
+
+=> now we can add/ remove places 
