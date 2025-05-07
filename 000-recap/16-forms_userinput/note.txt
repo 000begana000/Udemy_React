@@ -4,3 +4,15 @@ Working with forms & user input
 - handling form submission & validating user input
 - using built-in form features
 - building custom solutions
+
+// What are forms & what's tricky about them?
+<form submission>
+- handling submission is relatively easy
+- entered values can be managed via state
+- alternatively, they can be extracted via refs
+- or via formdata and native browser features
+
+<input validation>
+- providing a good user experience is tricky
+- you can validate on every keystroke -> errors may be shown too early 
+- you can validate on lost focus -> errors may be shown too long
