@@ -38,3 +38,27 @@ function handleSubmit(event) {
     event.preventDefault(); <======
     console.log("submitted!");
 }
+
+
+// Managing & getting user input via state & genetic handlers 
+
+const [enteredValues, setEnteredValues] = useState({
+    email: "",
+    password: "",
+  });
+
+- onchange occurs when the element loses focus, after the content has been changed
+  function handleInputChange(identifier, value) {
+    setEnteredValues(prevState => ({
+      ...prevState,
+      [identifier]: value, //already extracted from onChange event
+    }));
+  }
+
+<input
+    id="email"
+    type="email"
+    name="email"
+    onChange={event => handleInputChange("email", event.target.value)}
+    value={enteredValues.email}
+/>
