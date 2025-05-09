@@ -122,6 +122,7 @@ setEnteredValues({
 - ref login : using reset event (we can use it for FormData too)
 event.target.reset();
 
+
 // Validating input on every keystroke via state 
 - we can do this only with state login 
 
@@ -135,3 +136,44 @@ const emailIsInvalid =
 Problems : 
 1. when we clean up input field after write something, the error message is gone 
 2. the error message shows up too fast and user can't have the chance to write valid email
+
+
+// Validating input upon lost focus (blur)
+
+- onBlur is called when we lost focus with input field.
+
+ <input
+    id="email"
+    type="email"
+    name="email"
+    onBlur={() => handleInputBlur("email")}   <===========
+    onChange={event => handleInputChange("email", event.target.value)}
+    value={enteredValues.email}
+/>
+
+- create new state for onBlur state
+
+const [didEdit, setDidEdit] = useState({
+    email: false,
+    password: false,
+  });
+
+- validate after the user has edited the field
+  
+  const emailIsInvalid = didEdit.email && !enteredValues.email.includes("@");
+
+- onchange is called by every keystroke
+
+  function handleInputChange(identifier, value) {
+    setEnteredValues(prevState => ({
+      ...prevState,
+      [identifier]: value, //already extracted from onChange event
+    }));
+
+    *** reset the validation when the user starts to type again
+    
+    setDidEdit(prevEdit => ({
+      ...prevEdit,
+      [identifier]: false,
+    }));
+  }
