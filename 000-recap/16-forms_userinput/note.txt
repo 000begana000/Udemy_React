@@ -103,3 +103,23 @@ function handleSubmit(event) {
     data.acquisition = acquisitionChennal;
     console.log(data);
   }
+
+// Resetting forms 
+
+- built-in button attributes 
+  <button type="reset" className="button button-flat">
+
+type="reset"  => reset the form 
+type="submit" => default, for submission
+type="button" => doesn't do anything when we click 
+
+
+- state login : reset the value to the empty strings
+setEnteredValues({
+    email: "",
+    password: "",
+});
+
+
+- ref login : using reset event (we can use it for FormData too)
+event.target.reset();

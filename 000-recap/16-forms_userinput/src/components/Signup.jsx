@@ -2,15 +2,9 @@ export default function Signup() {
   function handleSubmit(event) {
     event.preventDefault();
 
-    // this feature is from brwoser, not react or custom, and it takes values from the form
-    // to do that, the input elements must have a "name" attribute
     const formData = new FormData(event.target);
-    // to get multiple values from the same input name, we can use getAll => first, get all the acquisition channels
     const acquisitionChennal = formData.getAll("acquisition");
-    // const eneterdEmail = formData.get('email')
-    // gives us all the input values in key and value pairs
     const data = Object.fromEntries(formData.entries());
-    // merge the acquisition channels with the data object
     data.acquisition = acquisitionChennal;
     console.log(data);
   }
