@@ -1,10 +1,13 @@
 import { useState } from "react";
 
-export default function Login() {
+export default function StateLogin() {
   const [enteredValues, setEnteredValues] = useState({
     email: "",
     password: "",
   });
+
+  const emailIsInvalid =
+    enteredValues.email !== "" && !enteredValues.email.includes("@");
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -16,7 +19,7 @@ export default function Login() {
     });
   }
 
-  // onchange occurs when the element loses focus, after the content has been changed
+  // onchange is called by every keystroke
   function handleInputChange(identifier, value) {
     setEnteredValues(prevState => ({
       ...prevState,
@@ -38,6 +41,9 @@ export default function Login() {
             onChange={event => handleInputChange("email", event.target.value)}
             value={enteredValues.email}
           />
+          <div className="control-error">
+            {emailIsInvalid && <p>Please enter a valid email address.</p>}
+          </div>
         </div>
 
         <div className="control no-margin">

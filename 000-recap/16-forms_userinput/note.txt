@@ -113,13 +113,25 @@ type="reset"  => reset the form
 type="submit" => default, for submission
 type="button" => doesn't do anything when we click 
 
-
 - state login : reset the value to the empty strings
 setEnteredValues({
     email: "",
     password: "",
 });
 
-
 - ref login : using reset event (we can use it for FormData too)
 event.target.reset();
+
+// Validating input on every keystroke via state 
+- we can do this only with state login 
+
+const emailIsInvalid =
+    enteredValues.email !== "" && !enteredValues.email.includes("@");
+
+<div className="control-error">
+    {emailIsInvalid && <p>Please enter a valid email address.</p>}
+</div>
+
+Problems : 
+1. when we clean up input field after write something, the error message is gone 
+2. the error message shows up too fast and user can't have the chance to write valid email
