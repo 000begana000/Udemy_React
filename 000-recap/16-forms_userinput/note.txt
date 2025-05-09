@@ -171,9 +171,56 @@ const [didEdit, setDidEdit] = useState({
     }));
 
     *** reset the validation when the user starts to type again
-    
+
     setDidEdit(prevEdit => ({
       ...prevEdit,
       [identifier]: false,
     }));
+  }
+
+
+// Validating input upon Form submission
+
+- we do with Ref login 
+- since it's Ref, we can't validate with every keystroke but after submission
+
+const [emailIsInvalid, setEmailIsInvalid] = useState(false);
+
+function handleSubmit(event) {
+    event.preventDefault();
+
+    const enteredEmail = email.current.value;
+    const enteredPassword = password.current.value;
+
+    - check the validation of email 
+
+    const emailIsValid = enteredEmail.includes("@");
+
+    - Early return to prevent further execution when email is invalid
+    if (!emailIsValid) {
+      setEmailIsInvalid(true);
+      return; 
+    }
+
+    - when the eamil is valid, set the state to false
+
+    setEmailIsInvalid(false);
+
+    event.target.reset();
+  }
+
+- we can also prevent submission in State Login like this 
+
+function handleSubmit(event) {
+    event.preventDefault();
+
+    if (emailIsInvalid) {
+      return; // Early return to prevent further execution
+    }
+    console.log(enteredValues);
+
+    setEnteredValues({
+      email: "",
+      password: "",
+    });
   }

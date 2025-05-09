@@ -16,6 +16,10 @@ export default function StateLogin() {
 
   function handleSubmit(event) {
     event.preventDefault();
+
+    if (emailIsInvalid) {
+      return; // Early return to prevent further execution
+    }
     console.log(enteredValues);
 
     setEnteredValues({
