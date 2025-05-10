@@ -256,3 +256,29 @@ const [passwordsAreNotEqual, setPasswordsAreNotEqual] = useState(false);
 <div className="control-error">
   {passwordsAreNotEqual && <p>Passwords must match.</p>}
 </div>
+
+
+// Building & using a reuseable input component
+
+- create reuseable Input component 
+export default function Input({ label, id, error, ...props }) {
+  return (
+    <div className="control no-margin">
+      <label htmlFor={id}>{label}</label>
+      <input id={id} {...props} />
+      <div className="control-error">{error && <p>{error}</p>}</div>
+    </div>
+  );
+}
+
+- import & apply it like this :
+<Input
+  label="Email"
+  id="email"
+  type="email"
+  name="email"
+  onBlur={() => handleInputBlur("email")}
+  onChange={event => handleInputChange("email", event.target.value)}
+  value={enteredValues.email}
+  error={emailIsInvalid && "Please enter a valid email address."}
+/>
