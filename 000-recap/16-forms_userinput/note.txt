@@ -238,3 +238,21 @@ function handleSubmit(event) {
 
 - required is not restrict input only but all form control
 <select id="role" name="role" required>
+
+
+// Mixing custom & built-in validation logic 
+: to check if the passwords are match 
+const [passwordsAreNotEqual, setPasswordsAreNotEqual] = useState(false);
+
+
+- implement this if state before we return the data 
+// name="confirm-password"
+  if (data.password !== data["confirm-password"]) {
+    setPasswordsAreNotEqual(true);
+    return;
+  }
+
+- we will see this message after we fulfilled all the required inputs and try to submit
+<div className="control-error">
+  {passwordsAreNotEqual && <p>Passwords must match.</p>}
+</div>
