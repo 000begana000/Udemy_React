@@ -224,3 +224,17 @@ function handleSubmit(event) {
       password: "",
     });
   }
+
+
+// Validating input via built-in validation props 
+
+- required attribute is built-in from browser 
+- it doesn't allow to be blank
+- when type="email", required will allow email only
+<input id="email" type="email" name="email" required />
+
+- minLength will allow password more than 6 charactors only
+<input id="password" type="password" name="password" required minLength={6} />
+
+- required is not restrict input only but all form control
+<select id="role" name="role" required>
