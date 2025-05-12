@@ -282,3 +282,9 @@ export default function Input({ label, id, error, ...props }) {
   value={enteredValues.email}
   error={emailIsInvalid && "Please enter a valid email address."}
 />
+
+
+// Outsourcing validation logic
+
+- create validation.js and Outsourcing the validation logic, and reuse 
+(check the validation.js file and StateLogin.jsx file)
