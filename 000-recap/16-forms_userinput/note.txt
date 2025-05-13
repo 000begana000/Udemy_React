@@ -288,3 +288,40 @@ export default function Input({ label, id, error, ...props }) {
 
 - create validation.js and Outsourcing the validation logic, and reuse 
 (check the validation.js file and StateLogin.jsx file)
+
+
+// Creating a cutom useinput hook 
+
+- create useInput.js
+- create custom hook : we manage 1 single state(hook) for each input field 
+- checkout useInput.js file (state, onChange, onBlur)
+
+- use custom hook in Component (ex for email)
+const {
+    value: emailValue,
+    handleInputChange: handleEmailChange,
+    handleInputBlur: handleEmailBlur,
+    hasError: emailHasError,
+  } = useInput("", value => isEmail(value) && isNotEmpty(value)); // multiple validation functions
+
+<Input
+  label="Email"
+  id="email"
+  type="email"
+  name="email"
+  onBlur={handleEmailBlur}   <====
+  onChange={handleEmailChange}   <====
+  value={emailValue}  <====
+  error={emailHasError && "Please enter a valid email."}  <===
+/>
+
+- edit submit function
+function handleSubmit(event) {
+    event.preventDefault();
+
+    if (emailHasError || passwordHasError) {   <====
+      return;
+    }
+
+    console.log(enteredValues);
+  }
