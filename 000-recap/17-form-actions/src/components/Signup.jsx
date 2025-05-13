@@ -1,7 +1,57 @@
+import {
+  isEmail,
+  isEmpty,
+  isEqualToOtherValue,
+  hasMinLength,
+} from "../util/validation.js";
+
 export default function Signup() {
   function signupAction(formData) {
-    const enteredEamil = formData.get("email");
-    console.log(enteredEamil);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const confirmPassword = formData.get("confirm-password");
+    const firstName = formData.get("first-name");
+    const lastName = formData.get("last-name");
+    const role = formData.get("role");
+    const terms = formData.get("terms");
+    const acquisitionChannel = formData.getAll("acquisition"); // multiple
+
+    let errors = [];
+
+    // email validation
+    if (!isEmail(email)) {
+      errors.push("Invalid email address.");
+    }
+
+    // password validation
+    if (!isEmpty(password) && !hasMinLength(password, 6)) {
+      errors.push("Password must be at least 6 characters long.");
+    }
+
+    // confirm password validation
+    if (!isEqualToOtherValue(password, confirmPassword)) {
+      errors.push("Passwords do not match.");
+    }
+
+    // full name validation
+    if (isEmpty(firstName) || isEmpty(lastName)) {
+      errors.push("First name and last name are required.");
+    }
+
+    // role validation
+    if (isEmpty(role)) {
+      errors.push("Please select a role.");
+    }
+
+    // terms and conditions validation
+    if (!terms) {
+      errors.push("You must agree to the terms and conditions.");
+    }
+
+    // acquisition channel validation
+    if (acquisitionChannel.length === 0) {
+      errors.push("Please select at least one acquisition channel.");
+    }
   }
 
   return (

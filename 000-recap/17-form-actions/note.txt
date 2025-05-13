@@ -25,3 +25,43 @@ function signupAction(formData) {
 - don't forget to create name attr. for this feature (identifier of data)
 
 <input id="email" type="email" name="email" />
+
+
+
+// Adding Validation Checks 
+
+- extract all the form data we get at the signupAction function
+    function signupAction(formData) {
+        const email = formData.get("email");
+        ...
+        const acquisitionChannel = formData.getAll("acquisition"); // multiple
+    }
+
+- create errors array
+    let errors = [];
+
+- checks the condition (validate) and push the errors to the errors array (functions are from validation.js)
+    // email validation
+    if (!isEmail(email)) {
+      errors.push("Invalid email address.");
+    }
+
+    // confirm password validation
+    if (!isEqualToOtherValue(password, confirmPassword)) {
+      errors.push("Passwords do not match.");
+    }
+
+    // full name validation
+    if (isEmpty(firstName) || isEmpty(lastName)) {
+      errors.push("First name and last name are required.");
+    }
+
+    // terms and conditions validation
+    if (!terms) {
+      errors.push("You must agree to the terms and conditions.");
+    }
+
+    // acquisition channel validation
+    if (acquisitionChannel.length === 0) {
+      errors.push("Please select at least one acquisition channel.");
+    }
