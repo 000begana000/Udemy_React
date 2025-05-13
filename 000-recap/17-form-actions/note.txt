@@ -3,3 +3,25 @@ Using form actions
 - extracting values & managing form state
 - synchronous & asynchronous actions 
 - optimistic UI updating
+
+// What are form actions?
+- we can use this feature from react ver.19
+
+- instead of onSubmit attr., use action prop 
+- React kind of overrides this attribute, this prop, a value to action, will be executed when the form is submitted.
+- react reset the form automatically with action attr. too.
+
+<form action={signupAction}>
+// default action = define url/path to send the form data 
+
+- with action, we will get formData, not event 
+- and this formData has all the input data (this case, email)
+
+function signupAction(formData) {
+    const enteredEamil = formData.get("email");
+    console.log(enteredEamil);
+  }
+
+- don't forget to create name attr. for this feature (identifier of data)
+
+<input id="email" type="email" name="email" />
