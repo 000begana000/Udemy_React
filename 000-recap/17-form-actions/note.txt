@@ -117,3 +117,48 @@ function signupAction(formData) {
           ))}
         </ul>
     )}
+
+
+// Using User Input
+: to prevent losing input value after validation 
+
+- return enteredValues from action function
+
+    function signupAction(prevFormState, formData) {
+        if (errors.length > 0) {
+            return {
+                errors,
+                enteredValues: {
+                email,
+                password,
+                confirmPassword,
+                firstName,
+                lastName,
+                role,
+                terms,
+                acquisitionChannel,
+                },
+            };
+        }
+
+        // when there is no error, form will be empty
+        return { errors: null };
+    }
+
+- defaultValue : the value will be set when the input is reset
+- when there is enteredValue only, it will be applied to defaultValue
+- otherwise defaultValue will be set undefined 
+
+    // email
+    defaultValue={formState.enteredValues?.email}
+
+    // role (select) : but it's always select the first value after validation => how could we fix it?
+    defaultValue={formState.enteredValues?.role}
+
+    // acquisitionChannel (array)
+    defaultChecked={formState.enteredValues?.acquisitionChannel?.includes(
+        "google"
+    )}
+
+    // terms
+    defaultChecked={formState.enteredValues?.terems}
