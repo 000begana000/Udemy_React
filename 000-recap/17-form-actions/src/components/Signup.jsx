@@ -1,12 +1,15 @@
+import { useActionState } from "react";
+
 import {
   isEmail,
-  isEmpty,
+  isNotEmpty,
   isEqualToOtherValue,
   hasMinLength,
 } from "../util/validation.js";
 
 export default function Signup() {
-  function signupAction(formData) {
+  // when action function is called by useActionState, react gives you the last form state - so first argument is the last form state
+  function signupAction(prevFormState, formData) {
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirm-password");
@@ -24,7 +27,7 @@ export default function Signup() {
     }
 
     // password validation
-    if (!isEmpty(password) && !hasMinLength(password, 6)) {
+    if (!isNotEmpty(password) && !hasMinLength(password, 6)) {
       errors.push("Password must be at least 6 characters long.");
     }
 
@@ -34,12 +37,12 @@ export default function Signup() {
     }
 
     // full name validation
-    if (isEmpty(firstName) || isEmpty(lastName)) {
+    if (isNotEmpty(firstName) || isNotEmpty(lastName)) {
       errors.push("First name and last name are required.");
     }
 
     // role validation
-    if (isEmpty(role)) {
+    if (isNotEmpty(role)) {
       errors.push("Please select a role.");
     }
 
@@ -52,10 +55,25 @@ export default function Signup() {
     if (acquisitionChannel.length === 0) {
       errors.push("Please select at least one acquisition channel.");
     }
+
+    // if there are errors, return them
+    if (errors.length > 0) {
+      return { errors };
+    }
+
+    // if there are no errors, return null
+    return { errors: null };
   }
 
+  // formState = form state value, which is returned from the action function
+  // formAction = form action(signupAction) inhanced by react, with extra features with react aware of the form state
+  // pending = boolean value to check if the form is submitted or not
+  const [formState, formAction, pending] = useActionState(signupAction, {
+    errors: null,
+  });
+
   return (
-    <form action={signupAction}>
+    <form action={formAction}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
 
@@ -139,6 +157,15 @@ export default function Signup() {
           agree to the terms and conditions
         </label>
       </div>
+
+      {/* display error message when there is error */}
+      {formState.errors && (
+        <ul className="error">
+          {formState.errors.map(error => (
+            <li key={error}>{error}</li>
+          ))}
+        </ul>
+      )}
 
       <p className="form-actions">
         <button type="reset" className="button button-flat">

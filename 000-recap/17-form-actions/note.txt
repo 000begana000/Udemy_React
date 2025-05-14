@@ -4,7 +4,9 @@ Using form actions
 - synchronous & asynchronous actions 
 - optimistic UI updating
 
+
 // What are form actions?
+
 - we can use this feature from react ver.19
 
 - instead of onSubmit attr., use action prop 
@@ -65,3 +67,53 @@ function signupAction(formData) {
     if (acquisitionChannel.length === 0) {
       errors.push("Please select at least one acquisition channel.");
     }
+
+
+// Managing form-dependent state with useActionState()
+
+- how can we refer values via action prop?
+    <form action={signupAction}>   <===
+
+- via useActionState :
+    import { useActionState } from "react";
+
+- before we use the action state, let's return object
+    function signupAction(formData) {
+        .....(prevCode)
+
+        //// if there are errors, return them
+        if (errors.length > 0) {
+            return { errors };
+        }
+
+        //// if there are no errors, return null
+        return { errors: null };
+    }
+
+- formState = form state value, which is returned from the action function
+- formAction = form action(signupAction) inhanced by react, with extra features with react aware of the form state
+- pending = boolean value to check if the form is submitted or not
+- useActionState(function, initialValue)
+
+    const [formState, formAction, pending] = useActionState(signupAction, {
+        errors: null,
+    });
+
+
+- call formAction to form action tag
+    <form action={formAction}>
+
+
+- use prevFormState in the action function to prevent error
+- when action function is called by useActionState, react gives you the last form state - so first argument is the last form state 
+    function signupAction(prevFormState, formData) {
+
+
+- display error message when there is error
+    {formState.errors && (
+        <ul className="error">
+          {formState.errors.map(error => (
+            <li key={error}>{error}</li>
+          ))}
+        </ul>
+    )}
