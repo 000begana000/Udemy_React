@@ -162,3 +162,8 @@ function signupAction(formData) {
 
     // terms
     defaultChecked={formState.enteredValues?.terems}
+
+
+// Moving the action function out of the component 
+
+- if the action function doesn't have state or props, we can move it outside of component function, or even in a separated file
