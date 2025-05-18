@@ -23,3 +23,17 @@ import { useFormStatus } from "react-dom";
         </button>
         </p>
     );
+
+
+// Registering multiple form actions 
+- we can use action prop outside of form tag, in the button tap like this :
+    <button formAction={upvoteAction}>
+
+- create functions : there is no input threrfor we don't receive formData
+  function upvoteAction() {
+    console.log("upvote");
+  }
+
+  function downvoteAction() {
+    console.log("downvote");
+  }
