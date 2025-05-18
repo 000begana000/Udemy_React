@@ -1,2 +1,25 @@
 // Working with Asynchronous form actions 
 - before we clear the form, we submit the data to the backend, using context 
+
+// Updating the UI with useFormStatus();
+- this hook can't be used in the component in the component that contains the form and the formAction, but instead it must be used in some nested component. some component, inside of form.
+
+- create new component file 
+ex) Submit.jsx 
+
+import { useFormStatus } from "react-dom";
+
+- original 
+    // const {pending, data, method, action} = useFormStatus();
+
+- we use only pending, returns boolean - submitted or not
+    const { pending } = useFormStatus();
+
+- use it conditionally 
+    return (
+        <p className="actions">
+        <button type="submit" disabled={pending}>
+            {pending ? "Submitting..." : "Submit"}
+        </button>
+        </p>
+    );
