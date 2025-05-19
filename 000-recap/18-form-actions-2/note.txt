@@ -107,8 +107,48 @@ To suspend rendering until an async resource (like a Promise) is resolved. Often
         useActionState(downvoteAction, null);
 
 - use FormAction and Pending to the button : either way of action
- 
+
     <button
         formAction={upvoteFormAction}
         disabled={upvotePending || downvotePending}
     >
+
+
+// Adding optimistic updating 
+: useOptimistic() hook helps us for optimistic updating.
+: vote number is updated immediately but button will be disabled 
+
+- use it where we need to update a piece of UI, in this case in Opinion.jsx 
+
+    <span>{votes}</span>
+
+- import hook 
+    import { useOptimistic } from "react";
+
+- [optimisticVotes, setVotesOptimistically] => useOptimistic() returns 2 values as like useState()
+- votes => the initial value should update optimistically
+- prevVotes => parameter from react, prevState
+- mode => a parameter from myself
+- when mode is up then +1 vote to the prevVote, otherwise -1
+
+    const [optimisticVotes, setVotesOptimistically] = useOptimistic(
+        votes,
+        (prevVotes, mode) => (mode === "up" ? prevVotes + 1 : prevVotes - 1)
+    );
+
+- setVotesOptimistically can be called in any form actions
+- optimisticVotes => ***temporary value while the value is submitted***
+- prevVote is always called automatically by react but we should give the secend argument when we call setVotesOptimistically
+
+async function upvoteAction() {
+
+    - call this before we send the request & optimisticVotes will be updated just as like state
+    - now the optimisticVotes will be updated immediately then send the request after
+
+    setVotesOptimistically("up");
+    await upvoteOpinion(id); // comes from props
+  }
+
+
+- apply optimisticVotes to the span 
+    <span>{optimisticVotes}</span>
