@@ -64,7 +64,7 @@ import { useFormStatus } from "react-dom";
         });
         });
     }
-    
+
 
 - import context and import functions via use() hook
 
@@ -90,3 +90,25 @@ To suspend rendering until an async resource (like a Promise) is resolved. Often
     async function downvoteAction() {
         await downvoteOpinion(id);
     }
+
+
+// Using the pending state from useActionState()
+: disable button when it's clicked when vote is submitting
+
+    import { useActionState } from "react";
+
+- create 2 useActionStates since we are handling 2 buttons 
+
+    const [upvoteFormState, upvoteFormAction, upvotePending] = useActionState(
+        upvoteAction,
+        null
+    );
+    const [downvoteFormState, downvoteFormAction, downvotePending] =
+        useActionState(downvoteAction, null);
+
+- use FormAction and Pending to the button : either way of action
+ 
+    <button
+        formAction={upvoteFormAction}
+        disabled={upvotePending || downvotePending}
+    >
