@@ -37,3 +37,56 @@ import { useFormStatus } from "react-dom";
   function downvoteAction() {
     console.log("downvote");
   }
+
+
+// Sending an HTTP request via a form action 
+
+- create upvote promise function (async/await) - be aware of id 
+
+    async function upvoteOpinion(id) {
+        const response = await fetch(
+        "http://localhost:3000/opinions/" + id + "/upvote", <=====
+        {
+            method: "POST",
+        }
+        );
+
+        if (!response.ok) {
+        return;
+        }
+
+        setOpinions(prevOpinions => {
+        return prevOpinions.map(opinion => {
+            if (opinion.id === id) {
+            return { ...opinion, votes: opinion.votes + 1 };
+            }
+            return opinion;
+        });
+        });
+    }
+    
+
+- import context and import functions via use() hook
+
+useContext() — React Hook
+Purpose:
+To consume a context that was created using React.createContext.
+
+use() — Experimental Hook (as of React 18+) : async resource!!
+Purpose:
+To suspend rendering until an async resource (like a Promise) is resolved. Often used in Server Components or with async functions in React.
+
+    import { use } from "react";
+    import { OpinionsContext } from "../store/opinions-context";
+
+
+- call the functions
+: these functions yield promises so we need to create async await actions
+
+    async function upvoteAction() {
+        await upvoteOpinion(id); // comes from props
+    }
+
+    async function downvoteAction() {
+        await downvoteOpinion(id);
+    }

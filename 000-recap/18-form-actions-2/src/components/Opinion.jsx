@@ -1,12 +1,19 @@
+import { use } from "react";
+import { OpinionsContext } from "../store/opinions-context";
+
 export function Opinion({ opinion: { id, title, body, userName, votes } }) {
+  const { upvoteOpinion, downvoteOpinion } = use(OpinionsContext);
+
   // there is no input threrfor we don't receive formData
-  function upvoteAction() {
-    console.log("upvote");
+  // these functions yield promises so we need to create async await actions
+  async function upvoteAction() {
+    await upvoteOpinion(id); // comes from props
   }
 
-  function downvoteAction() {
-    console.log("downvote");
+  async function downvoteAction() {
+    await downvoteOpinion(id);
   }
+
   return (
     <article>
       <header>
