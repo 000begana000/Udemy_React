@@ -5,3 +5,11 @@ Food order app
 - building & configuring components
 - using state & context
 - managing HTTP requests & side effects
+
+1. make a sketch of tne app
+
+2. build core components and add more features later 
+    1) add the header component 
+    2) add the meals-related components & the logic to fetch meals data from backend
+    3) add cart logic (add items to cart, edit cart items) & checkout page logic 
+
