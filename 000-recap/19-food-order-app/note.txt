@@ -1,0 +1,7 @@
+Food order app
+(components, state, context, effects, HTTP Requests & model)
+
+- builidng a complete project from the ground up
+- building & configuring components
+- using state & context
+- managing HTTP requests & side effects
