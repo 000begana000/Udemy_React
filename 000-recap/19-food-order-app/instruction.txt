@@ -1,2 +1,6 @@
 1. build Header 
+
 2. build Meals - simple ver. of fetching, map meal names only 
+
+3. create MealItem - article, div(name(h3), price(p), description(p)), p(button)
+    <img src={`http://localhost:3000/${meal.image}`} alt={meal.name} />
