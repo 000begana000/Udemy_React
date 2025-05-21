@@ -1,0 +1,2 @@
+1. build Header 
+2. build Meals - simple ver. of fetching, map meal names only 
