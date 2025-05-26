@@ -13,3 +13,19 @@
     (children, textOnly, cssClasses(text-button / button + className) ...props)
 
 7. use Button for Header(textOnly), MealItem(pure)
+
+8. Add to cart button (Cart (0) update) => useContext()
+    src/store/CartContext.jsx
+    const CartContext = createContext({
+        items: [],
+        addItem: item => {},
+        removeItem: id => {},
+    });
+
+    build "addItem" logic : add new item with quantity: 1, otherwise find existing item and add quantity + 1
+
+    - find index of the item first
+    - copy of old array (immutable way)
+    - when the item exist, each out to the existing item and add 1 quantity and update updatedItems with updatedItem 
+    - if item doesn't exist, create quantity prop and adding 1
+    - return { ...state, items: updatedItems }

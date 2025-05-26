@@ -13,3 +13,12 @@ Food order app
     2) add the meals-related components & the logic to fetch meals data from backend
     3) add cart logic (add items to cart, edit cart items) & checkout page logic 
 
+3. CartContextProvider can be shorten from react ver.19
+
+function CartContextProvider() {
+  return <CartContext.Provider></CartContext.Provider>;
+}
+
+function CartContextProvider() {
+  return <CartContext></CartContextr>;
+}
