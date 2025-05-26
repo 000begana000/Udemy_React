@@ -16,7 +16,10 @@ Food order app
     3) add cart logic (add items to cart, edit cart items) & checkout page logic 
 
 
-3. CartContextProvider can be shorten from react ver.19
+3. when I need to manage state and worry about prop drilling - "useContext"
+
+
+3.1. CartContextProvider can be shorten from react ver.19
 
 function CartContextProvider() {
   return <CartContext.Provider></CartContext.Provider>;
@@ -26,8 +29,8 @@ function CartContextProvider() {
   return <CartContext></CartContextr>;
 }
 
-4. dispatch payload doesn't need to be named as payload
- 
+3.2. dispatch payload doesn't need to be named as payload
+
 function addItem(item) {
     dispatchCartAction({
       type: "ADD_ITEM",

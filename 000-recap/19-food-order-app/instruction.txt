@@ -52,3 +52,10 @@
     const totalCartItems = cartCtx.items.reduce((totalNumberOfItems, item) => {
         return totalNumberOfItems + item.quantity;
     }, 0);
+
+
+9. Create Modal component for Cart (0) 
+    - we can use this modal anywhere in our component but opens up in one place (createPortal)
+    - use useEffect() to interact with open prop correctly 
+    - open the dialog programmatically with useRef() so we can use overlay feature - showModal()
+    - give a dynamic className(default = "") so we can style it from outside as well
