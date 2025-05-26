@@ -4,3 +4,6 @@
 
 3. create MealItem - article, div(name(h3), price(p), description(p)), p(button)
     <img src={`http://localhost:3000/${meal.image}`} alt={meal.name} />
+
+4. improve buttons and price in MealItem
+    ** price - src/util/formatting.js (currencyFormatter / new Intl.NumberFormat)
