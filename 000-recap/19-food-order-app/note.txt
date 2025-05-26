@@ -6,12 +6,15 @@ Food order app
 - using state & context
 - managing HTTP requests & side effects
 
+
 1. make a sketch of tne app
+
 
 2. build core components and add more features later 
     1) add the header component 
     2) add the meals-related components & the logic to fetch meals data from backend
     3) add cart logic (add items to cart, edit cart items) & checkout page logic 
+
 
 3. CartContextProvider can be shorten from react ver.19
 
@@ -22,3 +25,12 @@ function CartContextProvider() {
 function CartContextProvider() {
   return <CartContext></CartContextr>;
 }
+
+4. dispatch payload doesn't need to be named as payload
+ 
+function addItem(item) {
+    dispatchCartAction({
+      type: "ADD_ITEM",
+      item,
+    });
+  }

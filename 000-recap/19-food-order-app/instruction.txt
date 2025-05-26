@@ -29,3 +29,26 @@
     - when the item exist, each out to the existing item and add 1 quantity and update updatedItems with updatedItem 
     - if item doesn't exist, create quantity prop and adding 1
     - return { ...state, items: updatedItems }
+
+
+    build "removeItem" logic : if quantity is greater than 1, we reduce quantity else if it's equal to 1, remove item from the shopping cart
+
+    - find exisitng item index first
+    - find existingCartItem
+    - copy the old item state in new array (immutable)
+    - quantity === 1 :remove the item with splice
+    - quantity > 1 : quantity -1 and updatedItems[existingItemIndex] = updatedItem;
+    - finally  return { ...state, items: updatedItems };
+
+
+    import CartContextProvider to App 
+
+
+    implement addItem (handleAddMealToCart) in MealItem 
+
+
+    show the item number in Header Cart with Reduce method & context 
+
+    const totalCartItems = cartCtx.items.reduce((totalNumberOfItems, item) => {
+        return totalNumberOfItems + item.quantity;
+    }, 0);
