@@ -6,6 +6,7 @@ import { currencyFormatter } from "../util/formatting";
 
 import Modal from "./UI/Modal";
 import Button from "./UI/Button";
+import CartItem from "./CartItem";
 
 export default function Cart() {
   const cartContext = useContext(CartContext);
@@ -25,9 +26,14 @@ export default function Cart() {
       <h2>Your Cart</h2>
       <ul>
         {cartContext.items.map(item => (
-          <li key={item.id}>
-            {item.name} - {item.quantity}
-          </li>
+          <CartItem
+            key={item.id}
+            name={item.name}
+            quantity={item.quantity}
+            price={item.price}
+            onIncrease={() => cartContext.addItem(item)}
+            onDecrease={() => cartContext.removeItem(item.id)}
+          />
         ))}
       </ul>
       <p className="cart-total">{currencyFormatter.format(cartTotal)}</p>
