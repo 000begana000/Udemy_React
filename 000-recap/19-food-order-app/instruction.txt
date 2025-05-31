@@ -59,3 +59,13 @@
     - use useEffect() to interact with open prop correctly 
     - open the dialog programmatically with useRef() so we can use overlay feature - showModal()
     - give a dynamic className(default = "") so we can style it from outside as well
+
+10. Create Cart component, import Modal & apply it
+    - give extra style to Modal("cart")
+    - iterate item names and quantity via CartContext (name - quantity)
+    - below that, <p className="cart-total">{currencyFormatter.format(cartTotal)}</p> : hint for cartTotal : reduce, item.price * item.quantity
+    - below that,  <p className="modal-actions">
+        <Button textOnly>Close</Button>
+        <Button>Go to Checkout</Button>
+
+11. Create UserProgressContext to handle open & closing Modal 
