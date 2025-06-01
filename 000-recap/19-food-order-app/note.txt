@@ -60,3 +60,15 @@ function addItem(item) {
       open={userProgressCtx.progress === "checkout"}
       onClose={handleCloseCheckout}
     >
+
+5. why preventDefault?
+    - default http request won't be created and set - therefore we have change to handle what has to happen when the form is submitted
+
+    function handleSubmit(event) {
+        event.preventDefault(); 
+      }
+
+6. how to extract datas via FormData
+
+    const fd = new FormData(event.target);
+    const customerData = Object.fromEntries(fd.entries()); // {email: text@example.com}
