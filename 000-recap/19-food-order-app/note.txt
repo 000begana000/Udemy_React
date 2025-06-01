@@ -69,6 +69,16 @@ function addItem(item) {
       }
 
 6. how to extract datas via FormData
-
     const fd = new FormData(event.target);
     const customerData = Object.fromEntries(fd.entries()); // {email: text@example.com}
+
+7. send POST request : in the submit function
+    fetch("http://localhost:3000/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        order: { items: cartCtx.items, customer: customerData },
+      }),
+    });
