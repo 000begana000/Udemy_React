@@ -37,3 +37,26 @@ function addItem(item) {
       item,
     });
   }
+
+
+4. Working with modal - don't forget 3 things.
+
+4.1 Connection to the state or context
+    <Modal open={userProgressCtx.progress === "checkout"}>
+
+4.2 import component to App 
+
+4.3 ESC key will bring bug (can't open modal anymore) : add onClose 
+    (Modal.jsx)
+    export default function Modal({ ..., onClose})
+    <dialog .... onClose={onClose}>
+    ...
+
+    (Cart.jsx) : prevent close everything when we click go to checkout  
+    <Modal className="cart" open={userProgressCtx.progress === "cart"} onClose={userProgressCtx.progress === "cart" ? handleCloseCart : null}>
+
+    (Checkout.jsx) : simply connect to close function
+    <Modal
+      open={userProgressCtx.progress === "checkout"}
+      onClose={handleCloseCheckout}
+    >
