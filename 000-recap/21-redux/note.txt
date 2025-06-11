@@ -1,0 +1,42 @@
+- what is redux? and why would you use it?
+- redux basics & using redux with react
+- working with redux toolkit
+
+
+- what is redux?
+: A state management system for cross-component or app-wide state 
+    React : useState & useReducer - update UI
+
+
+- what is cross-component & app-wide state?
+    1. local state : state belongs to a single component 
+    
+    e.g., listening to user input on input field or toggling a "show more details" field 
+
+    !!!should be managed inside the component via useState() or useReducer()
+
+
+    2. cross-component state : state affecting multiple components 
+
+    e.g., open/ closed state of a modal overlay
+
+    !!!requires "prop drilling"
+    => react Context or Redux
+
+
+    3. app-wide state : state affecting the entire app
+
+    e.g., user authentication status or chosen theme
+
+    !!!requires "prop drilling"
+    => react Context or Redux
+
+
+- Redux vs React Context 
+: react context has some potential disadvantages 
+
+    1. complex setup & management 
+        in more complex apps, using Context can lead to deeply nested or "fat" "Context Provider" components 
+
+    2. performance 
+        Context is not optimized for high-frequency state changes 
