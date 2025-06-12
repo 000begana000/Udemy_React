@@ -40,3 +40,21 @@
 
     2. performance 
         Context is not optimized for high-frequency state changes 
+
+
+- How redux works : core redux concept 
+
+    1. central data (state) store 
+        : we have only 1 store for entire application
+    
+    2. component subscribe central data
+        : when data changes the central store notify component 
+    
+    3. component NEVER directly manipulate store data
+        : instead we run reducer function and this function mutates (=changes) data in store 
+        ===> it's not useReducer(). reducer functions are a general concept
+    
+    4. we trigger(dispatch) actions 
+        : redux forward that action to reducer and perform the operation
+
+    component dispatches action and action forward action to reducer then reducer does what action orders finally reducer spits out a new state which affects central store then the components get notified and then update UI
