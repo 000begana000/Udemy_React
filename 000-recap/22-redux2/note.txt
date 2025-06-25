@@ -1,0 +1,6 @@
+npm install redux react-redux
+
+- create redux store folder (to put redux logic)
+src > store > index.js 
+
+- import redux and createStore, export default store : it's a bit different than first lecture so checkout the index.js file
