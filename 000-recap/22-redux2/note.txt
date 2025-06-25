@@ -1,6 +1,17 @@
 npm install redux react-redux
 
-- create redux store folder (to put redux logic)
+- Create redux store folder (to put redux logic)
 src > store > index.js 
 
-- import redux and createStore, export default store : it's a bit different than first lecture so checkout the index.js file
+- Import redux and createStore, export default store : it's a bit different than first lecture so checkout the index.js file
+
+- Providing store (index.js)
+1. import { Provider } from "react-redux"; // a component
+2. import store from "./store/index.js"; // import created store
+3. const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
+====> wrap it and provide it 
