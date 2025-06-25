@@ -5,10 +5,20 @@ const redux = require("redux"); // import redux package
 // output : new state object {}
 // (state = { counter: 0 } => default value of state
 const counterReducer = (state = { counter: 0 }, action) => {
-  return {
-    // structure is totally up to us
-    counter: state.counter + 1, // old state counter + 1
-  };
+  if (action.type === "increment") {
+    return {
+      // structure is totally up to us
+      counter: state.counter + 1, // old state counter + 1
+    };
+  }
+
+  if (action.type === "decrement") {
+    return {
+      counter: state.counter - 1,
+    };
+  }
+
+  return state;
 };
 
 // create store
@@ -24,3 +34,4 @@ store.subscribe(counterSubscriber); // counterSubsriber will get triggered whene
 
 // dispatch an action
 store.dispatch({ type: "increment" });
+store.dispatch({ type: "decrement" });
