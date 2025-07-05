@@ -23,14 +23,31 @@ root.render(
 - Using redux data in React Components 
     let's say we want to show counter at the Counter component 
 
-    useSelector => let us use part of state manage by the store 
-    => import { useSelector } from 'react-redux';
+    > useSelector => let us use part of state manage by the store 
+      import { useSelector } from 'react-redux';
 
-    execute the part of the state we want.
+    > execute the part of the state we want.
     then react redux automatically set up the subscription to the redux store for this component.
     then my component will be updated and receive the "latest counter" whenever data changes.
     when it's unmount, react redux automatically clear the subscribtion.
-    => const counter = useSelector(state => state.counter);
+      const counter = useSelector(state => state.counter);
 
-    display counter value
-    => <div className={classes.value}>{counter}</div>
+    > display counter value
+      <div className={classes.value}>{counter}</div>
+
+
+- Deispatching actions from inside components 
+
+  > import useDispatch
+    import { useSelector, useDispatch } from "react-redux";
+
+  > store in var 
+    const dispatch = useDispatch(); // a funtion
+
+  > create handler
+    const incrementHandler = () => {
+      dispatch({ type: "increment" });
+    };
+  
+  > use it 
+    <button onClick={incrementHandler}>Increment</button>
