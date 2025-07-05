@@ -51,3 +51,23 @@ root.render(
   
   > use it 
     <button onClick={incrementHandler}>Increment</button>
+
+
+- Attaching payloads to actions 
+  : flexible playload
+
+  > create new reducer function in store 
+    if (action.type === "increse") {
+      return {
+        counter: state.counter + action.amount,
+      };
+    }
+  
+  > create new handler in component 
+  : action value is flexible (this case we set as 5)
+    const increseHandler = () => {
+      dispatch({ type: "increse", amount: 5 });
+    };
+
+  > apply it to the button 
+    <button onClick={increseHandler}>Increse by 5</button>
