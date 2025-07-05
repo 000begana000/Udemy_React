@@ -1,9 +1,12 @@
 npm install redux react-redux
 
+
 - Create redux store folder (to put redux logic)
 src > store > index.js 
 
+
 - Import redux and createStore, export default store : it's a bit different than first lecture so checkout the index.js file
+
 
 - Providing store (index.js)
 1. import { Provider } from "react-redux"; // a component
@@ -15,3 +18,19 @@ root.render(
   </Provider>
 );
 ====> wrap it and provide it 
+
+
+- Using redux data in React Components 
+    let's say we want to show counter at the Counter component 
+
+    useSelector => let us use part of state manage by the store 
+    => import { useSelector } from 'react-redux';
+
+    execute the part of the state we want.
+    then react redux automatically set up the subscription to the redux store for this component.
+    then my component will be updated and receive the "latest counter" whenever data changes.
+    when it's unmount, react redux automatically clear the subscribtion.
+    => const counter = useSelector(state => state.counter);
+
+    display counter value
+    => <div className={classes.value}>{counter}</div>
