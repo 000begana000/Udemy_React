@@ -82,7 +82,7 @@ root.render(
   > apply to reducer 
     const counterReducer = (state = initialState, action) => {
 
-  > we should return both state from every actions to keep it as it is 
+  > we should return both state from every actions to keep it as it is, overwrite the old state object 
     if (action.type === "increse") {
       return {
         counter: state.counter + action.amount,
@@ -111,3 +111,16 @@ root.render(
   
   > apply it to button 
     <button onClick={toggleCounterHandler}>Toggle Counter</button>
+
+
+- How to work with redux state correctly 
+: we should "NEVER MUTATE" the state directly but "MUST OVERWRITE" existing state 
+
+  > NEVER DO THIS !!!!
+    if (action.type === "increment") {
+      state.counter ++  <=== mutating state 
+
+      return state;
+    }
+  
+  this can lead bugs, unpredictable behaviour, and making debug app harder 
