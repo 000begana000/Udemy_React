@@ -71,3 +71,43 @@ root.render(
 
   > apply it to the button 
     <button onClick={increseHandler}>Increse by 5</button>
+
+
+- Working with "multiple state" properties 
+
+  ((store))
+  > create initialState var 
+    const initialState = { counter: 0, showCounter: true };
+  
+  > apply to reducer 
+    const counterReducer = (state = initialState, action) => {
+
+  > we should return both state from every actions to keep it as it is 
+    if (action.type === "increse") {
+      return {
+        counter: state.counter + action.amount,
+        showCounter: state.showCounter,
+      };
+    }
+
+     if (action.type === "toggle") {
+        return {
+          showCounter: !state.showCounter,
+          counter: state.counter,
+        };
+      }
+    
+  (( component )) : we want to toggle the counter 
+  > store showCounter state 
+    const showCounter = useSelector(state => state.showCounter);
+
+  > apply it to div block
+    {showCounter && <div className={classes.value}>{counter}</div>}
+  
+  > create hanlder function
+    const toggleCounterHandler = () => {
+      dispatch({ type: "toggle" });
+    };
+  
+  > apply it to button 
+    <button onClick={toggleCounterHandler}>Toggle Counter</button>
