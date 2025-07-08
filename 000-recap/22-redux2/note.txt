@@ -161,3 +161,27 @@ root.render(
         },
       },
     });
+
+
+- Connecting redux toolkit state 
+  > import configureStore 
+    import { createSlice, configureStore } from "@reduxjs/toolkit";
+
+  > store slice in a var 
+    const counterSlice = createSlice({...})
+  
+  > connect slice to store 
+    // configuration : 배열, 환경설정
+    // configureStore also creates store but but it makes merging multiple reducers into 1 reducer easier 
+
+      // single reducer 
+      const store = configureStore({
+        reducer: counterSlice.reducer,
+      });
+
+      // multiple reducer 
+      const store = configureStore({
+        reducer: {
+          counter: counterSlice.reducer,
+        },
+      });
