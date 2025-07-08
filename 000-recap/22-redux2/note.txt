@@ -124,3 +124,40 @@ root.render(
     }
   
   this can lead bugs, unpredictable behaviour, and making debug app harder 
+
+1. identifier 
+  2. handling big data
+  3. state immutability 
+
+- Redux toolkit & adding state slices 
+
+  > install redux toolkit
+    npm install @reduxjs/toolkit
+  
+  > use it in the store - import createSlice 
+    import { createSlice } from "@reduxjs/toolkit";
+
+  > prepare slice of our global state
+    *** redux toolkit will clone the state automatically so we don't need to worry about mutation
+    *** redux toolkit also keeps the states we don't use but apply changes only
+
+    createSlice({
+      name: "counter",
+      initialState,
+      reducers: {
+        increment(state) {
+          // we can mutate the state here
+          state.counter++; 
+        },
+        decrement(state) {
+          state.counter--;
+        },
+        // action is needed when we have payload only
+        increase(state, action) {
+          state.counter = state.counter + action.amount;
+        },
+        toggle(state) {
+          state.showCounter = !state.showCounter;
+        },
+      },
+    });
