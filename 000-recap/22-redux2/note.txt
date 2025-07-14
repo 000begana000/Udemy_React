@@ -36,7 +36,7 @@ root.render(
       <div className={classes.value}>{counter}</div>
 
 
-- Deispatching actions from inside components 
+- Dispatching actions from inside components 
 
   > import useDispatch
     import { useSelector, useDispatch } from "react-redux";
@@ -125,9 +125,6 @@ root.render(
   
   this can lead bugs, unpredictable behaviour, and making debug app harder 
 
-1. identifier 
-  2. handling big data
-  3. state immutability 
 
 - Redux toolkit & adding state slices 
 
@@ -172,7 +169,7 @@ root.render(
   
   > connect slice to store 
     // configuration : 배열, 환경설정
-    // configureStore also creates store but but it makes merging multiple reducers into 1 reducer easier 
+    // configureStore also creates store but it makes merging multiple reducers into 1 reducer easier 
 
       // single reducer 
       const store = configureStore({
@@ -185,3 +182,37 @@ root.render(
           counter: counterSlice.reducer,
         },
       });
+
+      export default store;
+
+
+- Migrating everything to redux toolkit 
+    ((index.js))
+    : conterSlice.actions.toggle() returns an action object of this shape: {type: 'some auto-generated unique identifier'}
+    : we don't need to worry about typo or anything
+
+    // export counter actions
+    export const counterActions = counterSlice.actions;
+
+
+    ((Counter.jsx))
+    const incrementHandler = () => {
+      dispatch({ type: "increment" });
+    };
+
+    to this 
+
+    const incrementHandler = () => {
+      dispatch(counterActions.increment());
+    };
+
+
+    when there is payload: 
+    const increseHandler = () => {
+      dispatch(counterActions.increase(5)); // 5 is payload
+    };
+
+    behind the scene :
+    increase(state, action) {
+      state.counter = state.counter + action.payload; <===
+    },
