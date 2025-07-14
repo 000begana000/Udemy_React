@@ -259,3 +259,32 @@ root.render(
   };
 
   <button onClick={logoutHandler}>Logout</button>
+
+
+- Splitting our code 
+: split stores, slices 
+
+  create new file in store 
+    e.x.) counter.js
+
+  cut everything from index.js, 
+  export 2 things 
+
+    export const counterActions = counterSlice.actions;
+
+    export default counterSlice.reducer;
+
+  import reducers and merge 
+
+    import counterReducer from "./counter";
+    import authReducer from "./auth";
+
+    const store = configureStore({
+      reducer: {
+        counter: counterReducer,
+        auth: authReducer,
+      },
+    });
+
+  fix the route of import 
+    import { counterActions } from "../store/counter";
