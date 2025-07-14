@@ -239,3 +239,23 @@ root.render(
   
   - export auth actions 
     export const authActions = authSlice.actions;
+
+
+- Reading & dispatching from new slice 
+
+  ((App.js))
+  import { useSelector } from "react-redux";
+
+  const isAuth = useSelector(state => state.auth.isAuthenticated);
+
+  {!isAuth && <Auth />}
+
+  ((Header.js))
+
+  import { useDispatch } from "react-redux";
+
+  const logoutHandler = () => {
+    dispatch(authActions.logout());
+  };
+
+  <button onClick={logoutHandler}>Logout</button>
