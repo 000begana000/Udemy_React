@@ -1,10 +1,10 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
-const initialState = { counter: 0, showCounter: true };
+const initialCounterState = { counter: 0, showCounter: true };
 
 const counterSlice = createSlice({
   name: "counter",
-  initialState,
+  initialState: initialCounterState,
   reducers: {
     increment(state) {
       state.counter++;
@@ -21,14 +21,34 @@ const counterSlice = createSlice({
   },
 });
 
-// configuration : 배열, 환경설정
-const store = configureStore({
-  reducer: counterSlice.reducer,
+const initialAuthState = {
+  isAuthenticated: false,
+};
+
+const authSlice = createSlice({
+  name: "authentication",
+  initialState: initialAuthState,
+  reducers: {
+    login(state) {
+      state.isAuthenticated = true;
+    },
+    logout(state) {
+      state.isAuthenticated = false;
+    },
+  },
 });
 
-// conterSlice.actions.toggle() returns an action object of this shape: {type: 'some auto-generated unique identifier'}
-// we don't need to worry about typo or anything
-// export counter actions
+// configuration : 배열, 환경설정
+// *** every store has only one reducer!
+// 2 reducers will be merged into 1 reducer
+const store = configureStore({
+  reducer: {
+    counter: counterSlice.reducer,
+    auth: authSlice.reducer,
+  },
+});
+
 export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
 
 export default store;

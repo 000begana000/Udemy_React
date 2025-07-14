@@ -216,3 +216,26 @@ root.render(
     increase(state, action) {
       state.counter = state.counter + action.payload; <===
     },
+
+
+- Working with multiple slices 
+: when we log in, switch Auth -> UserProfile 
+(application wide state : Header, Auth, UserProfile)
+
+
+  - create new slice
+
+  - config store 
+    // 2 reducers will be merged into 1 reducer
+    const store = configureStore({
+      reducer: {
+        counter: counterSlice.reducer,
+        auth: authSlice.reducer,
+      },
+    });
+
+    ** be aware we need to adjust counter state in Counter 
+      const counter = useSelector(state => state.counter.counter);
+  
+  - export auth actions 
+    export const authActions = authSlice.actions;
