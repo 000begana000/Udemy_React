@@ -11,3 +11,20 @@ Side effects, async tasks & redux
     - Where should side-effects & async tasks be executed?
         1. inside the components (e.g., via useEffect())
         2. inside the action creators 
+
+
+npm install @reduxjs/toolkit
+npm install react-redux
+
+import { createSlice } from "@reduxjs/toolkit";
+export const uiActions = uiSlice.actions;
+
+import { configureStore } from "@reduxjs/toolkit";
+
+import { Provider } from "react-redux";
+import store from "./store/index";
+
+import { useDispatch } from "react-redux";
+import { uiActions } from "../../store/ui-slice";
+
+import { useSelector } from "react-redux";
