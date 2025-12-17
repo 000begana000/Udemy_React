@@ -9,22 +9,22 @@ const CartContext = createContext({
 function cartReducer(state, action) {
   if (action.type === "ADD_ITEM") {
     const existingCartItemIndex = state.items.findIndex(
-      item => item.id === action.payload.id
+      item => item.id === action.item.id
     );
 
     const updatedItems = [...state.items];
 
     if (existingCartItemIndex > -1) {
-      const existingItem = updatedItems[existingCartItemIndex];
+      const existingCartItem = updatedItems[existingCartItemIndex];
 
       const updatedItem = {
-        ...existingItem,
-        quantity: existingItem.quantity + 1,
+        ...existingCartItem,
+        quantity: existingCartItem.quantity + 1,
       };
 
       updatedItems[existingCartItemIndex] = updatedItem;
     } else {
-      updatedItems.push({ ...action.payload, quantity: 1 });
+      updatedItems.push({ ...action.item, quantity: 1 });
     }
 
     return {
@@ -34,29 +34,57 @@ function cartReducer(state, action) {
   }
 
   if (action.type === "REMOVE_ITEM") {
-    //...
+    const existingCartItemIndex = state.items.findIndex(
+      item => item.id === action.id
+    );
+
+    const existingCartItem = state.items[existingCartItemIndex];
+
+    const updatedItems = [...state.items];
+
+    if (existingCartItem.quantity === 1) {
+      updatedItems.splice(existingCartItemIndex, 1);
+    } else {
+      const updatedItem = {
+        ...existingCartItem,
+        quantity: existingCartItem.quantity - 1,
+      };
+      updatedItems[existingCartItemIndex] = updatedItem;
+    }
+
+    return {
+      ...state,
+      items: updatedItems,
+    };
   }
+
   return state;
 }
 
 export function CartContextProvider({ children }) {
-  const [cartState, cartDispatch] = useReducer(cartReducer, { items: [] });
+  const [cart, dispatchCartAction] = useReducer(cartReducer, { items: [] });
 
-  function handleAddItem(item) {
-    cartDispatch({
+  function addItem(item) {
+    dispatchCartAction({
       type: "ADD_ITEM",
-      payload: item,
+      item,
     });
   }
 
-  function handleRemoveItem(item) {
-    cartDispatch({
+  function removeItem(id) {
+    dispatchCartAction({
       type: "REMOVE_ITEM",
-      payload: item,
+      id,
     });
   }
 
-  const ctxValue = {};
+  const ctxValue = {
+    items: cart.items,
+    addItem,
+    removeItem,
+  };
+
+  console.log(CartContext);
 
   return (
     <CartContext.Provider value={ctxValue}>{children}</CartContext.Provider>
