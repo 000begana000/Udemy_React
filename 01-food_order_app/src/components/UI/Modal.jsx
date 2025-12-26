@@ -1,12 +1,18 @@
-import { createPortal, useRef } from "react-dom";
+import { useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 export default function Modal({ children, open, className = "" }) {
   const dialog = useRef();
 
+  // useEffect is needed because showModal() is a DOM side effect that must run after the component mounts.
   useEffect(() => {
+    const modal = dialog.current;
+
     if (open) {
-      dialog.current.showModal();
+      modal.showModal();
     }
+
+    return () => modal.close();
   }, [open]);
 
   return createPortal(

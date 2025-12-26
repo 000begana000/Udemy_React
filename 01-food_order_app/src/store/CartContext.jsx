@@ -69,8 +69,6 @@ export function CartContextProvider({ children }) {
     addItem,
   };
 
-  console.log(CartContext);
-
   return (
     <CartContext.Provider value={ctxValue}>{children}</CartContext.Provider>
   );
