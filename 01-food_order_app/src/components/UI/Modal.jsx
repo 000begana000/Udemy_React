@@ -8,10 +8,12 @@ export default function Modal({ children, open, className = "" }) {
   useEffect(() => {
     const modal = dialog.current;
 
+    // open modal
     if (open) {
       modal.showModal();
     }
 
+    // close modal
     return () => modal.close();
   }, [open]);
 
