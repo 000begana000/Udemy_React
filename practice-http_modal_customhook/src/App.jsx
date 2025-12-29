@@ -36,7 +36,8 @@ function App() {
     try {
       await updateSelectedPlaces([newPlace, ...selectedPlaces]);
     } catch (error) {
-      //...
+      setSelectedPlaces(selectedPlaces);
+      setAvailablePlaces(availablePlaces);
     }
   }
 
