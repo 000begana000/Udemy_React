@@ -10,7 +10,7 @@ export async function fetchAvailablePlaces() {
 }
 
 export async function updateSelectedPlaces(places) {
-  const response = fetch("http://localhost:3000/user-places", {
+  const response = await fetch("http://localhost:3000/user-places", {
     method: "PUT",
     body: JSON.stringify({ places }),
     headers: {
@@ -18,7 +18,7 @@ export async function updateSelectedPlaces(places) {
     },
   });
 
-  const resData = (await response).json();
+  const resData = await response.json();
 
   if (!response.ok) {
     throw new Error("failed to updated selected places");

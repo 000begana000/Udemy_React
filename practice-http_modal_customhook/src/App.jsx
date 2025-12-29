@@ -3,12 +3,14 @@ import { useState, useEffect } from "react";
 import ErrorPage from "./components/ErrorPage";
 import { fetchAvailablePlaces } from "./http";
 import { updateSelectedPlaces } from "./http";
+import Modal from "./components/Modal";
 
 function App() {
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState();
   const [availablePlaces, setAvailablePlaces] = useState([]);
   const [selectedPlaces, setSelectedPlaces] = useState([]);
+  const [errorUpdatingData, setErrorUpdatingData] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -38,7 +40,12 @@ function App() {
     } catch (error) {
       setSelectedPlaces(selectedPlaces);
       setAvailablePlaces(availablePlaces);
+      setErrorUpdatingData(true);
     }
+  }
+
+  function handleError() {
+    setErrorUpdatingData(null);
   }
 
   if (error) {
@@ -47,6 +54,12 @@ function App() {
 
   return (
     <>
+      <Modal
+        message="Faild to update data"
+        open={errorUpdatingData}
+        onClose={handleError}
+      />
+
       <div>
         <h1>Selected Places</h1>
         {selectedPlaces.length === 0 && <p>no place yet</p>}
