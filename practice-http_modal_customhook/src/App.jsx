@@ -1,16 +1,36 @@
 import { useState, useEffect } from "react";
 
-import ErrorPage from "./components/ErrorPage";
+import { fetchUserPlaces } from "./http";
 import { fetchAvailablePlaces } from "./http";
 import { updateSelectedPlaces } from "./http";
+
+import ErrorPage from "./components/ErrorPage";
 import Modal from "./components/Modal";
 
 function App() {
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState();
-  const [availablePlaces, setAvailablePlaces] = useState([]);
   const [selectedPlaces, setSelectedPlaces] = useState([]);
+  const [availablePlaces, setAvailablePlaces] = useState([]);
+  const [userPlaces, setUserPlaces] = useState([]);
   const [errorUpdatingData, setErrorUpdatingData] = useState();
+
+  useEffect(() => {
+    async function fetchData() {
+      setIsFetching(true);
+
+      try {
+        const places = await fetchUserPlaces();
+        setUserPlaces(places);
+      } catch (error) {
+        setError({ message: error.message || "failed to fetch selected data" });
+      }
+
+      setIsFetching(false);
+    }
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -59,16 +79,17 @@ function App() {
         open={errorUpdatingData}
         onClose={handleError}
       />
-
       <div>
         <h1>Selected Places</h1>
-        {selectedPlaces.length === 0 && <p>no place yet</p>}
+        {userPlaces.length === 0 && <p>no place yet</p>}
         <ul>
-          {selectedPlaces.map(place => (
-            <li key={place.id}>
-              <button>{place.title}</button>
-            </li>
-          ))}
+          {isFetching && <p>loading...</p>}
+          {!isFetching &&
+            userPlaces.map(place => (
+              <li key={place.id}>
+                <button>{place.title}</button>
+              </li>
+            ))}
         </ul>
       </div>
       <div>
