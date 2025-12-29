@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 
+import ErrorPage from "./components/ErrorPage";
+
 function App() {
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState();
   const [availablePlaces, setAvailablePlaces] = useState([]);
-
-  console.log(availablePlaces);
 
   useEffect(() => {
     async function fetchData() {
@@ -21,7 +21,7 @@ function App() {
 
         setAvailablePlaces(resData.places);
       } catch (error) {
-        setError(error);
+        setError({ message: error.message || "failed to fetch data" });
       }
 
       setIsFetching(false);
@@ -29,6 +29,10 @@ function App() {
 
     fetchData();
   }, []);
+
+  if (error) {
+    return <ErrorPage title={error.message} />;
+  }
 
   return (
     <>
