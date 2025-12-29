@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import ErrorPage from "./components/ErrorPage";
 import { fetchAvailablePlaces } from "./http";
+import { updateSelectedPlaces } from "./http";
 
 function App() {
   const [isFetching, setIsFetching] = useState(false);
@@ -26,11 +27,17 @@ function App() {
     fetchData();
   }, []);
 
-  function handleAddPlace(newPlace) {
+  async function handleAddPlace(newPlace) {
     setSelectedPlaces([newPlace, ...selectedPlaces]);
     setAvailablePlaces(prevPlaces =>
       prevPlaces.filter(place => place.id !== newPlace.id)
     );
+
+    try {
+      await updateSelectedPlaces([newPlace, ...selectedPlaces]);
+    } catch (error) {
+      //...
+    }
   }
 
   if (error) {
