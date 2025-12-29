@@ -7,6 +7,7 @@ function App() {
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState();
   const [availablePlaces, setAvailablePlaces] = useState([]);
+  const [selectedPlaces, setSelectedPlaces] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -25,20 +26,45 @@ function App() {
     fetchData();
   }, []);
 
+  function handleAddPlace(newPlace) {
+    setSelectedPlaces([newPlace, ...selectedPlaces]);
+    setAvailablePlaces(prevPlaces =>
+      prevPlaces.filter(place => place.id !== newPlace.id)
+    );
+  }
+
   if (error) {
     return <ErrorPage title={error.message} />;
   }
 
   return (
     <>
-      {isFetching && <p>loading...</p>}
-      {!isFetching && (
+      <div>
+        <h1>Selected Places</h1>
+        {selectedPlaces.length === 0 && <p>no place yet</p>}
         <ul>
-          {availablePlaces.map(place => (
-            <li key={place.id}>{place.title}</li>
+          {selectedPlaces.map(place => (
+            <li key={place.id}>
+              <button>{place.title}</button>
+            </li>
           ))}
         </ul>
-      )}
+      </div>
+      <div>
+        <h1>Available Places</h1>
+        {isFetching && <p>loading...</p>}
+        {!isFetching && (
+          <ul>
+            {availablePlaces.map(place => (
+              <li key={place.id}>
+                <button onClick={() => handleAddPlace(place)}>
+                  {place.title}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </>
   );
 }
