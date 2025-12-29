@@ -1,23 +1,27 @@
 import { useState, useEffect } from "react";
 
-import { fetchAvailablePlaces } from "./http";
-
 function App() {
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState();
   const [availablePlaces, setAvailablePlaces] = useState([]);
+
+  console.log(availablePlaces);
 
   useEffect(() => {
     async function fetchData() {
       setIsFetching(true);
 
       try {
-        const places = fetchAvailablePlaces();
-        setAvailablePlaces(places);
+        const response = await fetch("http://localhost:3000/places");
+        const resData = await response.json();
+
+        if (!response.ok) {
+          throw new Error("failed to fetch available places.");
+        }
+
+        setAvailablePlaces(resData.places);
       } catch (error) {
-        setError({
-          message: error.message || "failed to fetch available places.",
-        });
+        setError(error);
       }
 
       setIsFetching(false);
@@ -26,7 +30,18 @@ function App() {
     fetchData();
   }, []);
 
-  return <h1>practice</h1>;
+  return (
+    <>
+      {isFetching && <p>loading...</p>}
+      {!isFetching && (
+        <ul>
+          {availablePlaces.map(place => (
+            <li key={place.id}>{place.title}</li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
 }
 
 export default App;
