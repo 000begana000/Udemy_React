@@ -20,8 +20,8 @@ export default function Modal({ open, onClose }) {
 
   return createPortal(
     <dialog ref={dialog} onClose={handleCloseModal}>
-      <h1>Modal</h1>
-      <form type="dialog" action="">
+      <h1>Failed to update selected place.</h1>
+      <form type="dialog" onSubmit={handleCloseModal} action="">
         <button>Close</button>
       </form>
     </dialog>,
